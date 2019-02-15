@@ -1,0 +1,15 @@
+<h5 class="modal-title gray-big-text">Add your comment</h5>
+  <%= form_for current_user.comments.build,
+      html: { class: "feed-form w-75" }, remote: true do |f| %>
+    <%= f.hidden_field :commentable_type, value: object.class.to_s %>
+    <%= f.hidden_field :commentable_id, value: object.id %>
+    <%= f.label :body, class: "sr-only" %>
+    <%= f.text_area :body, rows: 10, placeholder: "Type text",
+        max: 200, required: true, class: "emoji-area" %>
+    <%= f.submit submit_text, class: "btn c-btn-blue btn-wide mt-2" %>
+
+    <% if current_user.followed( object ).blank? %>
+      <%= f.check_box :autofollow, checked: true %>
+      <%= f.label :autofollow, 'Follow this feed', class: 'mt-2 mb-0' %>
+    <% end %>
+<% end %>

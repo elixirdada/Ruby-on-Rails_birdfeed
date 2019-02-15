@@ -1,0 +1,124 @@
+<div class="release-present">
+  <%= image_tag(@announcement.avatar.url, class: "release-avatar left-avatar") %>
+
+  <div class="release-bgrd bg-green display-inline justify-content-between">
+    <%#= image_tag 'dj.jpg' %>
+
+    <%= image_tag 'announcement_header.png', class: 'announcement-bar-img' %>
+    <div class="release-stats announcement-stats">
+      <div class="like-heart">
+        <%= render partial: 'likes/like_button', locals: { object: @announcement, style: 'announcement-header' } %>
+      </div>
+      <div class="release-stat yellow-grad">
+        <span class="release-favs ml-1">
+          <%= @announcement.likes.count %>
+        </span>
+        <span class="release-nav-caption"><%= @announcement.likes.count > 1 ? 'Likes' : 'Like' %></span>
+      </div>
+
+      <div id="comments-stat" class="release-stat yellow-grad">
+        <span class="release-comments ml-1">
+          <%= @announcement.comments.count %>
+        </span>
+        <span class="release-nav-caption"><%= @activities.count > 1 ? 'COMMENTS' : 'COMMENT' %></span>
+      </div>
+
+      <div class="release-stat yellow-grad">
+        <span class="release-shares ml-1">
+          1
+        </span>
+        <span class="release-nav-caption">Share</span>
+      </div>
+
+      <div data-object-type="release" data-object-id="<%= @announcement.id %>">
+        <%= social_share_button_tag(strip_tags(@announcement.title).gsub("\'",''), desc: strip_tags(@announcement.text).gsub("\'",''), image: @announcement.avatar.url(:large)) %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="release-info mb-4">
+  <h1 class="fz-23 mb-4"><%= @announcement.title.upcase %></h1>
+
+  <div class="truncated-description">
+    <% if @announcement.text.present? %>
+      <article><%= strip_tags(@announcement.text).gsub('&amp;','&').truncate(400) %></article>
+
+      <% if @announcement.text.html_safe.truncate(400) != @announcement.text.html_safe %>
+        <a href="#" class="truncated-long">Read more</a>
+      <% end %>
+
+      <article><%= @announcement.text.html_safe %></article>
+      <a href="#" class="truncated-short"><br><br>Read less</a>
+    <% end %>
+  </div>
+
+
+  <%#= link_to "Q&A", chirp_path, class: "btn c-btn-transparent btn-wide" %>
+</div>
+
+<div class="row">
+  <div class="col-md-8">
+
+    <div class="c-panel bg-white">
+      <div class="c-flag mb-4">ANNOUNCEMENT FEED</div>
+
+      <%# if current_user && @announcement.user_id == current_user.id %>
+        <button class="btn c-btn-blue mt-1 btn-wide" type="button" data-toggle="modal" data-target="#addcommentModal">
+          POST A COMMENT
+        </button>
+      <%# end %>
+
+      <%= render partial: 'follows/follow_button',
+          locals: { object: @announcement,
+                    opt: {
+                        classes: "btn btn-wide follow-button-black",
+                        text: ['follow this feed', 'unfollow this feed'] } } %>
+
+      <div class="feed-block light-scroll" data-feed-id="<%= @announcement.id %>" data-feed="announcement">
+        <%= render 'feeds/commentable_feed' %>
+      </div>
+
+      <div id="loading" style="display: none;">Loading...</div>
+
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="sticky-top">
+      <!-- FOLLOWERS -->
+      <div class="c-panel bg-white mb-4">
+        <div class="c-flag c-flag-inner mb-2">FEED FOLLOWERS</div>
+
+        <div>
+          <% @announcement.followers.each do |user| %>
+            <%= link_to user, class: "d-inline-block mr-2 mb-2" do %>
+              <%= image_tag user.avatar.thumb, class: "user-avatar", alt: '' %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if current_user %>
+  <% content_for :body_area do %>
+    <div class="modal modal-blured" id="addcommentModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-wide" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body w-100">
+            <%= render partial: 'comments/modal_form', locals: {
+              object: @announcement, submit_text: 'ADD TO FEED'
+            } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

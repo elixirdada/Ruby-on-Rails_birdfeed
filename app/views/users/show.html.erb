@@ -1,0 +1,191 @@
+<script type='text/javascript'>
+  $(document).on('turbolinks:load', function() {
+    $.get('/badge-notify')
+      .done(function(result){
+        result['badges'].forEach(function(badge){
+          $('#badge' + badge + 'Modal').modal();
+        });
+      });
+  });
+  $('a').on('click', function(){
+    $('.active').removeClass('active')
+    $(this).addClass("active");
+  });
+</script>
+
+<%= render 'users/user_header' %>
+
+<div class="row mb-2 mt-4 pt-4">
+  <!-- FAN FEED -->
+  <div class="col-md-8" id="user-feed">
+    <div class="c-panel bg-white">
+      <div class="c-flag mb-4" style="border: 0px solid #faae03;">FEED</div>
+
+      <div class="feed-block" data-feed-id="<%= @user.id %>" data-feed="<%= @data_feed %>">
+        <ul class="feed-tabs" style="margin-left: -55px;">
+          <% if current_user && @user.id == current_user.id %>
+            <li class="nav-item">
+              <%= link_to "All", user_path(@user, anchor: "user-feed"),
+                  class: "#{'active' if current_page?(user_path(@user))}", remote: true %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Birdcall", announcement_feed_path(anchor: "user-feed"),
+                  class: "#{'active' if current_page?(announcement_feed_path)}", remote: true %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Releases Feed", release_feed_path(anchor: "user-feed"),
+                  class: "#{'active' if current_page?(release_feed_path)}", remote: true %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Chirp Topics", chirp_feed_path(anchor: "user-feed"),
+                  class: "#{'active' if current_page?(chirp_feed_path)}", remote: true %>
+            </li>
+            <!-- <li class="nav-item"> -->
+              <%#= link_to "Artists", artists_feed_path(anchor: "user-feed"),
+                  class: "#{'active' if current_page?(artists_feed_path)}" %>
+            <!-- </li> -->
+            <!-- <li class="nav-item"> -->
+              <%#= link_to "Friends", friends_feed_path(anchor: "user-feed"),
+                  class: "#{'active' if current_page?(friends_feed_path)}" %>
+            <!-- </li>  -->
+          <% end %>
+        </ul>
+        <%= render 'feeds/aggregated_user' %>
+      </div>
+
+      <div id="loading" style="display: none;">Loading...</div>
+
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="sticky-top">
+      <!-- BADGES -->
+      <div class="c-panel bg-white mb-4">
+        <div class="c-flag c-flag-inner mb-4">BADGES ACHIEVED</div>
+
+        <%= link_to "SEE ALL", badges_path(@user), class: "btn c-btn-blue" %>
+
+        <div>
+          <% if @user.badges.present? %>
+            <% @user.badges.each do |badge| %>
+              <div class="fan-badge">
+                <a data-toggle="modal" data-target="#badge<%= badge.id %>Modal">
+                  <%= image_tag badge.image.url if badge.image.present? %>
+                  <p><%= badge.name %></p>
+                </a>
+              </div>
+            <% end %>
+          <% else %>
+            No badges yet
+          <% end %>
+        </div>
+      </div>
+
+      <!-- PLAYLISTS -->
+      <%= render 'users/playlist' %>
+      <!-- Promo areas -->
+      <div class="promo-areas">
+        <div class="row mt-3">
+          <div class="col-sm-12">
+            <% promo = PromoArea.where(show_on_user_profile: true).first %>
+            <% if promo.present? %>
+              <%= link_to image_tag(promo.image.url, class: "w-100"), promo.url, target: "_blank" %>
+            <% else %>
+              <%= image_tag 'topic-right-birdhouse.png', width: '100%' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOLLOWED USERS -->
+      <% if @followed_users.any? %>
+        <div class="c-panel bg-white mb-4">
+          <div class="c-flag c-flag-inner mb-4">FRIENDS</div>
+          <%= link_to "SEE ALL", friends_path(@user), class: "btn c-btn-blue" %>
+
+          <ol class="users-block list-unstyled mt-1">
+            <% @followed_users.each do |user| %>
+              <li>
+                <%= link_to user, class: "d-inline-block align-middle" do %>
+                  <%= image_tag user.avatar.thumb, class: "user-avatar "+(user.online? ? "red-circle" : ""), alt: '' %>
+                <% end %>
+                <div>
+                  <h5>
+                    <%= link_to user.name, user %>
+                    <%#= image_tag 'icons/point-green.svg', class: "point-green" if user.online? %>
+                  </h5>
+                  <div>
+                    <%= "from #{user.address_city}" %>
+                  </div>
+                </div>
+              </li>
+            <% end %>
+          </ol>
+        </div>
+      <% end %>
+
+      <!-- FOLLOWED ARTISTS -->
+      <% if @followed_artists.any? %>
+        <div class="c-panel bg-c-dark">
+          <div class="c-flag c-flag-inner mb-4">ARTISTS</div>
+          <%= link_to "SEE ALL", idols_path(@user), class: "btn c-btn-blue" %>
+
+          <ol class="users-block list-unstyled mt-1">
+            <% @followed_artists.each do |artist| %>
+              <li>
+                <%= link_to artist_path(artist), class: "d-inline-block align-middle" do %>
+                  <%= image_tag artist.avatar.thumb, class: "user-avatar "+(artist.online? ? "red-circle" : ""), alt: '' %>
+                <% end %>
+                <div>
+                  <h5>
+                    <%= link_to artist.name, artist_path(artist) %>
+                    <%#= image_tag 'icons/point-green.svg', class: "point-green" if artist.online? %>
+                  </h5>
+                  <div>
+                    <%= artist.try(:artist_info).try(:tracks_count) || 0 %>
+                    <%= "Track".pluralize(artist.try(:artist_info).try(:tracks_count)) %>
+                    /
+                    <%= artist.try(:artist_info).try(:followers_count) || 0 %>
+                    <%= "Follower".pluralize(artist.try(:artist_info).try(:followers_count)) %>
+                  </div>
+                </div>
+              </li>
+            <% end %>
+          </ol>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<% @user.badges.each do |badge| %>
+  <% content_for :body_area do %>
+    <div class="modal modal-blured" id="badge<%= badge.id %>Modal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-wide" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h5 class="modal-title">CONGRATULATIONS</h5>
+            <div class="modal-text d-flex flex-row">
+              <%= image_tag badge.image.url if badge.image.present? %>
+              <p class="text-left ml-3"><%= badge.message.html_safe if badge.message.present? %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<% if current_user && current_user.id == @user.id %>
+  <% content_for :body_area do %>
+    <div class="modal modal-blured" id="cropModal" tabindex="-1" role="dialog" aria-hidden="true">
+
+    </div>
+  <% end %>
+<% end %>

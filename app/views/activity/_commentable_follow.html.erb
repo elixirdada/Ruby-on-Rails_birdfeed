@@ -1,0 +1,25 @@
+<div class="feed-item">
+  <p class="feed-posted">
+    <%= time_ago_in_words(activity['time'].in_time_zone) %> ago.
+  </p>
+
+  <%= link_to activity['actor'].name, activity['actor'] %> 
+  <small><em>is watching</em></small>
+  <% if activity['object'].class.to_s == "User" %>
+    <% if activity['object'].has_role?(:artist) %>
+      artist
+    <% elsif activity['object'].has_role?(:admin) %>
+      admin
+    <% else %>
+      user
+    <% end %>
+    <%= link_to activity['object'].name, activity['object'] %>
+  <% elsif activity['object'].class.to_s == "Release" %>
+    release <%= link_to activity['object'].title, activity['object'] %>
+  <% elsif activity['object'].class.to_s == "Announcement" %>
+    announcement <%= link_to activity['object'].title, activity['object'] %>
+  <% end %>
+
+  <hr class="feed-divider">
+
+</div>

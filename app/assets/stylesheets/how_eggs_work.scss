@@ -1,0 +1,100 @@
+.black-square {
+  border: 5px solid #faae03;
+  background-color: #070606;
+  padding: 25px;
+  margin-bottom: 80px;
+
+  h3 {
+    color: #e8e8e8;
+    font-size: 23px;
+  }
+
+  p {
+    color: #e8e8e8;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+  }
+}
+
+.black-square-img {
+  position: absolute;
+  width: 100%;
+  max-height: 375px;
+  left: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.h2-eggs {
+  color: #434343;
+  font-family: 'Phosphate-Solid';
+  font-size: 39px;
+  letter-spacing: 1.75px;
+  text-align: center;
+  margin-bottom: 20px;
+
+  &.text-red {
+    color: #ff7979;
+  }
+}
+
+.h3-eggs {
+  color: #434343;
+  font-family: 'Phosphate-Solid';
+  font-size: 20px;
+}
+
+.download-now-eggs {
+  border: 3px solid #faae03;
+  background-color: #434343;
+  padding: 30px 15px 15px;
+  position: relative;
+  top: 10px;
+
+  .download-now-head {
+    border: 3px solid #faae03;
+    background-color: #434343;
+    padding: 2px 40px;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, -50%);
+    color: #3ed4e0;
+    font-family: 'Phosphate-Solid';
+    font-size: 16px;
+    letter-spacing: 0.72px;
+    white-space: nowrap;
+  }
+
+  .download-now-pane {
+    border: 1px solid #dddddd;
+    background-color: #ffffff;
+    padding: 10px 20px;
+    color: #5a5a5a;
+    font-family: 'Phosphate-Solid';
+    font-size: 16px;
+    letter-spacing: 0.72px;
+  }
+  .w-100{
+    width: 86% !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.ul-bird {
+  list-style-type: none;
+
+  li:before {
+    content: asset-data-url("icons/bird-blue.svg");
+    position: relative;
+    left: -15px;
+    top: 6px;
+  }
+}
+.align-items-center {
+  .justify-content-between {
+    justify-content: space-around;
+  }
+}  

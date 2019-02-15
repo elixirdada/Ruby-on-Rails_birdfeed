@@ -1,0 +1,72 @@
+<% if defined?(@user) %>
+  <div class="playlist-nav playlist-nav-<%= local_assigns[:playlist_nav_class] %>">
+    <div class="playlist-nav-body">
+      <ul>
+        <li class="mt-2 mb-4 nav-bar">
+          <% unless params[:user_id].present? %>
+            <%= image_tag 'icons/icon-chevron-black.svg',
+                style: 'cursor: pointer; margin-right: 30px;',
+                onclick: "window.history.back();" %>
+            <%= image_tag 'icons/icon-chevron-black.svg',
+                style: 'cursor: pointer; transform: rotate(180deg);',
+                onclick: "window.history.forward();" %>
+          <% end %>
+        </li>
+        <li class="playlist-nav-subheader">Music&nbsp;</li>
+        <li class="nav-bar-item <%= 'active' if current_page?("/releases?player=true&user_id=#{@user.id}") %>">
+          <%= link_to "All Releases",
+                      releases_path(
+                        player: true, user_id: @user.id,
+                        page: nil),
+                      id: "playlist-all-releases", remote: true %>
+        </li>
+        <li class="nav-bar-item <%= 'active' if current_page?("/releases?filters[release_type]=2&player=true&user_id=#{@user.id}") %>">
+          <%= link_to "Dirtybird",
+              releases_path(
+                filters: { release_type: 2 },
+                player: true,
+                user_id: @user.id,
+                page: nil),
+              id: "playlist-select-releases", remote: true %>
+        </li>
+        <li class="nav-bar-item <%= 'active' if current_page?("/releases?filters[release_type]=1&player=true&user_id=#{@user.id}") %>">
+          <%= link_to "Birdfeed Exclusive",
+              releases_path(
+                filters: { release_type: 1 },
+                player: true,
+                user_id: @user.id,
+                page: nil),
+              id: "playlist-exclusive-releases", remote: true %>
+        </li>
+        <li class="playlist-nav-subheader">Library&nbsp;</li>
+        <% if current_user %>
+          <li class="<%= 'active' if current_page?(player_badges_path(current_user)) %>">
+            <%= link_to "Badges", player_badges_path(current_user), id: "playlist-badges", remote: true %>
+          </li>
+          <li class="nav-bar-item <%= 'active' if current_page?(playlists_path(user_id: current_user.id)) %>">
+            <%= link_to "Playlists", playlists_path(user_id: current_user.id),
+                id: "playlist-user", remote: true %>
+          </li>
+          <li class="nav-bar-item <%= 'active' if current_page?(player_favorites_path(current_user)) %>">
+            <%= link_to 'favorites', player_favorites_path(current_user), id: "playlist-favorites", remote: true %>
+          </li>
+          <li class="nav-bar-item <%= 'active' if current_page?(player_recently_tracks_path(current_user)) %>">
+            <%= link_to "Recently Played", player_recently_tracks_path(current_user),
+                id: "playlist-favorited-tracks", remote: true %>
+          </li>
+          <li class="nav-bar-item <%= 'active' if current_page?(player_downloaded_tracks_path(current_user)) %>">
+            <%= link_to "Downloads", player_downloaded_tracks_path(current_user),
+                id: "playlist-favorited-downloads", remote: true %>
+          </li>
+        <% end %>
+<!--         <li class="playlist-nav-subheader">Playlists&nbsp;</li>
+        <%# for playlist in @playlists %>
+          <li class="<%#= 'active' if current_page?(playlist_path(playlist)) %>">
+            <%#= link_to playlist.name, playlist,
+                id: "playlist-#{playlist.id}" %>
+          </li>
+        <%# end %> -->
+      </ul>
+    </div>
+  </div>
+<% end %>

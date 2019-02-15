@@ -1,0 +1,4 @@
+<%= form_tag admin_dashboard_import_track_info_path, multipart: true do %>
+  <%= file_field_tag 'file' %>
+  <%= submit_tag 'Import XLSX File' %>
+<% end %>

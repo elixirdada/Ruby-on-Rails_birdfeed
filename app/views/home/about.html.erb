@@ -1,0 +1,104 @@
+<div class="about-main-container">
+  <div class="top-container">
+    <div class="header-box">
+      <div class="header-box-upper" >
+          <%= image_tag 'about/db_logo.png' %>
+      </div>
+      <div class="top-container-heading">
+        What is bird feed ?
+      </div>
+      <div class="dirtybird-red-icon">
+        <%= image_tag 'about/dirtybird_red.png' %>
+      </div>
+      <div class="top-container-secondary-heading">
+        A PLAYGROUND FOR OUR  DIRTYBIRD  PEEPS
+      </div>
+      <div class="header-box-lower">
+        LISTEN &nbsp; &nbsp; &nbsp; // &nbsp; &nbsp; &nbsp; CONNECT &nbsp; &nbsp; &nbsp; // &nbsp; &nbsp; &nbsp; PLAY
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="background-1"></div>
+  <div class="background-2"></div>
+  <div class="background-3"></div>
+
+  <div class="second-container">
+    <div class="second-container-heading">Listen</div>
+    <div class="left-arrow"><%= image_tag 'about/left_arrow.png' %></div>
+    <div class="second-container-subheading">STREAM, DOWNLOAD & Engage </div>
+    <%= link_to listen_path do %>
+      <div class="listen-btn-top">Listen</div>
+    <% end %>
+
+    <%= link_to connect_path do %>
+    <div class="connect-btn-top">Connect</div>
+    <% end %>
+
+    <%= link_to play_path do %>
+    <div class="play-btn-top">Play</div>
+    <% end %>
+
+    <div class="music-bars-cloud"><%= image_tag 'about/music_bars_cloud.png' %></div>
+    <div class="download-cloud"><%= image_tag 'about/download_cloud.png' %></div>
+    <div class="rate-cloud"><%= image_tag 'about/rate_cloud.png' %></div>
+    <div class="music-bars-cloud-heading">Stream IT</div>
+    <div class="music-bars-cloud-description">Stream from the entire catalog of Dirtybird music, create playlists  and stream unlimited amounts of Dirtybird</div>
+    <div class="download-cloud-heading">DOWNLOAD IT</div>
+    <div class="download-cloud-description">Become a VIB member and receive 10
+egg credits a month to download the latest releases remixes exclusives andback catalog tracks & releases.</div>
+    <div class="rate-cloud-heading">ENGAGE</div>
+    <div class="rate-cloud-description">Put your mark on the music by adding your rating on each track you listen to, add comments to a release feed and spark up conversation in the community about the music you love.  </div>
+    <%= link_to new_user_registration_path do %>
+      <div class="join-now-btn">Join Now</div>
+    <% end %>
+    <%= link_to listen_path do %>
+      <div class="listen-btn">Listen</div>
+    <% end %>
+    <div class="second-container-heading-2">Connect</div>
+    <div class="left-arrow-yellow"><%= image_tag 'about/left_arrow.png' %></div>
+  </div>
+
+  <div class="third-container">
+    <div class="play-sub-heading">GAMES, AchieveMents & Rewards</div>
+    <div class="puzzle-cloud"><%= image_tag 'about/community_cloud.png' %></div>
+    <div class="achievements-cloud"><%= image_tag 'about/culture_cloud.png' %></div>
+    <div class="rewards-cloud"><%= image_tag 'about/friends_cloud.png' %></div>
+    <div class="puzzle-cloud-heading">Community</div>
+    <div class="achievements-cloud-heading">Culture</div>
+    <div class="rewards-cloud-heading">Friends</div>
+    <div class="puzzle-cloud-description">A network built for Dirtybird minded music fans from the afficianado to the new listener Birdfeed is the place to get excited about the sounds of Dirtybird.</div>
+    <div class="achievements-cloud-description">Express yourself and let your feathers fly, Birdfeed is that place where your inner bird is appreciated. </div>
+    <div class="rewards-cloud-description">Connect with your Dirtybird fam and get to know the even more like minded Birds just like you. Help us keep the culture, add to the flock and represent Dirtybird by sharing.</div>
+    <%= link_to new_user_registration_path do %>
+      <div class="join-now-btn">Join now</div>
+    <%end%>
+    <%= link_to connect_path do %>
+      <div class="connect-btn">Connect</div>
+    <% end %>
+  </div>
+
+  <div class="fourth-container">
+    <div class="fourth-container-heading">Play</div>
+    <div class="left-arrow-blue"><%= image_tag 'about/left_arrow_yellow.png' %></div>
+    <div class="fourth-container-subheading">Games, Achievements and Rewards</div>
+    <div class="community-cloud"><%= image_tag 'about/puzzle_cloud.png' %></div>
+    <div class="culture-cloud"><%= image_tag 'about/achievements_cloud.png' %></div>
+    <div class="friends-cloud"><%= image_tag 'about/rewards_cloud.png' %></div>
+    <div class="community-cloud-heading">Community</div>
+    <div class="culture-cloud-heading">Culture</div>
+    <div class="friends-cloud-heading">Friends</div>
+    <div class="community-cloud-description">A network built for Dirtybird minded music fans from the afficianado to the new listener Birdfeed is the place to get excited about the sounds of Dirtybird. </div>
+    <div class="culture-cloud-description">Express yourself and let your feathers fly, Birdfeed is that place where your inner bird is appreciated. </div>
+    <div class="friends-cloud-description">Connect with your Dirtybird fam and get to know the even more like minded Birds just like you. Help us keep the culture, add to the flock and represent Dirtybird by sharing.</div>
+    <%= link_to new_user_registration_path do %>
+      <div class="join-now-btn">join now</div>
+    <% end %>
+    <%= link_to connect_path do %>
+      <div class="connect-btn">connect</div>
+    <% end %>
+  </div>
+</div>
+

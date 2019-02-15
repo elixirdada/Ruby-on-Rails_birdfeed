@@ -1,0 +1,85 @@
+<% content_for :user_header_title do %>
+  MY BADGES
+<% end %>
+<%= render 'users/user_header' %>
+
+<div class="row">
+  <div class="col-lg-3">
+    <%= render 'player_play_panel' %>
+  </div>
+
+<div class="col-lg-9" id="badges-play">
+    <div class="music-block-play">
+        <div class="main-area-nav mb-3">
+            <div class="badge-heading">
+                Artist
+            </div>
+            <div class="row h-10">
+                <% 20.times do %>
+                <%= image_tag "user_badge.png", class: "user_badge_img" %>  
+                <% end %>
+            </div>
+        </div>
+  </div>
+    <div class="music-block-play">
+        <div class="main-area-nav mb-3">
+            <div class="badge-heading">
+                DIRTYBIRD BBQ
+            </div>
+            <div class="row h-10">
+                <% 20.times do %>
+                <%= image_tag "user_badge.png", class: "user_badge_img" %>  
+                <% end %>
+            </div>
+        </div>
+  </div>
+    <div class="music-block-play">
+        <div class="main-area-nav mb-3">
+            <div class="badge-heading">
+                DIRTYBIRD CAMPOUT
+            </div>
+            <div class="row h-10">
+                <% 20.times do %>
+                <%= image_tag "user_badge.png", class: "user_badge_img" %>  
+                <% end %>
+            </div>
+        </div>
+  </div>
+    <div class="music-block-play">
+        <div class="main-area-nav mb-3">
+            <div class="badge-heading">
+                DIRTYBIRD PLAYERS
+            </div>
+            <div class="row h-10">
+                <% 20.times do %>
+                <%= image_tag "user_badge.png", class: "user_badge_img" %>  
+                <% end %>
+            </div>
+        </div>
+  </div>
+    <div class="music-block-play">
+        <div class="main-area-nav mb-3">
+            <div class="badge-heading">
+                CHALLENGES
+            </div>
+            <div class="row h-10">
+                <% 20.times do %>
+                <%= image_tag "user_badge.png", class: "user_badge_img" %>  
+                <% end %>
+            </div>
+        </div>
+  </div>
+    <div class="music-block-play">
+        <div class="main-area-nav mb-3">
+            <div class="badge-heading">
+                SPECIALITY
+            </div>
+            <div class="row h-10">
+                <% 20.times do %>
+                <%= image_tag "user_badge.png", class: "user_badge_img" %>  
+                <% end %>
+            </div>
+        </div>
+  </div>
+
+</div>

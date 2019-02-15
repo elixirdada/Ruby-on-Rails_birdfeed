@@ -1,0 +1,69 @@
+<div class="container pt-4 sign-in-page">
+  <div class="modal-content sign-in-page-pane">
+    <div class="sign-in-page-body">
+      <h3>
+        LOGIn
+        <%= image_tag 'icons/bird-orange.svg', class: 'ml-2' %>
+      </h3>
+
+      <div class="d-flex flex-column flex-lg-row">
+        <%= form_for(resource, as: resource_name, 
+            url: session_path(resource_name),
+            html: {id: "sign_in_user_modal", class: "mr-0 mr-lg-4 flex-grow-1"}) do |f| %>
+          <%= devise_error_messages! %>
+
+          <div class="form-group">
+            <%= f.label :user_login_email_modal, "E-mail" %>
+            <%= f.email_field :email, autocomplete: "email", 
+                class: 'form-control', id: "user_login_email_modal", 
+                required: true %>
+          </div>
+
+          <div class="form-group mb-4">
+            <%= f.label :user_login_password_modal, "Password" %>
+            <%= f.password_field :password, autocomplete: "off", 
+                required: true, class: 'form-control', 
+                id: "user_login_password_modal" %>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <% if devise_mapping.rememberable? %>
+              <div class="checkbox">
+                <%= f.check_box :remember_me %>
+                <%= f.label :remember_me, class: 'mb-0' %>
+              </div>
+            <% end %>
+
+            <%= f.submit "login", class: "btn c-btn-red btn-wide" %>
+          </div>
+
+
+          <div class="d-flex justify-content-between">
+            <strong>
+              <%= link_to "Register Now", new_user_registration_path, class: "text-danger" %>
+            </strong>
+            <strong class="text-danger">|</strong>
+            <%= link_to "Forgot Password", new_password_path(resource_name), class: "text-danger" %>
+          </div>
+
+        <% end %>
+
+        <span class="or m-4">or</span>
+
+        <div class="ml-0 ml-lg-4 flex-grow-1 d-flex flex-column justify-content-around">
+          <%= link_to user_facebook_omniauth_authorize_path,
+              class: 'btn c-btn-blue py-2 my-2' do %>
+            <i class="fa fa-facebook-f align-middle mr-3" style="font-size: 30px;"></i>
+            <span class="align-middle text-17px">Login with Facebook</span>
+          <% end %>
+
+          <%= link_to user_google_oauth2_omniauth_authorize_path,
+              class: 'btn c-btn-red py-2 my-2' do %>
+            <i class="fa fa-google-plus align-middle mr-3" style="font-size: 30px;"></i>
+            <span class="align-middle text-17px">Login with Google+</span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

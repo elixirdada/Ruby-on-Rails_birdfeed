@@ -1,0 +1,167 @@
+<div class="user-music-present">
+  <div class="<%= avatar_style(@user) %> d-block">
+    <% if current_user && current_user.id == @user.id %>
+      <%= form_for(@user, remote: true,
+          html: { id: 'header-change-avatar', class: 'userpage-avatar left-avatar', method: :put } ) do |f| %>
+        <%= image_tag @user.avatar.big_thumb, alt: '' %>
+        <%= f.file_field :avatar, class: 'form-control-file' %>
+        <%= f.hidden_field :avatar_cache %>
+      <% end %>
+    <% else %>
+      <%= image_tag(@user.avatar.big_thumb.url,
+          class: "userpage-avatar left-avatar",
+          alt: '') %>
+    <% end %>
+
+    <% if avatar_style(@user) == 'chirp-style' %>
+      <%= image_tag 'icons/corner-chirp.png', class: 'chirp-corner' %>
+    <% end %>
+  </div>
+
+  <div class="user-bgrd">
+    <% if !@user.header %>
+      <% case avatar_style(@user) %>
+      <% when 'ninja-style' %>
+        <%= image_tag 'headers/ninja-bacon.jpg' %>
+      <% when 'admin-style' %>
+        <%= image_tag 'headers/admin-admin.jpg' %>
+      <% when 'boss-style' %>
+        <%= image_tag 'headers/bossbird.jpg' %>
+      <% when 'intern-style' %>
+        <%= image_tag 'headers/Intern.jpg' %>
+      <% when 'artist-style' %>
+        <%= image_tag 'headers/artist-bird.jpg' %>
+      <% when 'handler-style' %>
+        <%= image_tag 'headers/handler-bird.jpg' %>
+      <% when 'insider-style' %>
+        <%= image_tag 'headers/Insider_bird.jpg' %>
+      <% when 'vib-style' %>
+        <%= image_tag 'headers/VIB-bird.jpg' %>
+      <% when 'homey-style' %>
+        <%= image_tag 'headers/Homey-Bird.jpg' %>
+      <% else %>
+        <%= image_tag 'headers/chirp_bird.jpg' %>
+      <% end %>
+    <% else %>
+      <%= image_tag @user.header.url %>
+    <% end %>
+  </div>
+
+  <div class="user-info">
+    <div class="userpage-name left-name mb-2 mb-sm-0">
+      <h1><%= @user.name.upcase %></h1>
+      <span>
+        <%= "#{@user.address_city} / " %>
+        <b><%= "#{@user.followers.count} #{'Friend'.pluralize(@user.followers.count)}" %></b>
+      </span>
+    </div>
+
+    <div class="user-since">
+
+      <% case avatar_style(@user) %>
+      <% when 'ninja-style' %>
+        <%= image_tag 'user_badges/3-Ninja-Bacon.png' %>
+      <% when 'boss-style' %>
+        <%= image_tag 'user_badges/5-boss.png' %>
+      <% when 'admin-style' %>
+        <%= image_tag 'user_badges/6-manager.png' %>
+      <% when 'intern-style' %>
+        <%= image_tag 'user_badges/4-Intern.png' %>
+      <% when 'admin-style' %>
+        <%= image_tag 'user_badges/4-Intern.png' %>
+      <% when 'handler-style' %>
+        <%= image_tag 'user_badges/10-Handler.png' %>
+      <% when 'insider-style' %>
+        <%= image_tag 'user_badges/8-Insider.png' %>
+      <% when 'vib-style' %>
+        <%= image_tag 'user_badges/9-VIB.png' %>
+      <% else %>
+        <%= image_tag 'user_badges/7-chirp.png' %>
+      <% end %>
+
+      <h4>
+        <%= link_to choose_profile_path do %>
+          <% if @user == @ninja %>
+            Ninja Bacon
+          <% elsif @user.has_role?(:admin) %>
+            Manager
+          <% else %>
+            <%= user_tag @user %>
+          <% end %>
+        <% end %>
+      </h4>
+      <br>
+      <p>User Since <%= @user.created_at.strftime("%Y") %></p>
+    </div>
+
+    <div class="fan-points">
+      <% if @user == @ninja && @user.has_role?(:admin) %>
+        <%= image_tag 'icons/infinity.svg' %>
+      <% elsif @user.cached_active_subscription? %>
+        <%= link_to badges_path(@user), style: 'color:#3ed4e0;' do %>
+          <%= number_with_delimiter(user_position(@user), :delimiter => ',') %>
+        <% end %>
+      <% else %>
+        -
+      <% end %>
+
+      <h4>Fam Status</h4>
+    </div>
+
+    <div class="fan-points">
+      <% if @user == @ninja && @user.has_role?(:admin) %>
+        <%= image_tag 'icons/infinity.svg' %>
+      <% elsif @user.cached_active_subscription? %>
+        <%= link_to badges_path(@user), style: 'color:#3ed4e0;' do %>
+          <%= number_with_delimiter(@user.points, :delimiter => ',') %>
+        <% end %>
+      <% else %>
+        -
+      <% end %>
+
+      <h4>FAM POINTS</h4>
+    </div>
+
+    <% if current_user && current_user == @user && !@user.cached_active_subscription? %>
+      <%= link_to 'Upgrade', choose_profile_path,
+          class: 'btn c-btn-red btn-square h-100 d-flex align-items-center ml-auto',
+          style: 'position: relative; right: -3px;' %>
+    <% end %>
+
+    <%= render partial: 'follows/follow_button',
+                locals: { object: @user, opt: { text: ['add friend','friends'] } } %>
+  </div>
+</div>
+
+<div class="user-controls sticky-top">
+  <div class="row">
+    <div class="col-lg-3 px-0 c-btn-group two-btns">
+      <% artist = current_page?(user_path(@user)) || current_page?(admin_path(@user)) %>
+      <% classes = ["btn c-btn-gray-dark btn-square", "btn c-btn-black btn-square"] %>
+      <%= link_to "My Feed", @user,
+          class: artist ? classes[1] : classes[0] %><!--
+     --><%= link_to "My Music", player_favorites_path(@user),
+          class: artist ? classes[0] : classes[1] %>
+    </div>
+    <div class="col-lg-9 px-0">
+      <div class="user-header-title"><%= content_for :user_header_title %></div>
+    </div>
+  </div>
+
+  <div class="d-none">
+    <%= image_tag 'icons/icon-chevron-black.svg',
+        style: 'cursor: pointer; margin-right: 30px;',
+        onclick: "window.history.back();" %>
+    <%= image_tag 'icons/icon-chevron-black.svg',
+        style: 'cursor: pointer; transform: rotate(180deg);',
+        onclick: "window.history.forward();" %>
+  </div>
+</div>
+
+<% if current_user && current_user.id == @user.id %>
+  <% content_for :body_area do %>
+    <div class="modal modal-blured" id="cropModal" tabindex="-1" role="dialog" aria-hidden="true">
+
+    </div>
+  <% end %>
+<% end %>

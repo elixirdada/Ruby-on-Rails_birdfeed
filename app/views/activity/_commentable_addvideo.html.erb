@@ -1,0 +1,23 @@
+<div class="feed-item">
+  <p class="feed-posted">Posted <%= time_ago_in_words(activity['time'].in_time_zone) %> ago</p>
+  <h3><%= activity['object'].title %></h3>
+
+  <div class="my-3">
+    <iframe id="ytplayer" type="text/html" width="100%" height="370"
+      src="https://www.youtube.com/embed/<%= activity['object'].parse_youtube %>"
+      frameborder="0" allowfullscreen></iframe>
+  </div>
+
+  <div class="comment-footer">
+    <span>
+      <%= render partial: 'likes/like_button', locals: { object: activity['object'],  style: 'thumbup' } %>
+    </span>
+
+    <span>
+      <%= image_tag('icons/icon-comment.svg', title: 'Comments', class: "align-top") %>
+      Comment (<%= activity['object'].try(:replies_count) %>)
+    </span>
+  </div>
+
+  <hr class="feed-divider">
+</div>

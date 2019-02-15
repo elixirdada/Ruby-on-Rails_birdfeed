@@ -1,0 +1,27 @@
+<div class="artist-gray">
+  <%= link_to artist_path(object), class: 'mr-4 '+ avatar_style(object) do %>
+    <%= image_tag object.avatar.big_thumb, class: "item-avatar "+(object.online? ? "red-circle" : "") %>
+    <%#= image_tag 'icons/point-green-big.svg', class: "artist-online" if object.online? %>
+  <% end %>
+
+  <div class="item-body">
+
+    <h3><%= link_to object.name.upcase, artist_path(object) %></h3>
+
+    <div class="item-subtitle">
+      <b><%= object.releases.count %></b>
+      <%= "Release".pluralize(object.releases.count) %>
+      <br>
+      <b><%= object.try(:artist_info).try(:tracks_count) || 0 %></b>
+      <%= "Track".pluralize(object.try(:artist_info).try(:tracks_count)) %>
+    </div>
+
+    
+  </div>
+
+  <div class="item-controls">
+    <%= link_to 'music', artist_tracks_path(object), class: 'btn c-btn-gray btn-square mb-1' %>
+    <%= link_to 'profile', artist_path(object), class: 'btn c-btn-black btn-square mb-1' %>
+    <%= render 'follows/follow_button', object: object %>
+  </div>
+</div>

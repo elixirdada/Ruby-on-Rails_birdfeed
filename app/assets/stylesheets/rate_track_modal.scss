@@ -1,0 +1,38 @@
+.rate-track-modal, .after-rate-track-modal {
+	.rate-track-detail {
+		display: table;
+		.track-image, .track-title {
+			display: table-cell;
+			vertical-align: middle;
+		}
+	}
+	.rating-submit {
+		background-color: #ff7979;
+		width: 104px;
+		height: 38px;
+		font-size: 16px;
+		padding: 7px 25px;
+		margin-bottom: 20px;
+	}
+	.ratings-helper {
+		color: #000;
+	    font-size: 10px;
+	    font-weight: bold;
+
+	}
+	img {
+		width: 53px;
+	}
+}
+
+.gray-big-text {
+	color: gray;
+  font-weight: 400;
+  letter-spacing: 2px;
+  margin-bottom: 3px;
+  line-height: 16px;
+  font-family: 'Phosphate-Solid';
+  font-size: 3rem;
+  letter-spacing: 0.94px;
+  padding-bottom: 2rem;
+}

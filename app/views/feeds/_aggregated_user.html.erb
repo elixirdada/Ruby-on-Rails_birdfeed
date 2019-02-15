@@ -1,0 +1,10 @@
+<% if @activities.present? %>
+  <div id="last-item-id" data-item-id="<%= @activities.last["id"] %>" style="display: none;"></div>
+
+  <% for activity in @activities %>
+    <%= render_activity(activity, prefix: 'userpage') %>
+  <% end %>
+
+<% else %>
+  <%= render 'feeds/no_feed_items' %>
+<% end %>

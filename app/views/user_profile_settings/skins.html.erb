@@ -1,0 +1,35 @@
+<%= render 'user_profile_settings/header' %>
+
+<div class="user-profile-settings">
+  <div class="row">
+    <div class="side-bar col-lg-3">
+      <%= render partial: 'users/user_profile_nav', locals: {current_index: 'HEADERS'}  %>
+    </div>
+    <div class="main-content col-lg-9">
+      <div class="row page-header">
+        <div class="col-sm-6">
+          <label class="title">
+            SKINS
+          </label>
+        </div>
+        <div class="col-sm-6 text-right">
+          <%= link_to 'HEADERS', usr_headers_path, class: 'header-btn headers-link-btn' %>
+          <%= link_to 'SKINS', usr_skins_path, class: 'header-btn skins-link-btn' %>
+        </div>
+      </div>
+      <div class="row page-content headers-skins-content">
+      	<div class="col-sm-12">
+      		<div class="total-numbers">2018 | <span class="real-num">1/1</span> GIFTED OR ARCHIEVED</div>
+          <div class="default-grey-skin">
+            <label>Default Gray</label>
+            <div class="shape">
+              <button class="selected-status">
+                Selected
+              </button>              
+            </div>
+          </div>
+      	</div>
+      </div>
+    </div>
+  </div>
+</div>

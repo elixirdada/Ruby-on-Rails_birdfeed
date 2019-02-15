@@ -1,0 +1,36 @@
+<% opt = opt.present? ? opt : nil %>
+<% _btn_class = defined?(btn_class) ? btn_class : '' %>
+<% if opt && opt[:classes] %>
+  <% classes = opt[:classes] + " " + _btn_class %>
+<% else %>
+  <% classes = 'follow-button' + " " + _btn_class %>
+<% end %>
+
+<% if opt && opt[:text] %>
+  <% text = opt[:text] %>
+<% else %>
+  <% text = ['follow','following'] %>
+<% end %>
+
+
+<% if current_user.nil? || 
+  (current_user && current_user.has_role?(:artist)) ||
+  (current_user && object == current_user)  %>
+
+  &nbsp;
+
+<% elsif current_user.followed(object) %>
+
+  <%= render partial: 'follows/unfollow', 
+      locals: { object: object, text: text, classes: classes } %>
+
+<% elsif current_user.request_to(object).present? %>
+
+  <%= button_tag "request sent", class: "#{classes} follow-form", disabled: true %>
+  
+<% else %>
+
+  <%= render partial: 'follows/follow', 
+      locals: { object: object, text: text, classes: classes } %>
+
+<% end %>

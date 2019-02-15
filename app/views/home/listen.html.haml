@@ -1,0 +1,153 @@
+#myCarousel.carousel
+  = image_tag 'listen_page/EKj96h9_copy.jpg'
+%center(style='margin-top: -18rem;position: relative;')
+  = image_tag 'listen_page/9-layers.png'
+%div(style='margin-top: 2rem;')
+  .div.signup-panel.c-panel.bg-white
+    %br
+    .col-sm-12.display-inline(style='padding-right: 0px color: white;')
+      .col-sm-4
+        = link_to new_user_registration_path do
+          .btn.c-btn-red.btn-square(style='width: 150px;')
+            Join Now
+      .col-sm-2
+        = link_to what_is_birdfeed_path do
+          .btn.c-btn-blue.btn-square(style='width: 150px;')
+            What is Birdfeed?
+      .col-sm-2
+        = link_to listen_path do
+          .btn.c-btn-red.btn-square(style='width: 150px;')
+            Listen
+      .col-sm-2
+        = link_to connect_path do
+          .btn.c-btn-blue.btn-square(style='width: 150px;')
+            Connect
+      .col-sm-2
+        = link_to play_path do
+          .btn.c-btn-blue.btn-square(style='width: 150px;')
+            Play
+    %center
+      %br
+      %h2.h2-eggs.text-red
+        MUSIC STREAMING
+    .row.mb-4.pb-4
+      .col-sm-6
+        .d-flex.align-items-center
+          = image_tag 'listen_page/7-layers.png'
+          = image_tag 'listen_page/black_birdposter.png'
+      .col-sm-6
+        %br
+        %h3.h3-eggs.text-left Releases Monthly
+        %p.text-left
+          All dirtybird Release and Birdfeed exclusive releases in one place. We’re constantly updating the Birdfeed system with remixes, rarities & one off tracks you might have never heard before.
+        .col-sm-10
+        .col-sm-2
+          = link_to new_user_registration_path do
+            .btn.c-btn-red.btn-square(style='padding: 0px 30px 0px 30px;margin: 0px 0px 0px 90px;')
+              Join Now
+    .row.mb-4.pb-4
+      .col-lg-5
+        %h3.h3-eggs.text-left UNLIMITED STREAMING
+        %p.text-left
+          You might say great another streaming music platform ahh craontrer this system is built to engage you and and to be engaged The Birdfeed player is a full streaming engine with the ability  to stream all music
+        %br
+        %h3.h3-eggs.text-left AND MUCH MORE COMING SOON
+        %p.text-left
+          The streaming player is evolving with the current technology and in the future will become more intititve to bring you even more music.
+      .col-lg-7
+        %br
+        %br
+        .d-flex.justify-content-between
+          = image_tag 'release1.jpg', width: '32%', height: '100%'
+          = image_tag 'release2.jpg', width: '32%', height: '100%'
+          = image_tag 'release3.jpg', width: '32%', height: '100%'
+
+    %center
+      %br
+      %h2.h2-eggs.text-red
+        DOWNLOAD RELEASES AND TRACKS
+    .row.mb-4.pb-4
+      .col-sm-6
+        %h3.h3-eggs.text-left MUSIC DOWNLOADS
+        %p.text-left
+          Use your eggs to download the latest releases or from the entire Dirtybird catalog of EPs LPs, remixes and exclusives all in one place.
+        %br
+        %h3.h3-eggs.text-left Your download
+        %p.text-left
+          Our track system is a one trick pony, if you use an egg for downloading a track or release you own it and
+          %strong
+            you can download it in .wav .mp3 .aiff .flac as many times as you like forever.
+      .col-sm-6
+        .black-square(style='background-color: #4b4b4b;')
+          .row
+            .col-4.d-none.d-lg-block
+              = image_tag 'egg-big.svg', class: "black-square-img", style: 'width: 220px;margin-left: -60px;'
+            .col-8
+              %h3.h3-eggs 1EGG = 1DOWNLOAD
+              %p.mb-4
+                To download tracks & releases  you must hold the status of a VIB member which allows you to participate in our egg credit system.
+              -#   Eggs are Birdfeeds exchange system, You can trade eggs for music downloads, Dirtybird  artist items as well as exclusive access to areas in the site and events.
+              -# %h3.h3-eggs VIB members only
+              -# %p.mb-4
+              -#   In order to particiapte in the Birdfeed egg credit system you musist hold a membership status of VIB
+              = link_to how_eggs_work_path do
+                .btn.c-btn-red.btn-square(style='padding: 0px 30px 0px 30px;')
+                  LEARN MORE ABOUT EGGS
+    %div(style='margin-top: -80px;')
+      = link_to new_user_registration_path do
+        .btn.c-btn-red.btn-square(style='padding: 0px 30px 0px 30px;')
+          Join Now
+      %center
+        %h2.h2-eggs.text-red(style='margin-top: -40px;')
+          ENGAGE THE SOUND
+
+    .row.mb-4.pb-4
+      .col-sm-4
+        %h3.h3-eggs.text-left Track & Release Ratings
+        %p.text-left
+          Participate by listening tracks in Birdfeed  giving each release an egg score of 1 -4. The total score of all tracks on a release make up the releases  rating.
+          - 3.times do
+            = image_tag 'rate/egg/star-on.svg'
+          = image_tag 'rate/egg/star-off.svg'
+        %br
+        %h3.h3-eggs.text-left Favoriting
+        %p.text-left
+          catalog your favorite releases and tracks from Dirtybird in one place.
+      .col-sm-4
+        %h3.h3-eggs.text-left COmment on Release Feeds
+        %p.text-left
+          Release feeds are an archive of what our peeps think of the music in each release. This can be related to a track
+        %br
+        %h3.h3-eggs.text-left Sharing
+        %p.text-left
+          Share tracks, share releases to your favorite social networks.
+      .col-sm-4
+        %h3.h3-eggs.text-left Games
+        %p.text-left
+          Integrated into each release is the Birdfeed gaming engine. We have created fun new ways to engage the sound and artists.
+        %br
+        %h3.h3-eggs.text-left PLaylists
+        %p.text-left
+          Build playlists fromthe entire catalog of Dirtybird music.
+    %br
+    .col-sm-12.display-inline(style='padding-right: 0px color: white;')
+      .col-sm-4
+        = link_to new_user_registration_path do
+          .btn.c-btn-red.btn-square(style='width: 150px;')
+            Join Now
+      .col-sm-2
+        = link_to what_is_birdfeed_path do
+          .btn.c-btn-blue.btn-square(style='width: 150px;')
+            What is Birdfeed
+      .col-sm-2
+        = link_to listen_path do
+          .btn.c-btn-red.btn-square(style='width: 150px;')
+            Listen
+      .col-sm-2
+        = link_to connect_path do
+          .btn.c-btn-blue.btn-square(style='width: 150px;')
+            Connect
+      .col-sm-2
+        = link_to play_path do
+          .btn.c-btn-blue.btn-square(style='width: 150px;')
+            Play

@@ -1,0 +1,16 @@
+<% case icon %>
+<% when 'white' then image = 'icons/icon-download-grey.svg' %>
+<% when 'black' then image = 'icons/icon-download-grey.svg' %>
+<% end %>
+
+<div class="table-icon" style="max-width: 21px">
+	<% if track.user_allowed?(current_user) %>
+	  <button class="icon-download" type="button" data-toggle="collapse" data-target=".download-<%= track.id %>" aria-expanded="false" aria-controls="collapseExample" style="max-width: inherit;">
+	    <%= image_tag image, style: "max-width: inherit;", class: "download-icon" %>
+	  </button>
+	<% end %>
+</div>
+
+<div class="collapse collapse-formats download-<%= track.id %>" id="collapsable-download" style="position: fixed;width: 22%;margin-right: 8%;margin-top: -20%;">
+	<%= render partial: "tracks/download_pop_up", locals: { track: track } %>
+</div>

@@ -1,0 +1,100 @@
+<% show_tracks = style == "dark" ? true : false %>
+<% avatar_size = style == "light" ? 160 : 200 %>
+<% text_color = style == "light" ? "#222" : "white" %>
+<% if release.avatar_size == 'small' %>
+  <% avatar_style = 'width: 200px;height:200px;margin-left: 0px;' %>
+<% else %>
+  <% avatar_style = 'width: 98%;margin-left: -5px;' %>
+<% end %>
+
+<% case style %>
+  <% when "dark" then bg_color = "black" %>
+  <% when "light" then bg_color = "#e3e3e3" %>
+  <% else bg_color = style %>
+<% end %>
+
+<div class="feed-release p-2" style="margin-top: -0.3rem;background-color: <%= bg_color %>; color: <%= text_color %>">
+
+  <div class="d-flex" style="padding-left: 20px; padding-top: 15px;">
+    <div class="position-relative" style="flex-grow: 1">
+      <div class="announcement-feed-header">
+        <%= link_to release.title.truncate(70).upcase, release.url, style: "color: #{text_color}" %>
+
+      </div>
+
+
+      <p class="announcement-desc"><%= strip_tags(release.text).try(:truncate, 220) %></p>
+      <%= link_to release.url do %>
+      <%= image_tag(release.avatar.url(:large), class: 'feed-new-avatar',
+          style: "#{avatar_style}") %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<% object = release %>
+<div style="width: 108%;margin-left: -25px;margin-top: -40px;">
+  <div class="feed-block" data-feed="topic" data-feed-id="<%= object.id %>">
+
+    <div class="feed-item">
+      <div class="feed-item-body" id="announcement-commentbar-<%= object.id %>">
+        <div class="row p-3">
+          <% if current_user %>
+            <div class="col-sm-11" style="padding-top: 12px;">
+              <% likes_count = object.try(:likes_count) ? object.likes_count : object.likes.count %>
+              <div class="display-inline">
+                <%= image_tag 'icons/like-thumbup_.svg', style: 'position: relative; z-index: 2;' %>&nbsp;
+                <div class="likes-count-chirpfeed-topic-<%=object.id%>">
+                  <%= render 'likes/likes_count', locals: { likes_count: likes_count, already_liked: current_user.already_liked(object) } %>
+                </div>
+              </div>
+              <div style="float: right;"><%= object.comments.count %> Comments</div>
+            </div>
+          <% end %>
+        </div>
+        <div id="<%=object.id%>-footer">
+          <div class="row comment-footer" style="text-align: center;">
+            <div class="col-sm-4 p-2">
+              <%= render partial: 'likes/like_button', locals: { object: object,  style: 'thumbup' } %>
+            </div>
+            <div class="col-sm-4 p-2">
+              <%= image_tag 'icons/comment.svg', style: 'width: 15px;max-height: 20px;' %>
+              <%= link_to "Comment",
+                comment_reply_form_path(
+                  commentable_id: object.id,
+                  commentable_type: 'Announcement'
+                ), remote: true, class: 'gray-bold' %>
+            </div>
+            <div class="col-sm-4 p-2">
+              <%= render partial: 'layouts/share', locals: { object: release, icon: 'white' } %>
+            </div>
+          </div>
+          <br>
+        </div>
+      </div>
+
+      <div class="feed-item-comment-body" id="announcement-<%= object.id %>">
+        <div class="row">
+          <div class="col-sm-12">
+            <br>
+            <% comment = object %>
+            <% replies = object.comments %>
+            <div id="<%= "#{comment.class.to_s.downcase}-#{comment.id}" %>-replies" class="<%= 'feed-item-replies' unless (!current_user && replies.empty?) %>">
+
+              <div class="feed-replies-list">
+                <% if replies.any? %>
+                  <%= (render partial: 'comments/comment', collection: replies.order(created_at: :asc)) %>
+                <% end %>
+              </div>
+
+              <% if replies.count > 3 %>
+                <a href="#" class="show-more-comments">View more comments (<%= replies.count - 3 %>)</a>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

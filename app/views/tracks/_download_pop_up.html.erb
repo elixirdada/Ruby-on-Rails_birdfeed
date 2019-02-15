@@ -1,0 +1,157 @@
+<div class='display-inline col-md-12' style="padding-top: 14px;">
+  <%= image_tag track.release.avatar.large, class: 'release-previous-img', style: 'width: 65px;height: 70px;' %>
+  <div class="download-btn-heading-player">
+    <%= track.title %>
+    <br>
+    <div style="font-size: 0.6rem;font-family: 'Titillium Web';">
+      <div class="display-inline">
+        Catalog ID:
+        <div style="font-weight: normal;padding-left: 3px;"><%= track.release.catalog %></div>
+      </div>
+      <br>
+      <div class="display-inline">
+        Tracks:
+        <div style="font-weight: normal;padding-left: 3px;"><%= track.release.tracks.count %></div>
+      </div>
+    </div>
+  </div>
+  <button class="icon-download" type="button" data-toggle="collapse" data-target=".download-<%= track.id %>" aria-expanded="false" aria-controls="collapseExample" style="    max-width: inherit; font-weight: 800; color: red;position: absolute;float: right;top: -10px;">X</button>
+</div>
+  <br>
+<div class="display-inline col-md-12 margin-top-10 main-holder">
+  <div class='eggs-description-dialog'>
+    <span style="padding-right: 5px;">
+      1
+      TRACK FOR
+    </span>
+    <%= image_tag 'egg-big.svg', style: 'width: 20px;height' %>
+    <span style="padding-left: 5px;">
+      1
+    </span>
+  </div>
+  <a class='white-color eggs-doit-dialog do-it-btn' id="btn-dialog-do-it" data-toggle="modal" data-target="#downloadModal">
+    DO IT
+  </a>
+</div>
+  <a href="/releases/<%=track.release.id%>?player=true" >
+    <div class="display-inline col-md-12 description-download-dialog-tracks margin-top-10">
+      I'D LIKE DO DOWNLOAD SPECIFIC TRACKS
+    </div>
+  </a>
+<br>
+<div class="display-inline col-md-12 margin-top-10 holder-btn">
+  <div class="col-md-6 padding-0 lower-btn">
+    <a class="width-100 font-05 btn c-btn-black btn-square light-background-btn" href="/how_eggs_work">HOW DOES THIS WORK?</a>
+  </div>
+  <div class="col-md-6 padding-0 lower-button">
+    <a class="width-100 font-05 btn c-btn-black btn-square" href="/get_more_credits">I NEED MORE EGGS</a>
+  </div>
+</div>
+
+<style type="text/css">
+  #collapsable-download{
+    .description-download-dialog{
+      color: white;
+    }
+  }
+  .holder-btn{
+    padding: 0px;
+    margin-top: 5px;
+  }
+  .do-it-btn{
+    background-color: #3ed4e0 !important;
+    color: white !important;
+    text-align: left;
+  }
+  .lower-button > a{
+    background-color: #847d7d;
+    color: white;
+    &:hover{
+      color: #847d7d;
+      background-color: white;
+    }
+  }
+  .lower-btn > a{
+    color: #847d7d;
+    background-color: white;
+  }
+  .description-download-dialog-tracks{
+    background-color: black;
+    color: white;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.9px;
+    margin-bottom: 0;
+    font-family: 'Phosphate-Inline';
+  }
+  .eggs-description-dialog{
+    width: 80%;
+    text-align: left;
+    padding-top: 7px;
+    padding-bottom: 7px;
+  }
+  .main-holder{
+    padding-left: 0px;
+    padding-right: 0px;
+    background-color: #ccc;
+  }
+  .download-btn-heading-player{
+    font-size: 1rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.9px;
+      margin-bottom: 0;
+      font-family: 'Phosphate-Inline';
+
+    text-align: left;
+    color: white;
+    background-color: black;
+  }
+</style>
+
+
+<script type="text/javascript">
+  // Release Downloads
+  $('#btn-dialog-do-it').on('click', function(){
+    var holder_html = `
+      <div class="song-description-holder">
+        <div class="display-inline col-lg-12">
+          <a href="/releases/<%=track.release.id%>"><%= image_tag track.release.avatar.large, class: 'release-previous-img', style: 'width: 70px;height: 70px;',id: "download_modal_track_image" %></a>
+          <div class="download-btn-heading" id="download-btn-heading-release">
+            <%=track.title %>
+            <br>
+            <div style="font-size: 0.6rem;font-family: 'Titillium Web';">
+              <div class="display-inline">
+                Catalog ID:
+                <div style="font-weight: normal;padding-left: 3px;" id="download_model_release_catalog"><%=track.release.catalog%></div>
+              </div>
+              <br>
+              <div class="display-inline">
+                Tracks:
+                <div style="font-weight: normal;padding-left: 3px;" id="download_model_release_tracks"><%=track.release.tracks.count%></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>`
+    $('.song-description-holder').html(holder_html);
+
+    var dowload_formats_holder = `
+      <div class="formats-holder">
+        <div class="c-panel bg-c-dark mb-4 formats-style">
+          <div class="modal-cflag mb-4">DOWNLOAD NOW</div>
+            <div class="row">
+                <% track.download_uris.each do |format, uri| %>
+                  <div class="col-lg-2 format-option">
+                    <a href="<%= uri %>">
+                      <%= '.'+format %>
+                    </a>
+                  </div>
+                <% end %>
+            </div>
+        </div>
+      </div>`
+    $('.formats-holder').html(dowload_formats_holder);
+  })
+</script>

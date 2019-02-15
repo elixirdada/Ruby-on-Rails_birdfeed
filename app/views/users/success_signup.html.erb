@@ -1,0 +1,54 @@
+<% member = params[:member] || 'chirp free member' %>
+<% member_long = case params[:member]
+   when 'insider' then "IN the INNER CIRCLE as AN INSIDER"
+   when 'vib member' then "IN the INNER CIRCLE as A Very IMportant Bird"
+   else 'chirp free member'
+   end %>
+<% if current_user.confirmed_at %>
+  <center>
+    <%= image_tag 'icons/bird-blue.svg', style: 'width: 250px;' %>
+    <p class="subheader font-40">
+      You're email is confirmed
+    </p>
+    <%= link_to "Continue to onboarding", onboarding_index_path,
+          class: "btn btn-wide c-btn-red" %>
+  </center>
+<% else %>
+  <div class="success-signup">
+    <div class="success-banner">
+      <div class="success-logo">
+        <%= image_tag 'icons/flash.svg', class: "flash-lightning" %>
+        <%= image_tag 'birdfeed-logo-white.png', class: 'success-logo-img' %>
+      </div>
+
+      <div class="text-1">
+        <%= image_tag 'icons/red-bird.svg', class: "d-inline" %>
+        READY, SET, GO GET IT!
+      </div>
+
+      <div class="text-2">
+        <% if  member == 'insider'%>
+          You’re Now <%= member %>
+        <% else %>
+          You’re Now a <%= member %>
+        <% end %>
+      </div>
+
+      <div class="success-bottom">
+        It’s time letzzzgo!
+      </div>
+    </div>
+
+    <p class="text-center mb-4">
+      We’ve sent you a confirmation Email
+    </p>
+
+    <div class="text-center mb-4">
+      <%= link_to "Send Again", success_signup_path(member: member, resend_confirmation: true),
+          class: "btn btn-wide c-btn-blue" %>
+
+      <%= link_to "I've confirmed my email", success_signup_path(member: member, check_confirmation: true),
+          class: "btn btn-wide c-btn-red" %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,97 @@
+<%= render 'user_profile_settings/header' %>
+
+<div class="user-profile-settings">
+  <div class="row">
+    <div class="side-bar col-lg-3">
+      <%= render partial: 'users/user_profile_nav', locals: {current_index: 'EGG'}  %>
+    </div>
+    <div class="main-content col-lg-9">
+      <div class="row page-header">
+        <div class="col-sm-6">
+          <label class="title">
+            EGG CREDITS
+          </label>
+        </div>
+        <div class="col-sm-6 text-right">
+          <%= link_to 'EGG CREDITS', usr_egg_credits_path, class: 'header-btn egg-credits-link-btn' %>
+          <%= link_to 'REWARDS', usr_rewards_path, class: 'header-btn rewards-link-btn' %>
+        </div>
+      </div>
+      <div class="row page-content egg-credits-content">
+      	<div class="col-sm-3">
+      		<div class="row">
+            <div class="col-sm-12">
+              <div class="eggs-status">
+                <div class="current-eggs-status">
+                  YOU HAVE <span class="number-of-eggs"> <%= @credits %> </span> EGGS AVAILABLE
+                </div>
+                <% if current_user && 
+                      current_user.braintree_subscription_expires_at &&
+                     (current_user.subscription_length == 'monthly_old' ||
+                      current_user.subscription_length == 'yearly_old') %>
+                  <div class="future-eggs-status">
+                    <b>Your next 10 egg drop is on:</b>
+                    <%= current_user.braintree_subscription_expires_at.strftime("%m/%d/%Y") %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <button class="grab-more-eggs-btn">
+                GRAB MORE EGGS
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <button class="birdfeed-shop-btn">
+                <%= image_tag "closed_btn.png", class: 'closed-btn' %>
+                BIRDFEED SHOP
+                <%= image_tag "question_mark.png", class: 'question-mark' %>
+              </button>
+            </div>
+          </div>
+      	</div>
+        <div class="col-sm-9">
+          <div class="eggs-collection-wrapper">
+            <div class="row">
+              <% group = @credits / 5 %>
+              <% rest = @credits % 5 %>
+              <% if group > 1 %>
+                <% (1..group).each do |index| %>
+                  <div class="col-sm-4">
+                    <div class="w-100 eggs-collection">
+                      <%= image_tag "egg.png", class: 'single-egg' %>
+                      <%= image_tag "egg.png", class: 'single-egg' %>
+                      <%= image_tag "egg.png", class: 'single-egg' %>
+                      <%= image_tag "egg.png", class: 'single-egg' %>
+                      <%= image_tag "egg.png", class: 'single-egg' %>
+                      <%= image_tag "egg.png", class: 'single-egg' %>
+                    </div>
+                    <div class="w-100 eggs-table">
+                      <%= image_tag "egg-table.png", class: 'eggs-table-img' %>
+                    </div>
+                  </div>                
+                <% end %>
+              <% end %>
+              <% if rest > 0 %>
+                <div class="col-sm-4">
+                  <div class="w-100 eggs-collection">
+                    <% (1..rest).each do |index| %>
+                      <%= image_tag "egg.png", class: 'single-egg' %>
+                    <% end %>
+                  </div>
+                  <div class="w-100 eggs-table">
+                    <%= image_tag "egg-table.png", class: 'eggs-table-img' %>
+                  </div>
+                </div>                
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+var button = $('<%= ".follow-#{object['followable_type']}-#{object['followable_id']}" %>');
+
+<% if action_name == 'create' && object['id'].blank? %>
+
+  button.replaceWith(`<%= button_tag "request sent", class: "#{classes} follow-form", disabled: true %>`);
+
+<% elsif action_name == 'create' %>
+  button.replaceWith(`
+      <%= escape_javascript(
+        render(partial: 'follows/unfollow', 
+          locals: { object: object.followable, text: text, classes: classes } )
+      ) %>
+    `);
+
+  $('.notice').text('You are now following this feed').show();
+
+    setTimeout(function(){
+    $('.notice').fadeOut('slow');
+  },3000);
+<% elsif @cant_unfollow %>
+  $('.alert').text("You can't unfollow feeds you created").show();
+
+  setTimeout(function(){
+    $('.alert').fadeOut('slow');
+  },3000);
+<% else %>
+  button.replaceWith(`
+      <%= escape_javascript(
+        render(partial: 'follows/follow', 
+          locals: { object: object.followable, text: text, classes: classes } )
+      ) %>
+    `);
+  $('.notice').text('you are no longer following this artist').show();
+
+  setTimeout(function(){
+    $('.notice').fadeOut('slow');
+  },3000);
+
+<% end %>

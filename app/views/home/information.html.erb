@@ -1,0 +1,46 @@
+<div class="signup-header" style="margin-bottom: -100px;">
+  <%= image_tag '/images/birdfeed-header.jpg', class: "h-100" %>
+
+  <div class="success-banner signup-logo">
+    <div class="success-logo">
+      <%= image_tag 'icons/flash.svg', class: "flash-lightning" %>
+      <%= image_tag 'birdfeed-logo-white.png', class: 'success-logo-img' %>
+    </div>
+
+    <div class="text-1">
+      RULES & REGULATIONS
+    </div>
+
+    <div class="text-2">
+      LEGAL & POLICIES
+    </div>
+
+    <div class="success-bottom">
+      Mutal PROTECTION / USAGE
+    </div>
+  </div>
+</div>
+
+<div class="signup-panel c-panel bg-white">
+  <div class="row">
+    <div class="col-sm-2 px-0">
+      <ul class="info-anchors sticky-top">
+        <li>
+          <a href="#inclusivness">Inclusivness</a>
+        </li>
+        <li>
+          <a href="#code-of-conduct">Code of Conduct</a>
+        </li>
+        <li>
+          <a href="#privacy-policy">Privacy Policy</a>
+        </li>
+        <li>
+          <a href="#opt-in-policy">Opt-in Policy</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-10">
+      <%= render 'home/terms_and_conditions_text' %>
+    </div>
+  </div>
+</div>

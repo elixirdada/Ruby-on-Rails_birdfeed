@@ -1,0 +1,103 @@
+.leaderboard {
+  list-style-type: none;
+  font-size: 12px;
+  margin-top: 20px;
+}
+
+.leaderboard-position {
+  font-size: 24px;
+  margin-right: 20px;
+}
+
+.leaderboard-top {
+  list-style-type: none;
+  margin-top: 20px;
+
+  & > li {
+    margin-bottom: 18px;
+  }
+
+  .leader-avatar {
+    display: inline-block;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-right: 20px;
+
+    img {
+      border-radius: 10px;
+      width: 182px;
+      height: 182px;
+      object-fit: cover;
+    }
+
+    .btn {
+      position: absolute;
+      top: 185px;
+      left: 50px;
+      z-index: 2;
+      width: 110px;
+    }
+  }
+
+  .leaderboard-position {
+    font-size: 53px;
+    font-weight: 700;
+    letter-spacing: 5.3px;
+  }
+
+  .progress-blue, .progress-yellow, .progress-red {
+    height: 26px;
+    padding: 4px;
+  }
+
+  .leaderboard-name {
+    display: inline-block;
+
+    h2 {
+      color: #1c1a1a;
+      font-size: 21px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 0;
+    }
+
+    span {
+      color: #3e3b3b;
+      font-size: 16px;
+      font-weight: 400;
+    }
+  }
+
+  .leaderboard-points {
+    float: right;
+    margin-top: 25px;
+
+    img {
+      vertical-align: bottom;
+      margin-bottom: 5px;
+    }
+
+    b {
+      color: #3e3b3b;
+      font-size: 29px;
+    }
+  }
+
+  .rating-chart {
+    display: inline-block;
+    width: 500px;
+  }
+
+  .rating-kinds {
+    line-height: 34px;
+  }
+
+  .rating-kind-points {
+    line-height: 34px;
+  }
+
+  .progress-wrapper {
+    width: 70%;
+    margin: 3px 10px 7px 0;
+  }
+}

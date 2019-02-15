@@ -1,0 +1,22 @@
+<div class="feed-form">
+  <%= form_for @new_comment, remote: true,
+      html: { id: "new_comment-#{@comment_hash}" } do |f| %>
+    <%= f.hidden_field :parent_id, value: @parent_id %>
+    <%= f.hidden_field :comment_hash, value: @comment_hash %>
+    <%= f.hidden_field :commentable_id, value: @commentable_id %>
+    <%= f.hidden_field :commentable_type, value: @commentable_type %>
+    <%= f.hidden_field :topic_id, value: @topic_id %>
+
+    <%= f.label :body, "Text", class: "sr-only" %>
+    <%= f.text_area :body, class: "form-control mb-1 emoji-area",
+          id: "comment_body#{('-'+parent_id) if parent_id}",
+          placeholder: "Leave a comment",
+          rows: 1 %>
+
+    <%= render 'layouts/image_attach', object: f %>
+
+    <%= f.submit "Send", class: "btn c-btn-blue btn-wide" %>
+    <button type="submit" class="btn c-btn-white cancel-comment mr-2">Cancel</button>
+    <span id="chars<%= @comment_hash %>">140</span> characters left
+  <% end %>
+</div>

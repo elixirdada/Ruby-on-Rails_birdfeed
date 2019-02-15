@@ -1,0 +1,74 @@
+<% if activity['activities'][0]['foreign_id'].class.to_s == 'Release' %>
+  <% if DateTime.parse( activity['activities'][0]['time'] ).in_time_zone < DateTime.now %>
+    <div class="nav-notify <%= 'is_seen' if activity['is_seen'] %>">
+      <%= link_to activity['activities'][0]['object'] do %>
+        <%= image_tag activity['activities'][0]['object'].avatar.url, 
+            class: "notify-release-avatar align-top" %>
+
+        <div class="notify-item">
+          <% if activity['activities'][0]['object'].class.to_s == "Release" %>
+
+            <span class="notify-release-caption">
+              NEW 
+              <%= activity['activities'][0]['object'].class.to_s.upcase %>
+            </span>
+
+            Available Now for Stream & Download!
+
+            <br>
+          <% end %>
+          
+          <strong><%= activity['activities'][0]['object'].title %></strong>
+
+          <% if activity['activities'][0]['object'].class.to_s == "Release" %>
+            
+            <span class="notify-author">
+              by <%= activity['activities'][0]['object'].artists %>
+            </span>
+
+          <% end %>
+
+          <br>
+          
+          <span class="notify-time">
+            <%= time_ago_in_words(activity['updated_at'].in_time_zone) %> ago
+          </span>
+        </div>
+      <% end %>
+
+
+      <%# activity['activities'].each do |release| %>
+        <%#= release['foreign_id'].class.to_s %>
+      <%# end %>
+    </div>
+
+    <hr style="margin: 2px 0 0;">
+  <% end %>
+<% elsif activity['activities'][0]['foreign_id'].class.to_s == 'Announcement' %>
+  <% if DateTime.parse( activity['activities'][0]['time'] ).in_time_zone < DateTime.now %>
+    <div class="nav-notify <%= 'is_seen' if activity['is_seen'] %>">
+      <%= link_to activity['activities'][0]['object'] do %>
+        <%= image_tag activity['activities'][0]['object'].avatar.url, 
+            class: "notify-release-avatar align-top" %>
+
+        <div class="notify-item">
+          <strong><%= activity['activities'][0]['object'].title %></strong>
+
+          <span class="notify-time">
+            <%= time_ago_in_words(activity['updated_at'].in_time_zone) %> ago
+          </span>
+        </div>
+      <% end %>
+
+
+      <%# activity['activities'].each do |release| %>
+        <%#= release['foreign_id'].class.to_s %>
+      <%# end %>
+    </div>
+
+    <hr style="margin: 2px 0 0;">
+  <% end %>
+<% else %>
+  <%= render partial: 'aggregated_activity/notify_layout', 
+      locals: { activity: activity } %>
+<% end %>

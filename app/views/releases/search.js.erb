@@ -1,0 +1,7 @@
+$('.releases-list').html(`  
+  <% for release in @releases %>
+    <div class="col-xl-3 col-lg-4 col-md-6 mb-5 text-center">
+      <%= j render release %>
+    </div>
+  <% end %>`);
+$('.show-more').hide();

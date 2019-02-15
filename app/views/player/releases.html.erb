@@ -1,0 +1,49 @@
+<% content_for :user_header_title, 'Releases' %>
+
+<% if @user.has_role? :artist %>
+  <%= render 'users/artist_header' %>
+<% else %>
+  <%= render 'users/user_header' %>
+<% end %>
+
+<div class="row">
+  <div class="col-lg-3">
+    <%= render 'player/player_page_menu' %>
+  </div>
+
+  <div class="col-lg-9 music-wrapper">
+    <div class="music-block">
+      <div class="row mt-3 releases-list">
+        <% for release in @releases %>
+          <div class="col-lg-4 col-md-6 mb-5">
+            <%= render(release) %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="text-center">
+        <% if @limit <= @releases.count %>
+          <% _params = { player: true, user_id: @user.id } %>
+
+          <% if params[:filters].present? %>
+            <%  _params.merge!({ filters: params[:filters].permit! }) %>
+          <% end %>
+
+          <%  _params.merge!({
+                page: (params[:page] ? params[:page].to_i + 1 : 2)
+              }) %>
+
+          <%= link_to "Show more", load_more_releases_path(_params),
+              remote: true, class: "btn c-btn-blue show-more" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style media="screen">
+  .show-more{
+    display: none;
+    visibility: hidden;
+  }
+</style>

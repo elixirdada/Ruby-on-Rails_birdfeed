@@ -1,0 +1,41 @@
+<footer>
+  <div class="container text-center text-sm-left">
+    <%= image_tag 'icons/birdfeed-footer-logo.png', class: 'footer-logo' %>
+    <div class="d-flex footer-copyright justify-content-center flex-column flex-sm-row align-items-center" style="font-size: 14px;">
+      <%= current_user.present? && link_to('Listen', releases_path) || link_to('Listen', listen_path) %>
+      <span class="mx-4">|</span>
+      <%= current_user.present? && link_to('Connect', chirp_index_path) || link_to('Connect', connect_path) %>
+      <span class="mx-4">|</span>
+      <%= current_user.present? && link_to('Play', leaderboard_path) || link_to('Play', pricing_path) %>
+      <span class="mx-4">|</span>
+      <%= link_to 'Pricing', pricing_path %>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-4 footer-copyright">
+        Copyright Dirtybird, LLC  © 2019
+      </div>
+
+      <div class="col-sm-4 text-sm-center">
+        <%= link_to " Support", support_path %>
+        <span class="mx-2">|</span>
+        <%= link_to "Privacy Policies ", information_path %>
+      </div>
+
+      <div class="col-sm-4 text-sm-right">
+        <span class="orange-text mr-1">CONNECT</span>
+        <%= link_to get_setting('facebook'), class: "mr-2" do %>
+          <%= image_tag 'icons/fb.svg' %>
+        <% end %>
+
+        <%= link_to get_setting('twitter'), class: "mr-2" do %>
+          <%= image_tag 'icons/twitter.png' %>
+        <% end %>
+
+        <%= link_to get_setting('instagram') do %>
+          <%= image_tag 'icons/insta.svg' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</footer>

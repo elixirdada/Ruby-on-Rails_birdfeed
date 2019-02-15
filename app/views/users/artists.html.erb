@@ -1,0 +1,74 @@
+<% content_for :user_header_title do %>
+  <%= image_tag 'icons/bird-blue.svg' %>
+  ALL ARTISTS
+<% end %>
+<% if @user %>
+  <% if @user.has_role? :artist %>
+    <%= render 'users/artist_header' %>
+  <% else %>
+    <%= render 'users/user_header' %>
+  <% end %>
+<% end %>
+
+<div class="row">
+  <div class="col-lg-3">
+    <% if @user && defined?(@user) %>
+      <div class="playlist-nav">
+        <div class="playlist-nav-body">
+          <ul>
+            <li class="mt-2 mb-4 nav-bar">
+              <% unless params[:user_id].present? %>
+                <%= image_tag 'icons/icon-chevron-black.svg',
+                    style: 'cursor: pointer; margin-right: 30px;',
+                    onclick: "window.history.back();" %>
+                <%= image_tag 'icons/icon-chevron-black.svg',
+                    style: 'cursor: pointer; transform: rotate(180deg);',
+                    onclick: "window.history.forward();" %>
+              <% end %>
+            </li>
+            <li class="playlist-nav-subheader">Music&nbsp;</li>
+
+            <li class="active">
+              <%= link_to "Artists",
+                          player_artists_path(current_user), remote: true, id: 'playlist-artists'  %>
+            </li>
+
+            <li>
+              <%= link_to "Community",
+                          player_fans_path(current_user), remote: true, id: 'playlist-community'  %>
+            </li>
+
+            <li>
+              <%= link_to "Friends",
+                          player_friends_path(current_user), remote: true, id: 'playlist-friends'  %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+
+  <div class='<%= current_user ? "col-lg-9" : "col-lg-12" %> music-wrapper' >
+    <% unless current_user %>
+      <div class="mt-4 mb-2">
+        <div class="c-flag">ARTISTS</div>
+      </div>
+    <% end %>
+
+    <div class="row artists-list mt-3">
+      <% @artists.each do |artist| %>
+        <div class="col-lg-6 mb-3">
+          <%= render 'users/artist_gray', object: artist %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="text-center">
+      <% if @limit <= @artists.count %>
+        <%= link_to "Show more", load_more_artists_path(page: params[:page] ? params[:page].to_i + 1 : 2),
+            remote: true, class: "btn c-btn-blue show-more" %>
+      <% end %>
+    </div>
+  </div>
+</div>

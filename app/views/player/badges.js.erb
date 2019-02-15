@@ -1,0 +1,6 @@
+$('.playlist-nav-body li.active').removeClass('active')
+$('#playlist-badges').parent().addClass('active');
+
+$('.music-wrapper').empty();
+
+$('.music-wrapper').append(`<%= escape_javascript(render partial: 'badges_content') %>`);

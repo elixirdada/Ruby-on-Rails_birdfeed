@@ -1,0 +1,21 @@
+<% if DateTime.parse( activity['time'] ).in_time_zone < DateTime.now %>
+  <p class="feed-posted"> 
+    <%= time_ago_in_words(activity['time'].in_time_zone) %> ago.
+  </p>
+
+  New release
+
+  <div>
+    <%= link_to activity['object'] do %>
+      <% if activity['object'].avatar.present? %>
+        <%= image_tag( activity['object'].avatar.url,
+            class: "release-feed-avatar",
+            alt: '' ) %>
+      <%end%>
+
+      <b><%= activity['object'].title %></b>
+    <% end %>
+  </div>
+
+  <hr class="feed-divider">
+<% end %>

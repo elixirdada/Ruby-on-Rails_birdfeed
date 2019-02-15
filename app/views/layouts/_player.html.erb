@@ -1,0 +1,996 @@
+<div class="jp-audio" id="cPlayer" data-turbolinks-permanent>
+  <div class="player-top">
+    <div class="container">
+      <div class="jp-interface">
+        <% if current_user %>
+          <%= link_to player_connect_path(current_user, active_playlist: 'All Releases'), class: "jp-player-btn" do %>
+            Releases
+          <% end %>
+        <% end %>
+
+        <div class="jp-controls">
+          <div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
+          <button class="jp-previous" role="button" tabindex="0"></button>
+          <button class="jp-play" role="button" tabindex="1"></button>
+          <button class="jp-next" role="button" tabindex="2"></button>
+          <div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
+
+          <div class="jp-volume-controls">
+            <button class="jp-volume-btn" tabindex="3"><%= show_svg('icons/volume-high.svg') %></button>
+
+            <div class="jp-volume d-none">
+              <!-- <button class="jp-mute" role="button" tabindex="4">mute</button> -->
+              <div class="jp-volume-bar">
+                <div class="jp-volume-bar-value-container">
+                  <div class="jp-volume-bar-value volume-bar-value"></div>
+                </div>
+              </div>
+               <!-- <div class="jp-seek-bar" style="width: 150px">
+                <div class="jp-play-bar"></div>
+              </div> -->
+              <!-- <button class="jp-volume-max" role="button" tabindex="5">max</button> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="jp-details"></div>
+        <div class="jp-additions"></div>
+
+        <% if current_user &&
+              ( current_user.cached_active_subscription? ||
+              current_user.can_use_credits? ) %>
+          <button id="jp-playlist-btn">
+            <%= show_svg 'icons/playlist1.svg' %>
+          </button>
+
+          <div class="credits-menu mr-4">
+            <button type="button" data-toggle="collapse" data-target="#credits-count" aria-expanded="false" aria-controls="collapseExample" class="credits-btn">
+              <%= show_svg 'icons/egg-basket.svg' %>
+              <span class="credits-count-text"><%= @credits %></span>
+            </button>
+
+            <div id="credits-count" class="collapse credits-dropdown" style="width: 24rem;">
+              <div class="display-inline col-md-12 margin-top-10" style="padding-left: 0px;padding-right: 0px;font-size: 0.9rem;">
+                <div class="col-md-6 padding-0" style="font-size: 1rem; border: solid 1px #c4c2c2;padding-left: 0px;">
+                  <span class="download-btn-heading">
+                    YOU HAVE
+                    <span style="color: #FF6470;"><%= @credits %></span>
+                    EGGS AVAILABLE
+                  </span>
+                  <br>
+                  <% if current_user.subscription_length == 'monthly_old' ||
+                        current_user.subscription_length == 'yearly_old' %>
+                    <div style="font-size: 0.7rem;">
+                      <strong>Your next 10 egg drop is on:</strong>
+                      <span style="font-weight: 100;">
+                        <%= current_user.braintree_subscription_expires_at.strftime("%m/%d/%Y") %>
+                      </span>
+                    </div>
+                  <% end %>
+                </div>
+                <div class="col-md-6 padding-0 download-btn-heading" style="font-size: 0.8rem;padding-left: 0px;">
+                  <% if @credits <= 18 %>
+                    <%= image_tag "egg_racks/#{@credits}.png", style: 'width: 80%;' %>
+                  <% else %>
+                    <%= image_tag "egg_racks/18.png", style: 'width: 80%;' %>
+                  <% end %>
+                </div>
+                <br>
+              </div>
+
+              <div class="display-inline col-md-12 margin-top-10">
+                <div class="col-md-6" style="padding-left: 0px">
+                  <div data-toggle="tooltip" data-placement="top" title="We will be opening the egg shop shortly to use eggs for more than just music, Stay tuned!">
+                    <%= image_tag 'birdfeed_shop.png', style: 'width: 100%' %>
+                  </div>
+                </div>
+                <div class="col-md-6" style="padding-right: 0px">
+                  <a href="/get_more_credits">
+                    <%= image_tag 'moreeggs.png', style: 'width: 100%;height:100%;' %>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <% elsif current_user %>
+          <div class="credits-menu mr-4">
+            <button type="button" data-toggle="modal" data-target="#eggsMembershipModal" aria-expanded="false" aria-controls="collapseExample" class="credits-btn mr-4">
+              <%= show_svg 'icons/egg-basket.svg' %>
+            </button>
+
+            <div id="credits-ability" class="collapse credits-dropdown">
+              <div class="text-nowrap mb-1">
+                This function is only for VIB members
+              </div>
+              <%=link_to "Upgrade to participate", choose_profile_path, class: "btn c-btn-blue c-btn-sm" %>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="jp-progress-container" style="width: 200px">
+          <div id="waveform"></div>
+        </div>
+      </div>
+
+      <div class="jp-release-playlist" style="display: none;">
+      </div>
+
+      <div class="jp-playlist" style="display: none;">
+
+        <% if current_user %>
+          <div class="jp-playlist-name"></div>
+          <ul></ul>
+          <div class="jp-playlist-footer">
+            <%= link_to "NEW", new_playlist_path, remote: true,
+                class: 'btn c-btn-gray btn-square' %>
+            <%= link_to "Load", change_playlist_path,
+                class: 'btn c-btn-blue btn-square', remote: true %>
+            <%= link_to "Open", current_user.current_playlist,
+                class: "btn c-btn-red btn-square open-current-playlist" %>
+          </div>
+        <% else %>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="playlist-player">
+    <div class="container h-100">
+      <div class="d-flex align-items-center h-100">
+        <div class="flex-grow-1 d-flex align-items-center" style="overflow: hidden;">
+          <div class="pp-track-img"></div>
+          <div style="overflow: hidden;">
+            <div class="pp-track"></div>
+            <div class="pp-artist"></div>
+          </div>
+        </div>
+        <div class="flex-shrink-0">
+          <div class="pp-play"></div>
+          <div class="pp-next"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="modal fade" id="playlistActionModal" tabindex="-1" role="dialog" aria-labelledby="playlistActionModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-wide" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body w-100">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="eggsMembershipModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <center>
+          <div class="display-inline">
+            <%= image_tag "icons/bird-blue.svg", style: 'width: 50px;height: 50px;' %>
+            <span class="modal-main-heading">VIB MEMBERSHIP REQUIRED</span>
+          </div>
+        </center>
+        <center class='second-heading'>
+          <strong>EGG CREDITS & MUSIC DOWNLOADS</strong>
+          <br>
+          <strong>ARE RESERVED FOR VIB MEMBERS</strong>
+          <br>
+          <div class="sub-heading-grey-box">
+            <strong>WOULD YOU LIKE TO UPGRADE?</strong>
+          </div>
+          <div class="grey-box">
+            <a class="btn btn-wide c-btn-blue btn-square" href="/choose_profile" style="margin-left: 0.3rem;">
+              SIGN ME UP!
+            </a>
+            <br>
+            <a class="btn btn-wide c-btn-blue btn-pink btn-square" data-dismiss="modal" aria-label="Close">
+              I'M GOOD, BUT THANKS!
+            </a>
+          </div>
+          <br>
+        </center>
+        <center>
+          <a class="footer-text" href="/how_eggs_work">Explain how egg credits work again</a>
+        </center>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" data-turbolinks-eval="false">
+  //playlist can be virual (play and display on player title,
+  //don't display on playlist menu, don't sync with the server,
+  //just for observe listening the music)
+  var playlist = [];
+  var currentTrackIndex;
+
+  var cpAudio = WaveSurfer.create({
+      container: '#waveform',
+      waveColor: '#3ed4e0',
+      progressColor: '#ff7979',
+      height: 40,
+      barWidth: 2
+  });
+
+  var cpAudio2 = WaveSurfer.create({
+      container: '#waveform',
+      waveColor: '#3ed4e0',
+      progressColor: '#ff7979',
+      height: 40,
+      barWidth: 2
+  });
+
+  $('.jp-current-time').text(secondsToHms(0));
+  $('.jp-duration').text(secondsToHms(0));
+  $('.modal').on('show.bs.modal', function () {
+    $('.container-fluid').css({'filter': 'blur(8px)'});
+    $('.container').css({'filter': 'blur(8px)'});
+    $('.navbar').css({'filter': 'blur(8px)'});
+  });
+
+  $(document).on('hide.bs.modal', '.modal', function (e) {
+    $('.container-fluid').css({'filter': 'unset'});
+    $('.container').css({'filter': 'unset'});
+    $('.navbar').css({'filter': 'unset'});
+  });
+
+  $.ajax( "/playlist_load" )
+    .done(function(data) {
+      var time;
+      $('.jp-playlist').data('currentPlaylistId', data.playlist_id);
+
+      if (data.current_track) {
+        currentTrackIndex = data.current_track.index;
+        time = data.current_track.time;
+      } else {
+        currentTrackIndex = 0; time = 0;
+      }
+
+      trackLoading(true, 'playlist', data.playlist_id);
+
+      $('.jp-playlist-name').html(data.playlist_name_form);
+
+      setPlaylist(data.tracks, {
+        play: false,
+        currentTrack: currentTrackIndex,
+        currentTime: time,
+        virtual: false,
+        newPlaylist: true,
+        sourceType: 'playlist',
+        sourceId: data.playlist_id,
+        noPlaylistsView: data.no_playlists_view
+      });
+    });
+
+  var start = new Date().getTime();
+  var sent = false;
+  var listen_70 = false;
+
+  function timerAndLoadingForAudio(audio) {
+
+    audio.on('audioprocess', function () {
+      if (new Date().getTime() - start > 1000 ) {
+        var current_time = audio.getCurrentTime();
+        var duration = audio.getDuration();
+        $('.jp-current-time').text(secondsToHms(current_time));
+        $(`[data-track=${playlist[currentTrackIndex].id}]`)
+            .siblings('.jp-current-time-track')
+            .text(secondsToHms(current_time));
+        $('.pp-current-time').text(secondsToHms(current_time));
+        $('.pp-time-left').text("-" + secondsToHms(duration - current_time));
+        $('.pp-play-bar').css('width', current_time / duration * 100 + '%');
+
+        if (current_time/duration < 0.8) {sent = false}
+        if (current_time/duration < 0.7) {listen_70 = false}
+        if (current_time/duration > 0.8 && !sent && '<%= current_user %>'){
+          $.ajax({
+            url: '/track_listened',
+            dataType: 'JSON',
+            data: { id: playlist[currentTrackIndex].id },
+            success: function(result) {
+              $('div.star[data-id="'+ playlist[currentTrackIndex].id + '"]').append('<div class="user-rate-wrapper"  data-track-id="' + playlist[currentTrackIndex].id + '">' + '<div class="rate-track-btn"><%= image_tag "rateit.png" %></div>' + '</div>');
+            }
+          });
+          sent = true;
+        }
+
+        if (current_time/duration > 0.7 && !listen_70){
+          $.ajax({
+            url: '/track_listened_for_review',
+            dataType: 'JSON',
+            data: { id: playlist[currentTrackIndex].id }
+          });
+          listen_70 = true;
+        }
+
+        start = new Date().getTime();
+      }
+    });
+
+    audio.on('ready', function(){
+      trackLoading(false);
+    });
+  }
+
+  timerAndLoadingForAudio(cpAudio);
+
+  function setPlaylist(tracks=[], options={}) {
+    var play = options.play;
+    var currentTrack = options.currentTrack;
+    var currentTime = options.currentTime || 0;
+    var virtual = options.virtual;
+    var newPlaylist = options.newPlaylist;
+    var sourceType = options.sourceType || $('.jp-audio .jp-play').data('sourceType');
+    var sourceId = options.sourceId || $('.jp-audio .jp-play').data('sourceId');
+    var targetPlaylist = options.targetPlaylist;
+    var noPlaylistsView = options.noPlaylistsView;
+
+    if (currentTrack !== undefined) {
+      currentTrackIndex = currentTrack;
+    }
+
+    if (virtual) {
+      playlist = tracks; //setting common playlist variable;
+      playerLoad(currentTime, virtual, sourceType, sourceId);
+    } else if (newPlaylist) {
+
+      if (noPlaylistsView) {
+        $('.jp-playlist-name').html('');
+        $('.jp-playlist ul').html(noPlaylistsView);
+      } else {
+        playlist = tracks; //setting common playlist variable;
+        addItemsToPlaylist({newPlaylist: true, sourceType: sourceType, sourceId: sourceId});
+        playerLoad(currentTime, virtual, sourceType, sourceId);
+      }
+    } else {
+      if ($('.jp-audio .jp-play').data('virtual')) {
+        playlist = tracks; //setting common playlist variable;
+      } else {
+        playlist = playlist.concat(tracks);
+      }
+
+      addItemsToPlaylist({
+        tracks: tracks,
+        sourceType: sourceType,
+        sourceId: sourceId,
+        targetPlaylist: targetPlaylist
+      });
+
+      $.post('/sync_playlist',
+        { add_tracks_ids: tracks.map(x => x['id']),
+          target_playlist: targetPlaylist });
+      return false;
+    }
+
+    if (play) {
+      cpAudio.on('ready', function(){
+        cpAudio.play();
+        updatePlayerState(sourceType, sourceId, currentTrackIndex, virtual);
+        return false;
+      });
+    }
+    updatePlayerState(sourceType, sourceId, currentTrackIndex, virtual);
+  }
+
+  $('.jp-audio .jp-play').click(function(){
+    playButton(this);
+  });
+
+  $(document).on('click', '.pp-play', function(e){
+    playButton($('.jp-audio .jp-play')[0]);
+
+  });
+
+  $(document).on('click', '.select-playlist', function(e){
+    e.preventDefault();
+    var playlistId = $(this).data('playlistId');
+    $('.select-playlist').parent('li').removeClass('active');
+    $(".select-playlist[data-playlist-id='" + playlistId + "']")
+      .parent('li')
+      .addClass('active');
+
+    $.ajax({
+        url: "/playlist_load",
+        dataType: 'JSON',
+        data: { playlist_id: playlistId }
+      })
+      .done(function(data) {
+        var time;
+        $('.jp-playlist').data('currentPlaylistId', playlistId);
+
+        if (data.current_track) {
+          currentTrackIndex = data.current_track.index;
+          time = data.current_track.time;
+        } else {
+          currentTrackIndex = 0; time = 0;
+        }
+
+        $('.jp-playlist-name').html(data.playlist_name_form);
+
+        setPlaylist(data.tracks, {
+          play: true,
+          currentTrack: currentTrackIndex,
+          currentTime: time,
+          virtual: false,
+          newPlaylist: true,
+          sourceType: 'playlist',
+          sourceId: playlistId
+        });
+
+        $('#playlistActionModal').modal('hide');
+    });
+  });
+
+  $(document).on('click', '.playlist-add-track', function(e){
+    e.preventDefault();
+    var trackId = $(this).data('trackId');
+    var targetPlaylist = $(this).data('targetplaylist');
+    $.ajax({
+        url: `/tracks/${trackId}`,
+        dataType: 'JSON'
+      })
+      .done(function(track) {
+        setPlaylist([track], {
+          virtual: false,
+          newPlaylist: false,
+          sourceType: 'playlist',
+          sourceId: $('.jp-playlist').data('currentPlaylistId'),
+          targetPlaylist: targetPlaylist
+        });
+
+        $('#playlistActionModal').modal('hide');
+      });
+  });
+
+  $(document).on('click', '.playlist-add-source', function(e){
+    e.preventDefault();
+    var sourceType = $(this).data('sourceType');
+    var sourceId = $(this).data('sourceId');
+    $.ajax({
+        url: `/tracks_play`,
+        dataType: 'JSON',
+        data: { source_type: sourceType, source_id: sourceId }
+      })
+      .done(function(data) {
+        setPlaylist(data.tracks, {
+          virtual: false,
+          newPlaylist: false,
+          sourceType: 'playlist',
+          sourceId: $('.jp-playlist').data('currentPlaylistId'),
+          targetPlaylist: $(this).data('targetplaylist')
+        });
+
+        $('#playlistActionModal').modal('hide');
+      });
+  });
+
+  $('.jp-audio').on('change', '.jp-playlist', function(){
+    if($(this).find('li').length < 2) {
+      $('.jp-previous').addClass('jp-disabled');
+      $('.jp-next').addClass('jp-disabled');
+    } else {
+      $('.jp-previous').removeClass('jp-disabled');
+      $('.jp-next').removeClass('jp-disabled');
+    }
+  });
+
+  $('.jp-playlist').on('click', '.jp-playlist-item', function(e){
+    e.preventDefault();
+    playButton(this);
+  });
+
+  $('.jp-playlist').on('click', '.jp-playlist-item-remove', function(e){
+    e.preventDefault();
+    let index = $(this).closest('ul').find('li').index($(this).closest('li'));
+    removeFromPlaylist(index);
+  });
+
+  function newPlaylist() {
+    currentTrackIndex = 0;
+    playlist = [];
+    $('.jp-playlist ul').html('');
+  }
+
+  function removeFromPlaylist(index) {
+    let item = $('.jp-playlist li').get(index);
+    let active = $(item).hasClass('jp-playlist-current');
+    item.remove();
+    $('.jp-playlist').trigger('change');
+    // if (!$('.jp-audio .jp-play').data('virtual')) {
+      // playlist.splice(index,1);
+    // }
+
+    if (active) {
+      // if (currentTrackIndex >= playlist.length) {
+      //   currentTrackIndex = playlist.length - 1;
+      // }
+
+      playerLoad(0, false, 'playlist', $('.jp-audio .jp-play').data('sourceId'));
+
+      cpAudio.on('ready', function(){
+        cpAudio.play();
+        updatePlayerState('playlist', $('.jp-audio .jp-play').data('sourceId'), currentTrackIndex, false);
+      });
+    }
+
+    $.post('/sync_playlist',
+      { delete_by_indices: [index], current_track_index: currentTrackIndex });
+  }
+
+  function playButton(button) {
+    var topData = $('.jp-audio .jp-play').data();
+    var btnData = $(button).data();
+    var sameSource = topData.sourceType == btnData.sourceType &&
+                     topData.sourceId == btnData.sourceId;
+    var sameIndex = topData.trackIndex == btnData.trackIndex;
+
+    if ( (sameSource && btnData.trackIndex === undefined) ||
+         (sameSource && btnData.trackIndex !== undefined && sameIndex) ) {
+      cpAudio.isPlaying() ? cpAudio.pause() : cpAudio.play();
+      updatePlayerState(topData.sourceType, topData.sourceId, topData.trackIndex, false);
+    } else if (sameSource && btnData.trackIndex !== undefined && !sameIndex) {
+      currentTrackIndex = btnData.trackIndex;
+      playerLoad(0, false, btnData.sourceType, btnData.sourceId);
+
+      cpAudio.on('ready', function(){
+        cpAudio.play();
+        updatePlayerState(btnData.sourceType, btnData.sourceId, btnData.trackIndex, false);
+      });
+
+      $.ajax({
+          url: '/track_clicked',
+          dataType: 'script',
+          data: { track_id: playlist[btnData.trackIndex].id }
+        });
+    } else {
+      $.ajax({
+          url: '/tracks_play',
+          dataType: 'JSON',
+          data: {
+            source_type: btnData.sourceType,
+            source_id: btnData.sourceId
+          }
+        })
+        .done(function(data){
+          setPlaylist(data.tracks, {
+            play: true,
+            currentTrack: btnData.trackIndex || 0,
+            currentTime: 0,
+            virtual: true,
+            newPlaylist: true,
+            sourceType: btnData.sourceType,
+            sourceId: btnData.sourceId
+          });
+          $.ajax({
+              url: '/track_clicked',
+              dataType: 'JSON',
+              data: { track_id: playlist[btnData.trackIndex || 0].id }
+            })
+      });
+    }
+  }
+
+  function playlistItem(track, sourceType, sourceId, index) {
+    var _class, _data;
+    if (index >= 0) {
+      _class = `index-${index}`;
+      _data = `data-track-index="${index}"`;
+    } else {
+      _class = `track-${track.id}`;
+      _data = `data-track-id="${track.id}" data-track-index="${index}"`;
+    }
+
+    return `<li class="playlist-item">
+              <div>
+                <a href="#"
+                   class="play-${sourceType}-${sourceId}-${_class} playlist-play-track jp-playlist-item mr-1"
+                   data-source-type="${sourceType}"
+                   data-source-id="${sourceId}"
+                   ${_data}
+                   data-virtual="false"
+                   tabindex="${index}"
+                   data-remote="true"></a>
+                <a href="#" class="jp-playlist-item play-${sourceType}-${sourceId}-${_class}"
+                   style="width: calc(100% - 60px); display: inline-block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
+                   data-source-type="${sourceType}"
+                   data-source-id="${sourceId}"
+                   ${_data}
+                   data-virtual="false"
+                   tabindex="${index}">
+                  ${track.title} - ${track.artists}
+                </a>
+                <a href="#" class="jp-playlist-item-remove" title="Remove track">-</a>
+              </div>
+            </li>`
+  }
+
+  function addItemsToPlaylist(options={}) {
+    var newPlaylist = options.newPlaylist;
+    var sourceType = options.sourceType;
+    var sourceType = options.sourceType;
+    var sourceId = options.sourceId;
+    var tracks = newPlaylist ? playlist : options.tracks;
+    var targetPlaylist = options.targetPlaylist;
+
+    if (!newPlaylist && $(this).data('playlistId') == targetPlaylist) return;
+
+    var no_tracks = '<center>No tracks</center>';
+
+    if (newPlaylist && tracks.length === 0) {
+      $('.jp-playlist ul').html(no_tracks);
+    } else if (!newPlaylist && tracks.length > 0 && $('.jp-playlist ul').html() == no_tracks) {
+      $('.jp-playlist ul').html('');
+    } else if (newPlaylist) {
+      $('.jp-playlist ul').html('');
+    }
+
+    tracks.forEach(function(track) {
+      var i = $('.jp-playlist .jp-playlist-item').last().data('trackIndex') + 1 || 0;
+      $('.jp-playlist ul')
+        .append(playlistItem(track, sourceType, sourceId, i))
+        .trigger('change');
+    });
+  }
+
+  function playerLoad(currentTime=0, virtual=false, sourceType, sourceId) {
+    trackLoading(true, sourceType, sourceId);
+
+    if (playlist.length < 1) {
+      trackLoading(false);
+      return;
+    };
+
+    cpAudio.load(playlist[currentTrackIndex].mp3);
+    changePlayerTitle(playlist[currentTrackIndex]);
+
+    cpAudio.on('ready', function(){
+      trackLoading(false);
+
+      cpAudio.skip(currentTime);
+      $('.jp-current-time').text(secondsToHms(currentTime));
+      $('.pp-current-time').text(secondsToHms(currentTime));
+      $('.jp-duration').text(secondsToHms(cpAudio.getDuration()));
+      $('.pp-time-left').text('-' + secondsToHms(cpAudio.getDuration()));
+      $(`[data-track=${playlist[currentTrackIndex].id}]`)
+          .siblings('.jp-duration-track')
+          .text(secondsToHms(cpAudio.getDuration()));
+
+      if(playlist[currentTrackIndex + 1] != undefined &&
+          playlist[currentTrackIndex + 1].mp3) {
+        cpAudio2.load(playlist[currentTrackIndex + 1].mp3);
+      }
+    });
+
+    if (!virtual) {
+      $.post('/sync_playlist',
+        { add_tracks_ids: playlist.map(x => x['id']),
+          current_track: currentTrackIndex,
+          default_playlist: true })
+      .done(function(data) {
+        // $('.jp-playlist-name').html(data.playlist_name_form);
+      });
+    }
+  }
+
+  function playNext(paused=false) {
+    var sourceType = $('.jp-audio .jp-play').data('sourceType');
+    var sourceId = $('.jp-audio .jp-play').data('sourceId');
+    var virtual = $('.jp-audio .jp-play').data('virtual');
+
+    if (playlist[currentTrackIndex + 1] === undefined) {
+      return false;
+    }
+
+    currentTrackIndex++;
+    playerLoad(0, virtual, sourceType, sourceId);
+
+
+    if (paused) {
+      updatePlayerState(sourceType, sourceId, currentTrackIndex, virtual);
+    } else {
+      cpAudio.on('ready', function(){
+        cpAudio.play();
+        updatePlayerState(sourceType, sourceId, currentTrackIndex, virtual);
+      });
+    }
+  }
+
+  cpAudio.on("finish", playNext);
+
+  function playPrevious() {
+    var sourceType = $('.jp-audio .jp-play').data('sourceType');
+    var sourceId = $('.jp-audio .jp-play').data('sourceId');
+    var virtual = $('.jp-audio .jp-play').data('virtual');
+
+    if (playlist[currentTrackIndex - 1] == undefined) {
+      return false;
+    }
+
+    currentTrackIndex--;
+    playerLoad(0, virtual, sourceType, sourceId);
+
+    cpAudio.on('ready', function(){
+      cpAudio.play();
+      updatePlayerState(sourceType, sourceId, currentTrackIndex, virtual);
+    });
+  }
+
+  function changePlayerTitle(t) {
+    $.get('/fill_track_title', {track_id: t.id});
+  }
+
+  function trackLoading(state, sourceType, sourceId) {
+    if(state) {
+      $('.jp-progress-container').addClass('loading');
+      $('.jp-audio .jp-play').addClass('loading');
+      $('.pp-play').addClass('loading');
+      $(`.jp-playlist-item`).removeClass('loading');
+      $(`.play-${sourceType}-${sourceId}`).addClass('loading');
+      $(`.play-${sourceType}-${sourceId}-index-${currentTrackIndex}`).addClass('loading');
+
+      if (playlist[currentTrackIndex]) {
+        $(`.play-${sourceType}-${sourceId}-track-${playlist[currentTrackIndex].id}`).addClass('loading');
+      }
+    } else {
+      $(`.loading`).removeClass('loading');
+    }
+  }
+
+  var draggedBars = [
+    ['.jp-volume-bar','.volume-bar-value','volume']
+  ]
+  dragBars(draggedBars);
+
+  function dragBars(bars) {
+    setTimeout(function(){
+      var drag = false;
+      var e = {}, eInner = {}, updateBar = {};
+      document.addEventListener('mouseup',function(ev){
+        drag = false;
+      });
+      bars.forEach(function(bar){
+        e[bar[2]] = $(bar[0]);
+        eInner[bar[2]] = $(bar[1]);
+        e[bar[2]].each(function(){
+          var self = this;
+          self.addEventListener('mousemove',function(ev){
+            if(drag){
+              updateBar[bar[2]](ev.clientY, self);
+            }
+          });
+          self.addEventListener('mousedown',function(ev){
+            drag = true;
+            updateBar[bar[2]](ev.clientY, self);
+          });
+        });
+
+        updateBar[bar[2]] = function (y, self) {
+          function getOffset(elem) {
+            if (elem.getBoundingClientRect) {
+              return getOffsetRect(elem)
+            } else {
+              return getOffsetSum(elem)
+            }
+
+            function getOffsetSum(elem) {
+              var top=0, left=0
+              while(elem) {
+                top = top + parseFloat(elem.offsetTop)
+                left = left + parseFloat(elem.offsetLeft)
+                elem = elem.offsetParent
+              }
+              return {top: Math.round(top), left: Math.round(left)}
+            }
+
+            function getOffsetRect(elem) {
+              var box = elem.getBoundingClientRect()
+              var body = document.body
+              var docElem = document.documentElement
+              var scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop
+              var scrollLeft = window.pageXOffset || docElem.scrollLeft || body.scrollLeft
+              var clientTop = docElem.clientTop || body.clientTop || 0
+              var clientLeft = docElem.clientLeft || body.clientLeft || 0
+              var top  = box.top
+              var left = box.left
+              return { top: Math.round(top), left: Math.round(left) }
+            }
+          }
+
+          var position = y - getOffset(self).top;
+
+          var percentage = 100 - (100 * position / self.clientHeight);
+
+          if (percentage > 100) {
+              percentage = 100;
+          }
+          if (percentage < 0) {
+              percentage = 0;
+          }
+
+          eInner[bar[2]].each(function(){
+            this.style.height = percentage +'%';
+          });
+          if(bar[2] == 'volume') {
+            cpAudio.setVolume(percentage / 100);
+          } else if(bar[2] == 'progress') {
+            cpAudio.seekTo(percentage / 100);
+          }
+        };
+      });
+    },500);
+  }
+
+  function secondsToHms(d) {
+    d = Number(d);
+    var h = Math.floor(d / 3600);
+    var m = Math.floor(d % 3600 / 60);
+    var s = Math.floor(d % 3600 % 60);
+    return ((h > 0 ? h + ":" + (m < 10 ? "0" : "") : "") + m + ":" + (s < 10 ? "0" : "") + s);
+  }
+
+  //should be called after play action if play
+  function updatePlayerState(
+    sourceType = $('.jp-audio .jp-play').data('sourceType'),
+    sourceId = $('.jp-audio .jp-play').data('sourceId'),
+    trackIndex,
+    virtual = $('.jp-audio .jp-play').data('virtual')
+    ) {
+
+    if (!sourceType) return false;
+
+    var trackId;
+
+    if (trackIndex !== undefined && playlist.length > 0) {
+      trackId = playlist[trackIndex].id;
+    } else {
+      trackId = $('.jp-audio .jp-play').data('trackId');
+      trackIndex = $('.jp-audio .jp-play').data('trackIndex');
+    }
+
+    $('.jp-audio .jp-play').data({
+          sourceType: sourceType,
+          sourceId: sourceId,
+          trackId: trackId,
+          trackIndex: trackIndex,
+          virtual: virtual
+        });
+
+    $('.jp-audio .jp-play').removeClass('playing');
+    $('.pp-play').removeClass('playing');
+    $("[class^='play-']").removeClass('playing')
+          .closest('tr').removeClass('playing');
+    $('.jp-playlist li').removeClass('playing');
+    if (cpAudio.isPlaying()) {
+      $('.jp-audio .jp-play').addClass('playing');
+      $('.pp-play').addClass('playing');
+      $(`.play-${sourceType}-${sourceId}`).addClass('playing');
+      $(`.play-${sourceType}-${sourceId}-track-${trackId}`).addClass('playing')
+          .closest('.playlist-item').addClass('playing');
+      $(`.play-${sourceType}-${sourceId}-index-${trackIndex}`).addClass('playing')
+          .closest('.playlist-item').addClass('playing');
+    }
+
+    $('.jp-playlist li').removeClass('jp-playlist-current');
+
+    if (!virtual) {
+      $($('.jp-playlist li').get(currentTrackIndex)).addClass('jp-playlist-current');
+    }
+  }
+
+  function switchPlayerView(type) {
+    if ($('.jp-player').data('type') == type) {
+      return false;
+    }
+
+    if(type == 'top') {
+      $('.jp-audio').data('type', 'top');
+      // $('.playlist-player').hide();
+      // $('.player-top').slideDown();
+      // $('.navbar').css('top', '40px');
+      // $('main').css('padding-top', '100px');
+      // $('footer').show();
+    } else if (type == 'bottom') {
+      $('.jp-audio').data('type', 'bottom');
+      // $('.playlist-player').show();
+      // $('.player-top').slideUp();
+      // $('.navbar').css('top', '0');
+      // $('main').css('padding-top', '60px');
+      // $('footer').hide();
+    }
+  }
+
+  $('#jp-playlist-btn').click(function(e) {
+    if($('.jp-release-playlist').css('display') == 'block')
+      $('.jp-release-playlist').slideToggle()
+
+    $('.jp-playlist').slideToggle(300, function() {
+      if ($(this).is(':visible'))
+          $(this).css('display','inline-block');
+    });
+  });
+
+  $(document).on('click', '#jp-release-playlist-btn', function(e){
+    if($('.jp-playlist').css('display') == 'block')
+      $('.jp-playlist').slideToggle();
+
+    $('.jp-release-playlist')
+          .css({ 'left': $(this).offset().left - 85 })
+          .slideToggle(300, function() {
+      if ($(this).is(':visible'))
+          $(this).css('display','inline-block');
+    });
+  });
+
+  $('.jp-playlist-name').on('click', '.playlist-name-btn', function(e){
+    e.preventDefault();
+    $(this).hide().next('form').show().css('display','inline-block');
+  });
+
+  $('.jp-volume-btn').click(() => {
+    $('.jp-volume').toggleClass('d-flex').toggleClass('d-none');
+  });
+
+  $(document).ready(function(){
+    $('.credits-btn').click(function(){
+      if($('.jp-release-playlist').css('display') == 'block')
+        $('.jp-release-playlist').slideToggle()
+
+      if($('.jp-playlist').css('display') == 'block')
+        $('.jp-playlist').slideToggle()
+    });
+    // $('body').on('click', '#dropdownMenuButton', function(){
+    //   console.log('set toggle')
+    //   if($('.jp-playlist').css('display') == 'block')
+    //   $('.jp-playlist').slideToggle()
+    // });
+    $('.navbar-controls li.dropdown a').click(function(){
+      if($('.jp-release-playlist').css('display') == 'block')
+        $('.jp-release-playlist').slideToggle();
+
+      if($('.downloads-dropdown').css('display') == 'block')
+        $('.downloads-dropdown').slideToggle();
+
+      if($('.jp-playlist').css('display') == 'block')
+        $('.jp-playlist').slideToggle();
+
+      if($('#credits-count').hasClass('show'))
+        $('#credits-count').removeClass('show');
+
+    });
+
+    $(document).mouseup(function(e){
+      if($('#jp-release-playlist-btn').find($(e.target)).length > 0 ||
+         $('#jp-playlist-btn').find($(e.target)).length > 0){
+        return false;
+      }
+
+      if($('.jp-release-playlist').find($(e.target)).length == 0){
+        if($('.jp-release-playlist').css('display') == 'block')
+          $('.jp-release-playlist').css('display', 'none');
+      }
+
+      if($('.jp-playlist').find($(e.target)).length == 0){
+        if($('.jp-playlist').css('display') == 'block')
+          $('.jp-playlist').css('display', 'none');
+      }
+
+    })
+  });
+</script>

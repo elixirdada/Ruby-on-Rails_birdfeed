@@ -1,0 +1,55 @@
+ <% if defined?(@user) %>
+  <div class="playlist-nav playlist-<%= local_assigns[:playlist_nav_class] %>">
+    <div class="playlist-nav-body">
+      <ul>
+        <li class="mt-2 mb-4 nav-bar">
+          <% unless params[:user_id].present? %>
+            <%= image_tag 'icons/icon-chevron-black.svg',
+                style: 'cursor: pointer; margin-right: 30px;',
+                onclick: "window.history.back();" %>
+            <%= image_tag 'icons/icon-chevron-black.svg',
+                style: 'cursor: pointer; transform: rotate(180deg);',
+                onclick: "window.history.forward();" %>
+          <% end %>
+        </li>
+        <li class="playlist-nav-subheader">Play&nbsp;</li>
+        <li class="nav-bar-item">My Spread</li>
+
+        <li class="nav-bar-item <%= 'active' if current_page?(player_my_badges_path(current_user)) %>">
+            <%= link_to "My Badges", player_my_badges_path(current_user) %>
+        </li>
+
+        <li class="nav-bar-item <%= 'active' if current_page?(player_headers_and_skins_path(current_user)) %>">
+            <%= link_to "My Headers and Skins", player_headers_and_skins_path(current_user) %>
+        </li>
+
+        <li class="nav-bar-item <%= 'active' if current_page?(leaderboard_path) %>">
+            <%= link_to "The Big 10", leaderboard_path %>
+        </li>
+
+        <li class="nav-bar-item">Top 200</li>
+
+        <li class="playlist-nav-subheader">Invites&nbsp;</li>
+
+        <li class="nav-bar-item">Birdfeed Stripes</li>
+
+        <li class="nav-bar-item">The birdfeed open</li>
+
+        <li class="playlist-nav-subheader">Play Help&nbsp;</li>
+        <li>Play Instructional</li>
+
+        <li>Invites</li>
+
+        <li class="nav-bar-item <%= 'active' if current_page?(player_gaming_points_path(current_user)) %>">
+            <%= link_to "Gaming Points", player_gaming_points_path(current_user) %>
+        </li>
+
+        <li class="nav-bar-item <%= 'active' if current_page?(player_all_badges_path(current_user)) %>">
+            <%= link_to "All Badges", player_all_badges_path(current_user) %>
+        </li>
+
+        <li>Skins and headers</li>
+      </ul>
+    </div>
+  </div>
+<% end %>

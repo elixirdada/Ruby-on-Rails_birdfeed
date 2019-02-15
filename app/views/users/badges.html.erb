@@ -1,0 +1,33 @@
+<%#= render 'users/user_header' %>
+
+<div class="container">
+  <div class="row">
+
+    <% BadgeKind.order(prior: :desc).all.each do |badge_kind| %>
+      <% user_badges = @user.badges_by_kind(badge_kind.ident) %>
+      <% badges_in_kind = badge_kind.badges %>
+      <% if badges_in_kind.present? %>
+        <div class="col-md-3 col-sm-12">
+          <%= badge_kind.name %>
+        </div>
+
+        <div class="col-md-9 col-sm-12">
+
+          <% user_badges.each do |badge| %>
+            <div class="fan-badge">
+                <%= image_tag badge.image if badge.image.present? %>
+                <p><%= badge.name %></p>
+            </div>
+          <% end %>
+
+          <% badges_in_kind.reject { |badge| user_badges.map(&:id).include?(badge.id) }.each do |badge| %>
+            <div class="fan-badge">
+                <img src='/images/default_badge.png' >
+                <p>&nbsp;</p>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

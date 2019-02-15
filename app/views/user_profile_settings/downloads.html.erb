@@ -1,0 +1,96 @@
+<%= render 'user_profile_settings/header' %>
+
+<div class="user-profile-settings">
+  <div class="row">
+    <div class="side-bar col-lg-3">
+      <%= render partial: 'users/user_profile_nav', locals: {current_index: 'DOWNLOADS'}  %>
+    </div>
+    <div class="main-content col-lg-9">
+      <div class="row page-header">
+        <div class="col-sm-6">
+          <label class="title">
+            YOUR TRACKS
+          </label>
+        </div>
+      </div>
+      <div class="row page-content downloads-content">
+        <div class="col-sm-12">
+          <table class="downloads-table">
+            <tr>
+              <th>
+                Date Aquired
+              </th>
+              <th>
+                Tracks
+              </th>
+              <th>
+                Release
+              </th>
+              <th>
+                Category
+              </th>
+              <th>
+                Download
+              </th>
+            </tr>
+            <% @downloads.each_with_index do |download, index| %>
+              <tr class="<%= index.even? ? "grey" : "dark-grey" %>">
+                <td>
+                  <%= download.created_at.strftime("%m/%d/%Y")[0..-5] + download.created_at.strftime("%m/%d/%Y")[-2..-1] %>
+                </td>
+                <td>
+                  <%= download.track ? download.track.title : '' %>
+                </td>
+                <td>
+                  <%= download.track ? download.track.release.title : '' %>
+                </td>
+                <td>
+                  <%= download.track ? download.track.release.release_type : '' %>
+                </td>
+                <td>
+                  <div class="download-type">
+                    <div class="row">
+                      <div class="col-sm-3 <%= download.format.include?("wav") ? 'active' : ''%>">
+                        <div class="number">
+                          (<%= download.format.include?("wav") ? 1 : 0%>)
+                        </div>
+                        <div class="type-name">
+                          .WAV
+                        </div>
+                      </div> 
+                      <div class="col-sm-3 <%= download.format.include?("mp3") ? 'active' : ''%>">
+                        <div class="number">
+                          (<%= download.format.include?("mp3") ? 1 : 0%>)
+                        </div>
+                        <div class="type-name">
+                          .MP3
+                        </div>
+                      </div>
+                      <div class="col-sm-3 <%= download.format.include?("aiff") ? 'active' : ''%>">
+                        <div class="number">
+                          (<%= download.format.include?("aiff") ? 1 : 0%>)
+                        </div>
+                        <div class="type-name">
+                          .AIFF
+                        </div>
+                      </div>
+                      <div class="col-sm-3 <%= download.format.include?("flacc") ? 'active' : ''%>">
+                        <div class="number">
+                          (<%= download.format.include?("flacc") ? 1 : 0%>)
+                        </div>
+                        <div class="type-name">
+                          .FLACC
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </table>
+        
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

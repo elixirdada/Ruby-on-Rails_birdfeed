@@ -1,0 +1,19 @@
+<% if style == 'release' %>
+  <% content = "#{image_tag 'icons/like-release.svg'} <div class='release-nav-caption mt-1'>FAVORITE</div>" %>
+<% elsif style == 'announcement-header' %>
+  <% content = "#{image_tag 'icons/like-release.svg', style: 'width: 20px'} <div class='release-nav-caption mt-1'>LIKE</div>" %>
+<% elsif style == 'thumbup' || style == 'thumbup-reply' %>
+  <% content = "Like" %>
+<% elsif style == 'nav-release-playlist' %>
+    <% content = '<svg class="liked_svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="18" viewBox="0 0 20 18"><defs><path id="718fa" d="M752.88 119.84a5.63 5.63 0 0 0-7.86-.09 5.63 5.63 0 0 0-7.87 8.04l7.87 7.87 7.86-7.87a5.62 5.62 0 0 0 0-7.95z"/></defs><g><g transform="translate(-735 -118)"><use fill="gray" xlink:href="#718fa"/></g></g></svg>' %>
+<% else %>
+  <% content = image_tag 'icons/like.svg' ,class: "image_like_unlike_tag" %>
+<% end %>
+
+
+<%= link_to likes_path(likeable_type: like[:likeable_type],
+      likeable_id: like[:likeable_id], style: style),
+      id: "like-#{like[:likeable_type]}-#{like[:likeable_id]}",
+      method: :post, remote: true, class: "like-button gray-bold" do %>
+  <%= content.html_safe %>
+<% end %>

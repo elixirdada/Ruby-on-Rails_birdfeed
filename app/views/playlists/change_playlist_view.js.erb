@@ -1,0 +1,22 @@
+var modal = $('#playlistActionModal');
+modal.find('.change-playlist-btns').remove();
+modal.modal('show');
+
+modal.find('.modal-title').text('Load a Playlists').after(`
+  <ul class="nav nav-tabs change-playlist-btns" id="plTab" role="tablist">
+    <li class="nav-item">
+      <a class="btn c-btn-gray btn-square active" id="mine-tab" data-toggle="tab" href="#pl-mine" role="tab" aria-controls="mine" aria-selected="true">Mine</a>
+    </li>
+    <li class="nav-item">
+      <a class="btn c-btn-blue btn-square" id="favorited-tab" data-toggle="tab" href="#pl-favorited" role="tab" aria-controls="profile" aria-selected="false">Favorived</a>
+    </li>
+    <li class="nav-item">
+      <%= link_to "Explore", player_listen_path(current_user),
+          class: 'btn c-btn-red btn-square',
+          data: { turbolinks: false } %>
+    </li>
+  </ul>`);
+
+modal.find('.modal-body').html(`
+  <%= escape_javascript( render "playlists/change_playlist" )%>
+`);

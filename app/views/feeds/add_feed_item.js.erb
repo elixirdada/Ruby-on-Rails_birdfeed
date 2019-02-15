@@ -1,0 +1,8 @@
+var feed = $('.feed-block').data('feed');
+var feedId = $('.feed-block').data('feedId');
+
+if (feed == '<%= @feed %>' && feedId == '<%= @feed_id %>' ) {
+  $('.feed-block').prepend(`<%= @feed_item %>`);
+
+  $('.no-feed-items').remove();
+}

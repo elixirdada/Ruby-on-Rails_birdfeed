@@ -1,0 +1,146 @@
+@media (min-width: 1260px) {
+  .container {
+    max-width: 1200px;
+  }
+}
+
+@media (max-width: 999px) {
+  .navbar .container {
+    background-color: #3ed4e0;
+  }
+}
+
+.navbar-toggler {
+  color: white;
+  border-color: white;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.modal-backdrop {
+  background: none;
+}
+
+.modal-dialog {
+  color: #222222;
+}
+
+.modal-content {
+  background: rgba(255,255,255,0.8);
+}
+
+.modal-header {
+  border-bottom: none;
+  padding-bottom: 0;
+
+  .close span {
+    position: relative;
+    top: -8px;
+  }
+}
+
+.form-label-group label {
+  cursor: text;
+}
+
+.modal-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (min-width: 992px) {
+  .modal-body {
+    width: 435px;
+  }
+}
+
+.navbar {
+  top: 0px;
+  height: 60px;
+  background-color: #3ed4e0;
+  transition: top 0.3s;
+  align-items: flex-start;
+}
+
+.navbar-nav {
+  font-size: 12px;
+  text-align: center;
+}
+
+.nav-divider {
+  display: none;
+}
+
+.navbar-controls {
+  flex-direction: row;
+  justify-content: space-around;
+  position: relative;
+}
+
+@media (min-width: 992px) {
+  .navbar {
+    top: 40px;
+  }
+
+  .nav-divider {
+    display: block;
+  }
+}
+
+.active > .nav-link {
+  color: #e75e35;
+}
+
+.navbar-brand {
+  padding-top: 14px;
+  img {
+    vertical-align: top;
+    height: 33px;
+    margin-top: -0.7rem;
+  }
+}
+
+.navbar-text {
+  font-size: 10px;
+}
+
+.carousel-indicators {
+  .active:after {
+    left: 1px;
+    top: 1px;
+    width: 12px;
+    height: 12px;
+    background-color: #222;
+    border-radius: 8px;
+  }
+
+  & li {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    margin-left: 5px;
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid #222;
+    opacity: 0.8;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.sticky-top {
+  top: 110px;
+}

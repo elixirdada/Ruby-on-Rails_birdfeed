@@ -1,0 +1,137 @@
+<div class="mt-4 mb-2">
+
+  <% active = {} %>
+  <% if params['filters'] && params['filters']['artist'].present? %>
+    <% title = "RELEASES WITH #{User.find_by_id(params['filters']['artist']).try(:name)}" %>
+    <% active['artist'] = "active" %>
+  <% elsif params['filters'] && params['filters']['year'].present? %>
+    <% title = "#{params['filters']['year']} RELEASES" %>
+    <% active['year'] = "active" %>
+  <% elsif params['filters'] && params['filters']['three_months'].present? %>
+    <% title = "LATEST RELEASES" %>
+    <% active['three_months'] = "active" %>
+  <% elsif params['filters'] && params['filters']['liked'].present? %>
+    <% title = "LIKED RELEASES" %>
+    <% active['liked'] = "active" %>
+  <% elsif params['filters'] && params['filters']['type'].present? %>
+    <% title = "#{Release.release_types.keys[params['filters']['type'].to_i]} RELEASES" %>
+    <% active['type'] = "active" %>
+  <% else %>
+    <% title = 'ALL RELEASES' %>
+    <% active['all'] = "active" %>
+  <% end %>
+
+  <div class="c-flag"><%= title %></div>
+
+  <div class="releases-search" style="display: inline-block; vertical-align: top;">
+    <%= image_tag 'icons/icon-search-blue.svg', class: "releases-search-btn toggle-switcher" %>
+    <input type="text" class="releases-search-input toggle-pair">
+  </div>
+
+  <div class="releases-tabs toggle-pair">
+    <span class="mr-2">sort by:</span>
+    <%= link_to "All", releases_path, class: "filter-btn #{active['all']}" %>
+
+    <div class="dropdown">
+      <a href="#"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+          class="filter-btn <%= active['artist'] %>">
+        Artist
+      </a>
+      <div class="dropdown-menu ">
+        <ul class="mb-4">
+          <% @artists.each do |user| %>
+            <li class="filter-user">
+              <%= link_to releases_path( filters: { artist: user.id } ) do %>
+                <%= image_tag(user.avatar.thumb, class: "user-avatar", alt: '') %>
+                <div><%= user.name %></div>
+                <div class="filter-user-caption">
+                  <%= pluralize(user.tracks.count, 'track') %>
+                  |
+                  <%= pluralize(user.releases.count, 'release') %>
+                </div>
+              <% end %>
+            <% end %>
+            </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <a href="#"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+          class="filter-btn <%= active['year'] %>">
+        Year
+      </a>
+      <div class="dropdown-menu">
+        <ul>
+          <% (2011..Time.current.year).reverse_each do |year| %>
+            <li class="filter-year">
+              <%= link_to year, releases_path( filters: { year: year } ) %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+    <%= link_to "Latest",
+        releases_path( filters: { three_months: true } ),
+        class: "filter-btn #{active['three_months']}" %>
+
+    <% if current_user %>
+      <%= link_to "Liked tracks",
+          releases_path( filters: { liked: true } ),
+          class: "filter-btn #{active['liked']}" %>
+    <% end%>
+
+    <div class="dropdown">
+      <a href="#"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+          class="filter-btn <%= active['type'] %>">
+        Category
+      </a>
+      <div class="dropdown-menu dropdown-menu-right">
+        <ul class="d-flex">
+          <% Release.release_types.each do |value, key| %>
+            <li class="filter-type">
+              <%= link_to releases_path( filters: { type: key } ) do %>
+                <% image = value == 'Dirtybird' ? 'd_select2' : 'exclusive2' %>
+                <%= image_tag "#{image}.png" %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr style="width: calc(100% - 30px);">
+
+<div class="row mt-4 releases-list">
+  <% for release in @releases %>
+    <div class="col-xl-3 col-lg-4 col-md-6 mb-5 text-center">
+      <%= render release %>
+    </div>
+  <% end %>
+</div>
+
+<!-- <div class="text-center"> -->
+  <%# #TODO(Victor) make lazy laod as in player view %>
+  <%# if @limit <= @releases.count %>
+    <%# if params[:filters].present? %>
+      <%# _params = { filters: params[:filters].permit! }.merge(page: params[:page] ? params[:page].to_i + 1 : 2) %>
+    <%# else %>
+      <%# _params = {page: params[:page] ? params[:page].to_i + 1 : 2} %>
+    <%# end %>
+    <%#= link_to "Show more", load_more_releases_path(_params),
+        remote: true, class: "btn c-btn-blue show-more" %>
+  <%# end %>
+<!-- </div> -->

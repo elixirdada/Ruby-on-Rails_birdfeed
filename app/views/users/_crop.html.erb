@@ -1,0 +1,27 @@
+<div class="modal-dialog modal-dialog-centered modal-dialog-wide" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <h5 class="modal-title">Crop image</h5>
+      <div class="modal-text">
+        <% image = @user.avatar.url || asset_path('birdfeed-logo-white') %>
+        <%= image_tag image, id: "cropbox" %>
+        <div style="width:100px; height:100px; overflow:hidden">
+          <%= image_tag image, :id => "preview" %>
+        </div>
+        <%= form_for @user do |f| %>
+          <% %w[x y w h].each do |attribute| %>
+            <%= f.hidden_field "crop_#{attribute}" %>
+          <% end %>
+          <div class="actions">
+            <%= f.submit "Apply", class: 'btn c-btn-blue btn-wide' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

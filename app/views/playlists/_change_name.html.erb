@@ -1,0 +1,20 @@
+<span class="playlist-name-img"><%= show_svg 'icons/red-bird.svg' %></span>
+<a href="#" class="playlist-name-btn">
+  <%= playlist.name %>
+</a>
+
+<%= form_for playlist, remote: true, html: { style: "display: none;" } do |f| %>
+  <%= f.text_field :name %>
+  <%= f.submit "&#10004;".html_safe %>
+<% end %>
+
+<div class="float-right">
+  <div class="playlist-name-author">
+    by <%= playlist.user.name %>
+  </div>
+  <div class="playlist-name-time">
+    Created <%= time_ago_in_words(playlist.created_at) %> ago
+  </div>
+</div>
+
+<hr class="mt-2 mb-1">

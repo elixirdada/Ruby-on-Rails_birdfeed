@@ -1,0 +1,399 @@
+var track_title = `<%= @track.title %>`
+var track_artists = `<%= @track.artists %>`
+
+track_artists = track_artists.replace(/ and | feat | ft | ft. /g, ' & ').split(' & ')
+
+if (track_artists.length > 1) {
+  formatted_track_artists = `${track_artists[0]} and ${track_artists.length-1}`
+
+  if ((track_artists.length-1) > 2) {
+    formatted_track_artists = formatted_track_artists + ' others';
+  } else {
+    formatted_track_artists = formatted_track_artists + ' other';
+  }
+} else {
+  formatted_track_artists = track_artists[0];
+}
+
+var track_max_chars_allowed = 22;
+if (track_title.length > track_max_chars_allowed) track_title = track_title.substring(0, track_max_chars_allowed - 3) + '...'
+
+var artist_max_chars_allowed = 22;
+if (formatted_track_artists.length > artist_max_chars_allowed) formatted_track_artists = formatted_track_artists.substring(0, artist_max_chars_allowed - 3) + '...'
+
+var jp_title = `
+  <div class="jp-title" aria-label="title">
+    <span id="title-and-artist">
+      <span class="jp-track-title">${track_title}</span>by
+      <span class="jp-track-artist">${formatted_track_artists}</span>
+    </span>
+  </div>`;
+var release_img = '<%= image_tag(@release.avatar.url(:thumb), style: "width: 28px; height: 28px; border-radius: 2px;") %>&nbsp;';
+var add_release = '<button class="playlist-add-source" data-source-type="release" data-source-id="<%= @release.id %>">+</button>';
+var like = '<%= escape_javascript( render "likes/like_button", object: @track )%>';
+  var user_rate_track = '';
+  var user_rate_mark = '<div class="user-rate-mark rate-track-btn"><img src="/images/rate/check-circle.png" /><label class="lbl-track-count"><%= get_user_rate_for_track @track %></label></div>';
+var rate_track = user_rate_track;
+<% if current_user && TrackListenProgress.find_by(user_id: current_user.id, track_id: @track.id) != nil && TrackListenProgress.find_by(user_id: current_user.id, track_id: @track.id).listen_progress >= 70 %>
+  rate_track = '<div class="rate-track-btn"><%= image_tag "rateit.png" %></div>';
+<% end %>
+
+<% if get_user_rate_for_track(@track) != 0 %>
+  rate_track = user_rate_mark;
+<% end %>
+var rate =
+  '<div class="nav-rate-track-wrapper" data-track-id="<%=@track.id%>">'  +
+    '<div class="nav-track-star">' +
+      '<%= escape_javascript( rating_for( @track, "main", star: 4, cancel: false, readonly: true, disable_after_rate: true, star_on: image_path("rate/egg/star-on.png"), star_half: image_path("rate/egg/star-on.png"), star_off: image_path("rate/egg/star-off.png"))) %>' +
+    '</div>' +
+    '<div class="user-rate-wrapper"  data-track-id="<%=@track.id%>">' + rate_track + '</div>' +
+  '</div>';
+var rate_track_modal = '<%= escape_javascript( render "tracks/rate_track_modal", track: @track, release: @release, image: @release.avatar.url, current_user: current_user)%>';
+var download_release = `
+  <% if @release.download_uris.any? %>
+    <button class="download-release" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <%= image_tag('icons/download-white.svg', title: "Download full release") %>
+    </button>
+    <div class="dropdown-menu downloads-dropdown" aria-labelledby="dropdownMenuButton" style="width: 25%;padding-bottom: 0px;">
+      <div class='display-inline col-md-12'>
+        <%= image_tag @release.avatar.large, class: 'release-previous-img', style: 'width: 65px;height: 70px;' %>
+        <div class="download-btn-heading">
+          <%=@track.title%>
+          <br>
+          <div style="font-size: 0.6rem;font-family: 'Titillium Web';">
+            <div class="display-inline">
+              Catalog ID:
+              <div style="font-weight: normal;padding-left: 3px;"><%= @release.catalog %></div>
+            </div>
+            <br>
+            <div class="display-inline">
+              Tracks:
+              <div style="font-weight: normal;padding-left: 3px;"><%= @release.tracks.count %></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="display-inline col-md-12 margin-top-10" style="padding-left: 0px;padding-right: 0px;">
+        <div class='eggs-description-dialog'>
+          <span style="padding-right: 5px;">
+            1<%#= @release.tracks.count %>
+            TRACK FOR
+          </span>
+          <%= image_tag 'egg-big.svg', style: 'width: 20px;height' %>
+          <span style="padding-left: 5px;">
+            1<%#= @release.tracks.count %>
+          </span>
+        </div>
+        <a class='white-color eggs-doit-dialog' data-toggle="modal" data-target="#downloadModal">
+          DO IT
+        </a>
+      </div>
+      <a href="/releases/<%=@release.id%>">
+        <div class="display-inline col-md-12 description-download-dialog margin-top-10">
+          I'D LIKE DO DOWNLOAD THE FULL RELEASE
+        </div>
+      </a>
+      <br>
+      <div class="display-inline col-md-12 margin-top-10" style="padding: 0px;margin-top: 5px;">
+        <div class="col-md-6 padding-0">
+          <a class="width-100 font-05 btn c-btn-black btn-square light-background-btn" href="/how_eggs_work">HOW DOES THIS WORK?</a>
+        </div>
+        <div class="col-md-6 padding-0">
+          <a class="width-100 font-05 btn c-btn-black btn-square" href="/get_more_credits">I NEED MORE EGGS</a>
+        </div>
+      </div>
+    </div>
+  <% end %>`;
+var download = "<%= escape_javascript( render partial: 'tracks/download', locals: { track: @track, icon: 'white' } )%>";
+var share = "<%= escape_javascript( render partial: 'layouts/share', locals: { object: @track, icon: 'white' } )%>";
+
+var release_menu;
+
+<% if current_user && (current_user.cached_active_subscription? ||
+      current_user.can_use_credits? ) %>
+  release_menu = `<button id="jp-release-playlist-btn" style="display: none;">
+                        ${release_img}
+                        ${jp_title}
+                      </button>`;
+<% else %>
+  release_menu = `${release_img} ${jp_title}`;
+<% end %>
+
+$('.jp-details').html('');
+$('.jp-details').append(release_menu);
+<% if current_user %>
+  $('.jp-additions').html('');
+  $('.jp-additions').append(add_release);
+  $('.jp-additions').append(like);
+  $('.jp-additions').append(download_release);
+  $('#dropdownMenuButton').click(function() {
+    if($('.jp-playlist').css('display') == 'block')
+      $('.jp-playlist').slideToggle();
+
+    if($('#credits-count').hasClass('show'))
+      $('#credits-count').removeClass('show');
+
+    if($('.jp-release-playlist').css('display') == 'block')
+      $('.jp-release-playlist').slideToggle();
+
+    if($('.sub-release-download-dropdown').css('display') == 'block')
+      $('.sub-release-download-dropdown').slideToggle();
+
+    $('.release-download-dropdown').slideToggle(300, function() {
+      if ($(this).is(':visible'))
+          $(this).css('display','inline-block');
+    });
+  });
+<% else %>
+  $('.jp-details').css('padding-left', '280px');
+<% end %>
+// $('.jp-details').data('trackTitle', '<%#= @track.title %>');
+// $('.jp-details').data('trackArtist', '<%#= @track.artists %>');
+
+$('.pp-track-img').html(release_img);
+$('.pp-track').html('<%= @track.title %>');
+$('.pp-artist').html('<%= @track.artists %>');
+$('.pp-like').html(like);
+$('.pp-add .playlist-add-track').data('trackId', '<%= @track.id %>');
+// $('.pp-rate').html(rate);
+// $('.pp-rate').children('.star').each(ratyRate);
+$('.pp-download').html(download);
+$('.pp-share').html(share);
+
+<% unless current_user && current_user.has_role?(:artist) %>
+  $('.jp-title').after(rate);
+  $('body').append(rate_track_modal);
+  $('.nav-track-star').children('.star').each(ratyRate);
+  $('.rate-track-modal .modal-body').children('.star').each(ratyRate);
+<% end %>
+
+$(document).on('click', '.user-rate-wrapper, .nav-rate-track-wrapper', function(e) {
+  console.log('show');
+  $('.main-container').css({'filter': 'blur(15px)'});
+  $('.rate-track-modal[data-track-id="'+ $(this).data('track-id') + '"]').first().modal('show');
+});
+
+$('.rating-submit').off().on('click', function(event){
+  // $('.rate-track-modal').modal('hide');
+  score = $('.rate-track-modal.show').find('input[name="score"]').val();
+  if (score == null) { score = 0; };
+  $.post('<%= Rails.application.class.routes.url_helpers.rate_path %>',
+    {
+      score: score,
+      dimension: $('.rate-track-modal.show').find('div.star').attr('data-dimension'),
+      id: $('.rate-track-modal.show').find('div.star').attr('data-id'),
+      klass: $('.rate-track-modal.show').find('div.star').attr('data-classname')
+    },
+    function(data) {
+      if(data) {
+        // success code goes here ...
+        track_id = $('.rate-track-modal.show').find('div.star').attr('data-id')
+        $('.rate-track-modal').modal('hide');
+        if($('.jp-release-playlist')[0]){
+          $('.jp-release-playlist').hide();
+        }
+        $('.main-container').css({'filter': 'blur(15px)'});
+        // $('.main-container').css({'filter': 'unset'});
+        $('.after-rate-track-modal[data-track-id="'+ track_id + '"]').first().modal('show')
+      }
+    });
+})
+
+var list = `
+  <div class="mt-3 row">
+    <div class="col-sm-2">
+      <%= link_to @release do %>
+      <%= image_tag @release.avatar.url, class: "jp-release-image" %>
+    <% end %>
+    </div>
+    <div class="col ml-1">
+      <span class="release-date align-top">
+        <div class="release-title"><%= @release.title.upcase %></div>
+        <% if current_user && current_user.already_liked(@release).present? %>
+          <% content = '<svg class="liked_svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="18" viewBox="0 0 20 18"><defs><path id="718fa" d="M752.88 119.84a5.63 5.63 0 0 0-7.86-.09 5.63 5.63 0 0 0-7.87 8.04l7.87 7.87 7.86-7.87a5.62 5.62 0 0 0 0-7.95z"/></defs><g><g transform="translate(-735 -118)"><use fill="#56d5e2" xlink:href="#718fa"/></g></g></svg>' %>
+          <%= link_to like_path(current_user.already_liked(@release), style: 'nav-release-playlist'),
+            class: 'like-button',
+            id: "like-Release-#{@release.id}",
+            method: :delete, remote: true do %>
+              <%= content.html_safe %>
+          <% end %>
+        <% else %>
+          <% content = '<svg class="liked_svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="18" viewBox="0 0 20 18"><defs><path id="718fa" d="M752.88 119.84a5.63 5.63 0 0 0-7.86-.09 5.63 5.63 0 0 0-7.87 8.04l7.87 7.87 7.86-7.87a5.62 5.62 0 0 0 0-7.95z"/></defs><g><g transform="translate(-735 -118)"><use fill="gray" xlink:href="#718fa"/></g></g></svg>' %>
+          <%= link_to likes_path(likeable_type: 'Release',
+            likeable_id: @release.id, style: 'nav-release-playlist'),
+            class: 'like-button',
+            id: "like-Release-#{@release.id}",
+            method: :post, remote: true do %>
+              <%= content.html_safe %>
+          <% end %>
+        <% end %>
+        <button class="plus-button" data-source-type="release" data-source-id="69">+</button>
+      </span>
+
+      <span class="release-date">Release date: <%= @release.release_date.strftime('%Y-%m-%d') %></span>
+      <div class="playlist-info">Tracks: <span>12</span> Artists: <span>1</span></div>
+    </div>
+  </div>
+
+  <div class="row mb-3 release-playlist-second-container">
+    <div class="col-sm-2 pl-0 pr-0 separator-text">
+      Track List
+    </div>
+    <div class="col pl-0 separator-container">
+      <hr>
+    </div>
+  </div>
+
+  <div class="row tracks-container">
+    <div class="col px-0">
+      <ul>
+      <% @release.tracks.each_with_index do |track, i|  %>
+        <% track = TrackPresenter.new(track, current_user, @browser) %>
+        <li class="list-item">
+          <div class="row mx-0 pl-1 pt-1 list-item-div">
+            <div class="col-1 px-0 icon-box">
+              <% if @playlist.present? || @with_index %>
+                <%= link_to "", "#",
+                    class: "play-release-#{@release.id}-index-#{i} playlist-play-track",
+                    data: {
+                      source_type: 'release',
+                      source_id: "#{@release.id}",
+                      track_index: i,
+                      virtual: false
+                    },
+                    remote: true %>
+              <% else %>
+                <%= link_to "", "#",
+                    class: "play-release-#{@release.id}-track-#{track.id} playlist-play-track",
+                    data: {
+                      source_type: 'release',
+                      source_id: "#{@release.id}",
+                      track_index: i,
+                      track_id: "#{track.id}",
+                      virtual: false
+                    },
+                    remote: true %>
+              <% end %>
+            </div>
+            <div class="col px-0 align-middle track-name-wrapper">
+              <span class="track-name">
+                <%= link_to "#{'%02i' % track.track_number}. #{track.title.truncate(37)}", "#",
+                  class: "play-release-#{@release.id}-track-#{track.id}",
+                  data: {
+                    source_type: 'release',
+                    source_id: @release.id,
+                    track_index: @release.tracks.map(&:id).index(track.id),
+                    track_id: track.id,
+                    virtual: false
+                  },
+                  remote: true %>
+              </span>
+            </div>
+            <div class="col-1 px-0 info-icon-box pr-3">
+              <%= link_to "+", add_to_playlist_path(track_id: track.id),
+                  class: 'plus-button', remote: true %>
+              <div class="tip d-inline">
+                <span class="icon">
+                  <%= image_tag 'icons/info-sm.svg', class: 'info-box-track' %>
+                </span>
+                <div class="message tip-artists">
+                  <h4 class="">Artists on this track</h4>
+                  <% if track.users.present? %>
+                    <% for artist in track.users %>
+                      <%= image_tag artist.avatar.thumb, class: 'user-avatar', style: 'width: 28px; height: 28px;' %>
+                      <%= artist.name %>
+                    <% end %>
+                  <% else %>
+                    <%= track.artists %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <%= link_to "Release Details",
+        release_path(id: @release.id, player: true, user_id: current_user.try(:id) || User.first.id),
+        class: "col py-1 release-details-button" %>
+    <%= link_to "Release Feed",
+        release_path(@release),
+        class: "col py-1 player-button" %>
+  </div>
+`;
+
+$('.jp-release-playlist').html(list);
+
+$('#jp-release-playlist-btn').show();
+
+$('#dropdownMenuButton').click(function(e) {
+    $('.downloads-dropdown').slideToggle(300, function() {
+      if ($(this).is(':visible'))
+          $(this).css('display','inline-block');
+    });
+  });
+
+
+$(document).ready(function(){
+  $('.nav-rate-track-wrapper').html(function(i, html){
+    return html.replace(/&nbsp;/g, '')
+  })
+
+  $('.nav-rate-track-wrapper img').css('margin-right', '3px');
+  // $('.nav-rate-track-wrapper').css('margin-left', (-$('.jp-title').width() + $('#title-and-artist').width()));
+})
+
+// dropdowns hide
+$(document).on('click', function(event) {
+  $('.dropdown-menu').hide();
+  if ($('.credits-dropdown').hasClass("show")){
+    $('.credits-dropdown').removeClass("show");
+  }
+});
+
+// Release Downloads
+var holder_html = `
+  <div class="song-description-holder">
+    <div class="display-inline col-lg-12">
+      <a href="/releases/<%=@track.release.id%>"><%= image_tag @release.avatar.large, class: 'release-previous-img', style: 'width: 70px;height: 70px;',id: "download_modal_track_image" %></a>
+      <div class="download-btn-heading" id="download-btn-heading-release">
+        <%=@track.title %>
+        <br>
+        <div style="font-size: 0.6rem;font-family: 'Titillium Web';">
+          <div class="display-inline">
+            Catalog ID:
+            <div style="font-weight: normal;padding-left: 3px;" id="download_model_release_catalog"><%=@release.catalog%></div>
+          </div>
+          <br>
+          <div class="display-inline">
+            Tracks:
+            <div style="font-weight: normal;padding-left: 3px;" id="download_model_release_tracks"><%=@track.release.tracks.count%></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`
+$('.song-description-holder').html(holder_html);
+
+var dowload_formats_holder = `
+  <div class="formats-holder">
+    <div class="c-panel bg-c-dark mb-4 formats-style">
+      <div class="modal-cflag mb-4">DOWNLOAD NOW</div>
+        <div class="row">
+          <%# @track.download_uris.any? %>
+            <% @track.download_uris.each do |format, uri| %>
+              <div class="col-lg-2 format-option">
+                <a href="<%= uri %>">
+                  <%= '.'+format %>
+                </a>
+              </div>
+            <% end %>
+          <%# end%>
+        </div>
+    </div>
+  </div>`
+$('.formats-holder').html(dowload_formats_holder);

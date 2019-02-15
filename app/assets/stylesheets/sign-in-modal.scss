@@ -1,0 +1,131 @@
+#signInModal {
+  .modal-dialog-centered {
+    width: 100%;
+  }
+}
+
+@media (min-width: 576px) { 
+  #signInModal {
+    .modal-dialog-centered {
+      width: 75vw;
+    }
+  }
+}
+
+.sign-in-modal {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: white;
+
+  .img-left {
+    max-width: 515px;
+    width: 30vw;
+    object-fit: cover;
+    max-height: 630px;
+    height: 85vh;
+  }
+}
+
+.sign-in-modal-owl {
+  position: absolute;
+  bottom: 0;
+  right: 50%;
+  z-index: 2;
+
+  .dialog-img {
+    position: absolute;
+    top: -48px;
+    right: -144px;
+  }
+
+  .key-img {
+    position: absolute;
+    z-index: 2;
+    right: -87px;
+    top: 0;
+  }
+}
+
+.sign-in-modal-body {
+  flex-grow: 1;
+  margin: 7vh 3vw 7vh;
+  border-right: 10px solid #faae03;
+  border-bottom: 10px solid #faae03;
+  padding-right: 80px;
+  position: relative;
+  z-index: 1;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: calc(100% - 150px);
+    height: 10px;
+    background-color: #faae03;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: -11px;
+    left: calc(150px - 32px);
+    border: 16px solid transparent;
+    border-right: 16px solid #faae03;
+    width: 32px;
+    height: 32px;
+  }
+
+  h3 {
+    color: #4d4d4d;
+    font-family: 'Phosphate-Solid';
+    font-size: 39px;
+    position: relative;
+    top: -20px;
+  }
+
+  .form-control {
+    border: none;
+    background-color: #e2e2e2;
+    border-radius: 3px;
+  }
+
+  .or {
+    display: inline-block;
+    width: 76px;
+    height: 76px;
+    border: 2px solid #ff7979;
+    position: relative;
+    margin-right: 50px;
+    border-radius: 40px;
+    color: #3ed4e0;
+    font-family: 'Phosphate-Solid';
+    font-size: 20px;
+    text-transform: uppercase;
+    line-height: 70px;
+    background-color: white;
+    text-align: center;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 277px;
+      border-top: 2px solid #3ed4e0;
+      z-index: -1;
+    }
+  }
+
+  .c-text {
+    color: black;
+    font-weight: bold;
+    font-size: 12px;
+    margin-top: 10px;
+    display: inline-block;
+  }
+}

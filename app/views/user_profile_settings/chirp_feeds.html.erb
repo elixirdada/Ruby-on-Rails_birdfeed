@@ -1,0 +1,73 @@
+<%= render 'user_profile_settings/header' %>
+
+<div class="user-profile-settings">
+  <div class="row">
+    <div class="side-bar col-lg-3">
+      <%= render partial: 'users/user_profile_nav', locals: {current_index: 'FEEDS'}  %>
+    </div>
+    <div class="main-content col-lg-9">
+      <div class="row page-header">
+        <div class="col-sm-6">
+          <label class="title">
+            YOUR FEEDS
+          </label>
+        </div>
+        <div class="col-sm-6 text-right">
+          <%= link_to 'RELEASE FEEDS', usr_releases_path, class: 'header-btn releases-link-btn' %>
+          <%= link_to 'CHIRP FEEDS', usr_chirp_feeds_path, class: 'header-btn chirp-feeds-link-btn' %>
+        </div>
+      </div>
+      <div class="row page-note">
+        <div class="col-sm-12">
+          <b class="note-text">Note:</b>
+          Unfollowing feeds within a small period of time will result in the removal of the points achieved for the inital follow 
+        </div>
+      </div>
+      <div class="row page-content downloads-content">
+          <div class="col-sm-12">
+            <label class="sub-title">
+              CHIRP FEEDS
+            </label>
+          </div>
+          <div class="col-sm-12">
+            <table class="downloads-table">
+              <tr>
+                <th>
+                  Date
+                </th>
+                <th width="40%">
+                  Title
+                </th>
+                <th>
+                  Category
+                </th>
+                <th>
+                </th>
+              </tr>
+              <% @topics.each_with_index do |topic, index| %>
+                <tr class="<%= index.even? ? "grey" : "dark-grey" %>">
+                  <td>
+                    <%= topic.created_at.strftime("%m/%d/%Y")[0..-5] + topic.created_at.strftime("%m/%d/%Y")[-2..-1] %>
+                  </td>
+                  <td>
+                    <%= topic.title%>
+                  </td>
+                  <td>
+                    <%= topic.category.group.title.upcase + ' / ' + topic.category.title.upcase if topic.category && topic.category.group %>
+                  </td>
+                  <td>
+                    <!-- <button class="unfollow-btn"> -->
+                      <!-- FOLLOWING -->
+                    <!-- </button> -->
+                    <div class="follows_btn">
+                      <%= render 'follows/follow_button', object: topic %>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+            </table>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

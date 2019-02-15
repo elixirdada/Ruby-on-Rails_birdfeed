@@ -1,0 +1,65 @@
+<div class="tab-content w-100" id="plTabContent">
+  <div class="tab-pane fade show active" id="pl-mine" role="tabpanel" aria-labelledby="mine-tab">
+    <div class="row mt-4">
+      <% if current_user.playlists.count == 1 %>
+        <center class="w-100 py-4">There is no playlists, create your first one</center>
+      <% else %>
+        <% current_user.playlists.visible.each do |playlist| %>
+          <div class="col-lg-4 col-md-6 mb-4">
+            <%= link_to "#", class: 'select-playlist',
+                data: {
+                  playlist_id: playlist.id
+                } do %>
+              <%= render partial: 'tracks/covers', 
+                  locals: { object: playlist.tracks, size: 220 } %>
+            <% end %>
+            <div class="playlists-caption mt-3 pl-0">
+              <h3>
+                <%= link_to playlist do %>
+                  <%= playlist.name %>
+                <% end %>
+              </h3>
+              <strong>Created by:</strong> <%= playlist.user.try(:name) %>
+              <br>
+              On: <%= playlist.updated_at.strftime('%D') %>
+              <br>
+              Tracks: <%= playlist.tracks.count %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+  </div>
+  <div class="tab-pane fade" id="pl-favorited" role="tabpanel" aria-labelledby="favorited-tab">
+    <% favorited_playlists = current_user.liked_by_type("Playlist") %>
+
+    <% if favorited_playlists.count == 1 %>
+      <center class="py-4">You didn't like any playlist yet</center>
+    <% else %>
+      <% favorited_playlists.each do |playlist| %>
+        <div class="col-lg-4 col-md-6 mb-4">
+          <%= link_to "#", class: 'select-playlist',
+              data: {
+                playlist_id: playlist.id
+              } do %>
+            <%= render partial: 'tracks/covers', 
+                locals: { object: playlist.tracks, size: 220 } %>
+          <% end %>
+          <div class="playlists-caption mt-3 pl-0">
+            <h3>
+              <%= link_to playlist do %>
+                <%= playlist.name %>
+              <% end %>
+            </h3>
+            <strong>Created by:</strong> <%= playlist.user.try(:name) %>
+            <br>
+            On: <%= playlist.updated_at.strftime('%D') %>
+            <br>
+            Tracks: <%= playlist.tracks.count %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

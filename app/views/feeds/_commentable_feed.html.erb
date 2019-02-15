@@ -1,0 +1,12 @@
+<% if @activities.present? %>
+
+  <div id="last-item-id" data-item-id="<%= @activities.last["id"] %>" style="display: none;"></div>
+
+  <% for activity in @activities %>
+    <% unless activity['verb'] == 'Comment' && activity['object'].try(:parent_id).present? %>
+      <%= render_activity(activity, prefix: 'commentable') %>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= render 'feeds/no_feed_items' %>
+<% end %>

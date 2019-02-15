@@ -1,0 +1,187 @@
+.left-avatar {
+  left: 30px;
+  top: 10px !important;
+  transform: translate(0, 0);
+}
+
+.left-name {
+  margin-left: 10px;
+
+  @media(min-width: 992px) {
+    margin-left: 230px;
+  }
+}
+
+.user-info {
+  display: flex;
+  height: 100%;
+  align-items: flex-end;
+  padding-bottom: 22px;
+  color: white;
+  font-size: 12px;
+
+  h1 {
+    font-weight: 400;
+    letter-spacing: 2px;
+    margin-bottom: 3px;
+    line-height: 16px;
+    font-family: 'Phosphate-Solid';
+    font-size: 21px;
+    letter-spacing: 0.94px;
+  }
+
+  h4 {
+    color: #e3e3e3;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 16px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+
+  .follow-form {
+    height: 100%;
+    flex-grow: 1;
+    text-align: right;
+    position: absolute;
+    right: 0;
+    top: -3px;
+    width: auto;
+  }
+
+  .follow-button {
+    border-radius: 0;
+  }
+}
+
+.user-controls {
+  position: static;
+  /*position: -webkit-sticky;*/
+  top: 100px;
+  margin: 0 -15px;
+  background-color: #fff;
+  z-index: 1021;
+  top: 100px;
+
+
+  & > .row {
+    height: 38px;
+    margin: 0;
+
+    & + div {
+      padding: 15px;
+    }
+  }
+
+  .c-btn-group {
+    height: 100%;
+    &.two-btns{
+      .btn-square{
+        &:hover{
+          color: black;
+          background-color: #808080;
+        }
+      }
+    }
+    &.two-btns > .btn, &.two-btns > .follow-form {
+      width: 50%;
+      height: 100%;
+      line-height: 25px;
+    }
+    &.three-btns > .btn, &.three-btns > .follow-form {
+      width: 33.3333333%;
+      height: 100%;
+      line-height: 25px;
+    }
+    .follow-form .btn {
+      width: 100%;
+      height: 100%;
+    }
+
+    &.three-btns {
+      width: 100%;
+
+      @media (min-width: 992px) {
+        width: calc(100% - 90px);
+      }
+
+      .btn-square {
+        @media (max-width: 575px) {
+          padding-left: 15px;
+          padding-right: 15px;
+        }
+      }
+    }
+  }
+}
+
+.user-since {
+  width: 164px;
+  margin-left: 20px;
+
+  h4 {
+    font-weight: 400;
+    font-family: 'Phosphate-Solid';
+    font-size: 12px;
+    margin-bottom: 0;
+    display: inline-block;
+    margin-top: 6px;
+  }
+
+  a {
+    color: white;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.fan-points {
+  color: #3ed4e0;
+  font-family: 'Phosphate-Solid';
+  font-size: 21px;
+  letter-spacing: 0.94px;
+  background-color: rgba(255, 255, 255, 0.27);
+  margin-right: 1px;
+  padding: 7px 10px 0;
+  text-align: center;
+  height: 100%;
+  display: none;
+
+  @media (min-width: 576px) {
+    display: block;
+  }
+
+  h4 {
+    color: #e3e3e3;
+    font-size: 11px;
+  }
+}
+
+.fan-badge {
+  cursor: pointer;
+
+  img {
+    width: 119px;
+    height: 131px;
+    object-fit: fill;
+  }
+}
+
+.user-nav {
+  position: relative;
+  z-index: 2;
+  margin-left: 230px;
+}
+
+.user-header-title {
+  color: #434343;
+  font-family: 'Phosphate-Solid';
+  font-size: 18px;
+  line-height: 36px;
+  padding: 0 15px;
+  letter-spacing: 0.81px;
+  height: 38px;
+  background-color: #efefef;
+}

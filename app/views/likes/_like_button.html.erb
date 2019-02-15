@@ -1,0 +1,35 @@
+<% style = style.present? ? style : nil %>
+
+<% if current_user %>
+
+  <% if current_user.already_liked(object).present? %>
+    <%= render partial: 'likes/unlike',
+        locals: {
+            like: current_user.already_liked(object),
+            style: style } %>
+  <% else %>
+    <%= render partial: 'likes/like',
+        locals: {
+            like: { likeable_id: object.id, likeable_type: object.class.to_s },
+            style: style } %>
+  <% end %>
+
+<% else %>
+
+  <% likes_count = object.try(:likes_count) ? object.likes_count : object.likes.count %>
+
+  <%= case style
+      when 'release'
+        image_tag('icons/like-release.svg', class: "like-button", style: 'color: gray',
+            title: "As a free member you don’t have that privilege, join now to participate")
+      when 'thumbup'
+        "Like (#{likes_count})"
+      when 'thumbup-reply'
+        Like
+      else
+        image_tag('icons/like.svg', class: "like-button",
+            title: "As a free member you don’t have that privilege, join now to participate")
+  end %>
+
+<% end %>
+

@@ -1,0 +1,21 @@
+<div class="row mt-4">
+  <% for playlist in playlists %>
+      <div class="col-lg-4 col-lmd-6 mb-4">
+        <%= link_to playlist do %>
+          <%= render partial: 'tracks/covers', 
+              locals: { object: playlist.tracks, size: 260 } %>
+        <% end %>
+        <%  %>
+        <div class="playlists-caption mt-3">
+          <h3>
+            <%= link_to playlist do %>
+              <%= playlist.name %>
+            <% end %>
+          </h3>
+          <strong>Created by:</strong> <%= playlist.user.try(:name) %>
+          <br>
+          On: <%= playlist.updated_at.strftime('%D') %>
+        </div>
+      </div>
+  <% end %>
+</div>

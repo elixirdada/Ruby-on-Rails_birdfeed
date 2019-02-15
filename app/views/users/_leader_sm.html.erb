@@ -1,0 +1,57 @@
+<% user = User.find u['id'] %>
+<li style="margin-bottom: 20px;">
+  <% page = params[:page] || 1 %>
+  <span class="leaderboard-position">
+    <%# #TODO make it normal %>
+    <%= (all_ids.index(user.id) + 1) + @offset %>
+  </span>
+
+  <%= link_to user, class: "d-inline-block align-middle" do %>
+    <%= image_tag user.avatar.thumb, class: "user-avatar "+(user.online? ? "red-circle" : ""), alt: '' %>
+  <% end %>
+
+  <div style="display: inline-block; width: 80%; margin-left: 20px; margin-bottom: 2px; vertical-align: bottom;">
+    <div style="display: inline-block; width: 165px; overflow: hidden; white-space: nowrap;">
+      <%= link_to user.name.upcase, user, style: "color: #222;" %>
+      <%#= image_tag 'icons/point-green.svg', class: "point-green" if user.online? %>
+    </div>
+    <b><%= "#{user.points} POINTS" %></b>
+    <%= "/ #{user.badges.count} badges" if user.badges.count > 0 %>
+
+    <div>
+      <div style="float: left; line-height: 20px; margin-right: 10px;">
+        <% @badge_kinds.each do |kind| %>
+          <div><b><%= kind.name %></b></div>
+        <% end %>
+      </div>
+
+      <div style="float: right; line-height: 20px; width: 300px; display: flex; align-items: center;">
+        <div>
+          <% @badge_kinds.each do |kind| %>
+            <div><b><%= user.points(kind.id) %></b></div>
+          <% end %>
+        </div>
+        <% user.badges.order(points: :desc).limit(3).each do |badge| %>
+          <div class="mx-3">
+            <%= image_tag badge.image.url if badge.image.present? %>
+          </div>
+        <% end %>
+      </div>
+
+      <div>
+        <% @badge_kinds.each do |kind| %>
+          <% color = case kind.name 
+            when "music" then "blue"
+            when "forum" then "yellow"
+            when "community" then "red"
+            end %>
+          <div class="progress-wrapper-sm">
+            <div class="progress-<%= color %>">
+              <div class="c-progress-bar" role="progressbar" style="width: <%= user.next_badges[kind.id] || 0 %>%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</li>

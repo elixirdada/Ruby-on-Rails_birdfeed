@@ -1,0 +1,112 @@
+.connect-main-container
+  .top-container
+    .header-box
+      .bolt
+        = image_tag 'play_page/bolt.png'
+      .header-box-upper
+        = image_tag 'play_page/birdfeed_logo.png'
+      .top-container-heading
+        Play
+      .top-container-secondary-heading
+        To Lead the Flock
+      .header-box-lower
+        Stats  //  Leaderboards   //  Rewards
+  .second-container
+    .inner-container
+      = link_to new_user_registration_path do
+        .join-now-btn join now
+      = link_to what_is_birdfeed_path do
+        .about-btn-top What is Birdfeed?
+      = link_to listen_path do
+        .listen-btn-top listen
+      = link_to connect_path do
+        .connect-btn-top connect
+      = link_to play_path do
+        .play-btn-top play
+      .heading-1 birdfeed as a game!
+      .description-1 Every part of the Birdfeed is tied into a gaming platform and your community actions are meaured and rewarded a you participate. we&#x2019;ve broken down these tree sections of points down to three sections Listen, Connect, Play each section tallies up a different amount of points and creates
+      .stats-img= image_tag 'play_page/stats.png'
+      .participate-heading to participate
+      .participate-description
+        %span.bold-description Birdfeed is a full game platformand is only available to paid members.
+        Chirp free membership level is on occasion offered opporutnities to participate in promotional activities but points, status levels will not be accumulated with out a valid Insider or tier VIB level memerbship.
+      .listen-points-heading listen points
+      .listen-points-description Music based actions involving releases, and individual tracks, such as listening to tracks, tracks, commenting on releases, downloading music, Sharing music, favoriting  creating playlists.
+      .connect-points-heading connect points
+      .connect-points-description Community based actions such as following artists, making new friends, commenting, liking, answering chirp questions, posting new chirp topics and favoriting tracks  sharing posts
+      .play-points-heading play points
+      .play-points-description Play points are experience specific and are defined by things such as real life events and extra chiricular activities that we create and ask everyone to participate in.
+      .game-levels-heading game levels
+      .game-levels-description Birdfeed is based on a level system that was created to make the play of the system fair to all. Each level contain 10 steps in each section.
+      .level-one-img= image_tag 'play_page/level_1.png'
+      .horizontal-bar-levels= image_tag 'play_page/horizontal_bars.png'
+
+      .leaderboards-block(style='margin-top: 55rem;position: absolute;width: 100%;')
+        %center
+          %h2.h2-eggs.text-red
+            LEADERBOARDS AND STATS
+        %br
+        .col-sm-12.display-inline(syle='margin-top: -1rem;')
+          .col-sm-6
+            = image_tag 'play_page/leaderboard.png'
+          .col-sm-6
+            .text(style="font-size: 64px;color: #3ed4e0;font-family: 'Phosphate-Inline';")
+              THE BIG
+              = image_tag 'play_page/10.png'
+            %p.text-left
+              Our top 10 Birdfeed members live in in the Big 10 and reward for their commitment to helping to grow the system and the community at large.
+            %h3.h3-eggs.text-left Top 200 of Birdfeed
+            %p.text-left
+              Top 200 member are showcased on the leaderboard page and rewarded as such.
+            %h3.h3-eggs.text-left Fan Level
+            %p.text-left
+              Every paid user can monitor their level and status in the system as they move up and down in the ranks points levels and achievements will
+
+        %center(style='margin-top: 50px;')
+          %h2.h2-eggs.text-red
+            Digital Collectors Badges
+        .col-sm-12.display-inline
+          .col-sm-6
+            %h3.h3-eggs.text-left Membership level badges
+            %p.text-left
+              Memership level badges are given to each user upon joining. These adges evolve as a user progresses through the system.
+            = image_tag 'play_page/membership_icons.png'
+            %h3.h3-eggs.text-left(style='margin-top: 25px;') Level Badges
+            %p.text-left
+              Level badges are given to users as they progress through each of the LIsten / Play & connect area of each level.
+            = image_tag 'play_page/level_badges.png'
+          .col-sm-6
+            %h3.h3-eggs.text-left Yearly Badges
+            %p.text-left
+              Yearly Badges are given to each member for each year they have been a member
+            = image_tag 'play_page/yearly_badges.png'
+            %h3.h3-eggs.text-left(style='margin-top: 25px;') Specialty Badges
+            %p.text-left
+              Speacilty badges are rewarded for at random for things accomplished in the system. These can be for anything in the Listen play or connect sections
+            = image_tag 'play_page/speciality_badges.png'
+
+        %center(style='margin-top: 50px;')
+          %h2.h2-eggs.text-red
+            Collect even more
+        .col-sm-12.display-inline
+          .col-sm-6
+            %h3.h3-eggs.text-left Profile Headers
+            %p.text-left
+              Gather up exclusive profile headers released at specifi times throughout the year or rewarded to specific levels of users to decorate your profile.
+            = image_tag 'play_page/profile_headers.png'
+          .col-sm-6
+            %h3.h3-eggs.text-left System Skins
+            %p.text-left
+              Unlock website skins that will create a custom look and birdfeed experience. Fonts, Colors and more of the entire website can be changed to fit different styles and looks per your liking.
+            = image_tag 'play_page/screen_sample.png'
+        .col-sm-12(style='margin-top: 20px;')
+          = link_to new_user_registration_path do
+            .join-now-btn join now
+          = link_to what_is_birdfeed_path do
+            .about-btn-top What is Birdfeed?
+          = link_to listen_path do
+            .listen-btn-top listen
+          = link_to connect_path do
+            .connect-btn-top connect
+          = link_to play_path do
+            .play-btn-top play

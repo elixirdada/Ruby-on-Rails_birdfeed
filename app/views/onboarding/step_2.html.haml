@@ -1,0 +1,67 @@
+.col-sm-12
+  .message-container.display-inline{style: 'width: 100%'}
+    .col-sm-2
+      - case @style_type
+      - when 'ninja-style'
+        = image_tag 'user_badges/3-Ninja-Bacon.png'
+      - when 'boss-style'
+        = image_tag 'user_badges/5-boss.png'
+      - when 'admin-style'
+        = image_tag 'user_badges/6-manager.png'
+      - when 'intern-style'
+        = image_tag 'user_badges/4-Intern.png'
+      - when 'admin-style'
+        = image_tag 'user_badges/4-Intern.png'
+      - when 'handler-style'
+        = image_tag 'user_badges/10-Handler.png'
+      - when 'insider-style'
+        = image_tag 'user_badges/8-Insider.png'
+      - when 'vib-style'
+        = image_tag 'user_badges/9-VIB.png'
+      - else
+        = image_tag 'user_badges/7-chirp.png'
+    .col-sm-10
+      %strong.bold.display-inline
+        Badge OF Birdfeed:
+        &nbsp;
+        .blue-text
+          - if @style_type == 'insider-style'
+            Insider
+          - elsif @style_type == 'vib-style'
+            VIB
+      %br
+      Your first badge of Birdfeed represents the level of your your membership status. As you progress in the system this will change.
+
+%br
+
+- if @member == 'VIB Grandfather'
+  .col-sm-12
+    .message-container.display-inline.width-100
+      .col-sm-4.bold
+        Years of Membership
+      .col-sm-8.padding-0
+        You have been a member now for
+        = Date.today.year - current_user.created_at.year
+        Years these bagdges unlock extended privilages
+      .col-sm-12
+
+- elsif @style_type == 'insider-style'
+  %center
+    = image_tag 'onboarding/step_2.png'
+- else
+  %center
+    = image_tag 'onboarding/vib_step_2.png'
+
+%br
+- if @member == 'VIB Grandfather'
+  .col-sm-12
+    %a.btn.c-btn-red.btn-wide{href: "/onboarding/#{current_user.id}/step_3", style: 'float: right;'}
+      Egg credits
+- elsif @style_type == "insider-style"
+  .col-sm-12
+    %a.btn.c-btn-red.btn-wide{href: "/onboarding/#{current_user.id}/onboarding_complete", style: 'float: right;'}
+      GO TO BIRDFEED
+- elsif @style_type == "vib-style"
+  .col-sm-12
+    %a.btn.c-btn-red.btn-wide{href: "/onboarding/#{current_user.id}/step_3", style: 'float: right;'}
+      Points

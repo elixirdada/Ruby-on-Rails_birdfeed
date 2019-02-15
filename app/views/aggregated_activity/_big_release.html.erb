@@ -1,0 +1,102 @@
+<% show_tracks = style == "dark" ? true : false %>
+<% avatar_size = style == "light" ? 160 : 200 %>
+<% text_color = style == "light" ? "#222" : "white" %>
+
+<% case style %>
+  <% when "dark" then bg_color = "black" %>
+  <% when "light" then bg_color = "#e3e3e3" %>
+  <% else bg_color = style %>
+<% end %>
+
+<div class="feed-release p-2" style="background-color: <%= bg_color %>; color: <%= text_color %>">
+
+  <div class="d-flex">
+    <% if release.class.to_s == "Announcement" && release.url.present? %>
+      <%= link_to release.url do %>
+        <%= image_tag(release.avatar.url(:large), class: 'feed-new-avatar',
+            style: "width: #{avatar_size}px; height: #{avatar_size}px") %>
+      <% end %>
+    <% else %>
+      <%= link_to release do %>
+        <%= image_tag(release.avatar.url(:large), class: 'feed-new-avatar',
+            style: "width: #{avatar_size}px; height: #{avatar_size}px") %>
+      <% end %>
+    <% end %>
+
+    <div class="mt-4 position-relative" style="flex-grow: 1">
+      <h3>
+        <% if release.class.to_s == "Announcement" && release.url.present? %>
+          <%= link_to release.title.truncate(70).upcase, release.url, style: "color: #{text_color}" %>
+        <% else %>
+          <%= link_to release.title.truncate(70).upcase, release, style: "color: #{text_color}" %>
+        <% end %>
+        <%= render 'likes/like_button', object: release %>
+      </h3>
+
+      <% if release.class.to_s == "Release" %>
+        <% time_slug = release.release_date > Time.now ? 'later' : 'ago' %>
+        <p>
+          Release date:
+          <%= "#{time_ago_in_words( release.release_date )} #{time_slug}" %>
+        </p>
+      <% end %>
+
+      <p class="item-text"><%= strip_tags(release.text).try(:truncate, 220) %></p>
+
+      <% if release.class.to_s == "Release" %>
+
+        <%= link_to "LISTEN", "#",
+            id: "play-release-#{release.id}",
+            class: "btn c-btn-white c-btn-sm release-listen", remote: true %>
+
+        <div class="jp-controls" style="display: none;">
+          <div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
+          <button class="jp-previous" role="button" tabindex="0"></button>
+          <button class="jp-play jp-play-release" data-release="<%= release.id %>" role="button" tabindex="1"></button>
+          <button class="jp-next" role="button" tabindex="2"></button>
+          <div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
+        </div>
+      <% end %>
+
+      <% if release.class.to_s == "Release" && release.download_uris.any? %>
+        <a class="icon-download" data-toggle="collapse" data-target="#f-release-download<%= release.id %>" aria-expanded="false" aria-controls="collapseExample">
+          <%= image_tag('icons/icon-download.svg', title: "Download full release", class: "") %>
+        </a>
+
+        <div id="f-release-download<%= release.id %>" class="collapse collapse-formats">
+          <% release.download_uris.each do |format, uri| %>
+            <a href="<%= uri %>" class="btn btn-danger"><%= format %></a>
+          <% end %>
+        </div>
+      <% end %>
+
+      <%= render partial: 'layouts/share', locals: { object: release, icon: 'white' } %>
+
+      <% if release.class.to_s == "Release" %>
+        <div class="feed-new-artists">
+          <% for artist in release.users %>
+            <%= link_to artist do %>
+              <%= image_tag artist.avatar.thumb.url,
+                  class: "feed-avatar",
+                  title: artist.name,
+                  alt: '' %>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+
+  <% if release.class.to_s == "Release" %>
+    <% if show_tracks && release.tracks.count > 1 %>
+      <div class="row">
+        <% release.tracks.each_with_index do |track, i| %>
+          <div class="col-lg-6">
+            <%= render partial: track, locals: { track_counter: i } %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

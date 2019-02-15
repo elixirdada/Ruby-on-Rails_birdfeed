@@ -1,0 +1,83 @@
+<% user_exist = user && user.class.to_s == 'User' %>
+<% if comment.class.to_s != 'String' %>
+  <div class="feed-item">
+    <p class="feed-posted">Posted <%= time_ago_in_words(comment.created_at.in_time_zone) %> ago</p>
+    <div class="feed-item-body">
+      <div class="row p-3">
+        <div class="col-sm-1">
+          <% if user_exist %>
+            <%= link_to image_tag(user.avatar.thumb.url, class: "post-user-avatar", alt: ''),
+                user,
+                class: "#{avatar_style(user)}" %>
+          <% end %>
+          <div id="message-<%= comment.id %>"></div>
+        </div>
+        <div class="col-sm-11">
+          <div class="feed-name">
+            <% if user_exist %>
+              <%= link_to user.name.split.map(&:capitalize).join(' '), user %>&nbsp;
+            <% else %>
+              <span class="text-gray"><%= comment.author %></span>
+            <% end %>
+          </div>
+          <span class="float-right" style="display: none;">
+            <%= render 'comments/comment_controls', object: comment %>
+          </span>
+          <span class="feed-description pb-3 pt-3" id="feed-item-text-<%= comment.id %>">
+            <%= comment_with_meta_data(comment.body).html_safe %>
+          </span>
+
+          <div>
+            <% comment.feed_images.each do |image| %>
+              <a href="<%= image.image.url %>" data-lightbox="image-<%=image.id%>">
+                <%= image_tag image.image, class: "feed-image mb-2" %>
+              </a>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row comment-footer">
+        <div class="col-sm-6 p-2 likes-wrapper">
+          <%= render partial: 'likes/like_button', locals: { object: comment,  style: 'thumbup' } %>
+        </div>
+        <div class="col-sm-6 p-2">
+          <%= link_to "Comment",
+            comment_reply_form_path(
+              commentable_id: comment.id,
+              commentable_type: comment.class.to_s
+            ), remote: true %>
+          <span class="comments-count">(<%= comment.try(:replies_count) %>)</span>
+        </div>
+      </div>
+    </div>
+    <div class="feed-item-comment-body">
+      <div class="row">
+        <div class="col-sm-12">
+          <% replies = comment.parents_comments %>
+
+          <div id="<%= "#{comment.class.to_s.downcase}-#{comment.id}" %>-replies" class="<%= 'feed-comment-replies' unless (!current_user && replies.empty?) %>">
+
+            <div class="feed-replies-list">
+              <% if replies.any? %>
+                <%= (render partial: 'comments/comment', collection: replies.order(created_at: :asc)) %>
+              <% end %>
+            </div>
+
+            <% if replies.count > 3 %>
+              <a href="#" class="show-more-comments">View more comments (<%= replies.count - 3 %>)</a>
+            <% end %>
+
+            <% if current_user %>
+              <%= link_to "Reply",
+                comment_reply_form_path(
+                  commentable_id: comment.id,
+                  commentable_type: comment.class.to_s
+                ), remote: true, class: "btn c-btn-white btn-wide", id: "comment-reply-btn-#{comment.id}" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

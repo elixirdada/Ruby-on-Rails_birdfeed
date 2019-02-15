@@ -1,0 +1,6 @@
+$('.playlist-nav-body li.active').removeClass('active')
+$('#playlist-friends').parent().addClass('active');
+$('.page-title').text('Friends');
+$('.music-wrapper').empty();
+
+$('.music-wrapper').append(`<%= escape_javascript(render partial: 'friends') %>`);

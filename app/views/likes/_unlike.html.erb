@@ -1,0 +1,20 @@
+<% if style == 'release' %>
+  <% content = "#{image_tag 'icons/player-favorite.svg'} <div class='release-nav-caption mt-1'>FAVORITED</div>" %>
+<% elsif style == 'announcement-header' %>
+  <% content = "#{image_tag 'icons/liked.svg', style: 'width: 20px'} <div class='release-nav-caption mt-1'>LIKED</div>" %>
+<% elsif style == 'thumbup' %>
+  <% content = "#{image_tag 'icons/like-thumbup.svg'} Liked" %>
+<% elsif style == 'nav-release-playlist' %>
+  <% content = '<svg class="liked_svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="18" viewBox="0 0 20 18"><defs><path id="718fa" d="M752.88 119.84a5.63 5.63 0 0 0-7.86-.09 5.63 5.63 0 0 0-7.87 8.04l7.87 7.87 7.86-7.87a5.62 5.62 0 0 0 0-7.95z"/></defs><g><g transform="translate(-735 -118)"><use fill="#56d5e2" xlink:href="#718fa"/></g></g></svg>' %>
+<% elsif style == 'none'%>
+  <% content = "Liked" %>
+<% else %>
+  <% content = image_tag 'icons/liked.svg',class: "image_like_unlike_tag" %>
+<% end %>
+
+
+<%= link_to like_path(like, style: style),
+    id: "like-#{like.likeable_type}-#{like.likeable_id}",
+    method: :delete, remote: true, class: "like-button gray-bold" do %>
+  <%= content.html_safe %>
+<% end %>

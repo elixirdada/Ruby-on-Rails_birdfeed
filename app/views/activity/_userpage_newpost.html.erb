@@ -1,0 +1,72 @@
+<% object = activity['object'] %>
+<% user = object.user %>
+<% comment = object %>
+<div class="feed-item">
+  <p class="feed-posted">
+    <%= time_ago_in_words(activity['time'].in_time_zone) %> ago
+  </p>
+  <div style="margin-left: -25px;">
+    <% if object.class.to_s != 'String' %>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="feed-block" data-feed="topic" data-feed-id="<%= object.id %>">
+            <% if comment.class.to_s != 'String' %>
+              <div class="feed-item">
+                <div class="feed-item-body col-sm-12 display-inline" style="padding-top: 15px">
+                  <div class="col-sm-9">
+                    <div class="feed-announcement-img">
+                      <%= link_to image_tag(user.avatar.thumb.url, class: "post-user-avatar", alt: '', style: 'width: 60px;height: 60px;border-radius: 50%;')%>
+                    </div>
+                    <strong style="margin: 0px 10px 10px 70px; display: inline-block;" class="download-btn-heading">
+                      <%= user.name %>
+                    </strong>
+                    <p style="margin: 0px 10px 10px 0px; display: inline-block; font-size: 1rem;">commented on the chirp post</p>
+                    <br>
+                    <p style="margin: -10px 10px 10px 70px;font-size: 1.2rem;"><%= link_to object.topic.title, object.topic %></p>
+                  </div>
+                  <div class="col-sm-3" style="margin-top: -25px;">
+                    <%= image_tag('chirp_post_bubble.png', class: 'post-chirp-bubble', style: 'padding-top: 20px;')%>
+                    <br>
+                    <strong class="download-btn-heading" style="font-size: 11px;">
+                      <%= object.topic.category.title %>
+                    </strong>
+                  </div>
+                </div>
+
+                <div class="feed-item-body" style="border-radius: inherit;">
+                  <div class="row">
+                    <div class="col-sm-12" style="margin-left: 55px; margin-top: 20px;">
+                      <div class="col-sm-10">
+                        <% replies = comment.parents_comments %>
+
+                        <%= render partial: 'posts/outer_post', locals: { post: comment } %>
+                        <% if replies.count > 0 %>
+                          <div class="nested-messages replies">
+                            <div id="<%= "#{comment.class.to_s.downcase}-#{comment.id}" %>-replies">
+
+                              <div class="feed-replies-list">
+                                <% if replies.any? %>
+                                  <%= (render partial: 'comments/comment', collection: replies.order(created_at: :asc)) %>
+                                <% end %>
+                              </div>
+
+                              <% if replies.count > 3 %>
+                                <a href="#" class="show-more-comments">View more comments (<%= replies.count - 3 %>)</a>
+                              <% end %>
+                            </div>
+                          </div>
+                        <% end %>
+                      </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

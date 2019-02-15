@@ -1,0 +1,51 @@
+<% if current_user && current_user.id == @user.id %>
+  <%= render "users/artist_header" %>
+<% else %>
+  <div class="user-controls user-controls-without-header">
+    <div class="row">
+      <div class="col-sm-3 px-0 c-btn-group two-btns">
+        <% artist = current_page?(artist_path(@user)) %>
+        <% classes = ["btn c-btn-blue btn-square", "btn c-btn-black btn-square btn-disabled"] %>
+        <%= link_to "Artist Feed", @user,
+            class: artist ? classes[1] : classes[0] %><!--
+       --><%= link_to "Artist Music", artist_tracks_path(@user),
+            class: artist ? classes[0] : classes[1] %>
+      </div>
+
+      <div class="col-sm-3 px-0 d-flex">
+        <% if @user.artist_info.present? %>
+            <%= link_to image_tag('icons/social-insta-w.svg'),
+                  @user.artist_info.instagram,
+                  class: "artist-social instagram" if @user.artist_info.instagram.present? %>
+            <%= link_to image_tag('icons/social-twitter-w.svg'),
+                  @user.artist_info.twitter,
+                  class: "artist-social twitter" if @user.artist_info.twitter.present? %>
+            <%= link_to image_tag('icons/social-fb-w.svg'),
+                  @user.artist_info.facebook,
+                  class: "artist-social facebook" if @user.artist_info.facebook.present? %>
+        <% end %>
+      </div>
+
+      <div class="col-sm-6 px-0 text-right">
+        <div class="c-btn-group d-inline-block three-btns">
+          <% artist_releases_class = current_page?(artist_releases_path(@user)) ? 'c-btn-gray btn-disabled' : 'c-btn-white-gray' %>
+          <% artist_tracks_class = current_page?(artist_tracks_path(@user)) ? 'c-btn-gray btn-disabled' : 'c-btn-white-gray' %>
+          <% artist_plylists_class = current_page?(playlists_path(user_id: @user)) ? 'c-btn-gray btn-disabled' : 'c-btn-white-gray' %>
+          <%= link_to "RELEASES", artist_releases_path(@user),
+              class: "btn btn-wide btn-square #{artist_releases_class}" %><!--
+          --><%= link_to "TRACKS", artist_tracks_path(@user),
+              class: "btn btn-wide btn-square #{artist_tracks_class}" %><!--
+          --><%= link_to "Playlists", playlists_path(user_id: @user),
+              class: "btn btn-wide btn-square #{artist_plylists_class}",
+              id: "playlist-user" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row p-0">
+      <div class="col-lg-9 offset-3 px-0">
+        <div class="user-header-title"><%= content_for :user_header_title %></div>
+      </div>
+    </div>
+  </div>
+<% end %>

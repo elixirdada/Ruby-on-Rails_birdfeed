@@ -1,0 +1,12 @@
+var modal = $('#playlistActionModal')
+modal.modal('hide');
+modal.find('.modal-dialog').addClass('modal-dialog-wide');
+
+newPlaylist();
+
+var playlist_name_form = `<%= escape_javascript(
+    render partial: 'playlists/change_name', locals: { playlist: @playlist }
+  ) %>`
+
+$('.jp-playlist-name').html(playlist_name_form);
+$('.open-current-playlist').attr('href', '/playlists/<%= @playlist.id %>');

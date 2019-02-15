@@ -1,0 +1,48 @@
+<div class="comment-controls-body">
+  <button type="button" data-toggle="collapse" data-target="#comment-<%= object.id %>-controls" aria-expanded="false" aria-controls="collapseExample" class="jp-release-btn">
+    &middot; &middot; &middot;
+  </button>
+
+  <ul id="comment-<%= object.id %>-controls" class="collapse comment-controls">
+    <% if current_user && current_user.id == object.user_id %>
+      <li>
+        <% if object.class.to_s == "Comment" %>
+          <%= link_to "Edit", edit_comment_path(object), remote: true %>
+        <% elsif object.class.to_s == "Post" %>
+          <%= link_to "Edit", edit_post_path(object), remote: true %>
+        <% end %>
+      </li>
+
+      <li>
+        <%= link_to object, method: :delete, remote: true, 
+              data: { confirm: "Are you sure you want to delete your comment?" } do %>
+          Delete
+        <% end %>
+      </li>
+    <% end %>
+
+    <li>
+      <a href="#" data-toggle="modal" data-target="#report<%= object.id %>Modal">Report</a>
+
+      <% content_for :body_area do %>
+        <div class="modal modal-blured" id="report<%= object.id %>Modal" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-wide" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body w-100">
+                <h5 class="modal-title">Describe the problem</h5>
+
+                <%= render 'home/report_form', object: object %>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </li>
+  </ul>
+</div>

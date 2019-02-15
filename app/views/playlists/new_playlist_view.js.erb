@@ -1,0 +1,10 @@
+var modal = $('#playlistActionModal');
+modal.find('.change-playlist-btns').remove();
+modal.modal('show');
+
+modal.find('.modal-title').text('Create new playlist');
+modal.find('.modal-dialog').removeClass('modal-dialog-wide');
+
+modal.find('.modal-body').html(`
+  <%= escape_javascript( render "playlists/new_playlist" )%>
+`);

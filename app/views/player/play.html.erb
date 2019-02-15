@@ -1,0 +1,15 @@
+<% content_for :user_header_title do %>
+  <%= image_tag 'icons/bird-blue.svg' %>
+  Play
+<% end %>
+<%= render 'users/simple_header' %>
+
+<div class="row">
+  <div class="col-lg-3">
+    <%= render 'player_play_panel', playlist_nav_class: 'without-header' %>
+  </div>
+
+    <div class="col-lg-9" id="badges-play">
+        <%= render partial: 'badges_content' %>
+    </div>
+</div>

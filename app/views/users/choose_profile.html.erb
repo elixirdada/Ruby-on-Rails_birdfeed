@@ -1,0 +1,88 @@
+<div class="signup-header">
+  <%= image_tag '/images/birdfeed-header.jpg', class: "h-100" %>
+  <div class="success-banner signup-logo">
+    <div class="success-logo">
+      <%= image_tag 'icons/flash.svg', class: "flash-lightning" %>
+      <%= image_tag 'birdfeed-logo-white.png', class: 'success-logo-img' %>
+    </div>
+
+    <div class="text-1">
+      WELCOME
+      <%= image_tag 'icons/red-bird.svg', class: "d-inline" %>
+      FAM!
+    </div>
+
+    <div class="text-2">
+      LEt’s GET You IN
+    </div>
+
+    <div class="success-bottom">
+      LISTEN&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;&nbsp;&nbsp;&nbsp;CONNECT&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;&nbsp;&nbsp;&nbsp;PLAY
+    </div>
+  </div>
+</div>
+
+<% if !current_user.old_id? %>
+  <div id="step-1"
+       class="signup-panel c-panel bg-white"
+       style="<%= 'display: none;' unless current_user.provider %>">
+    <div class="big-blue-number">1.</div>
+    <h1>LET’S GET STARTED.</h1>
+    <div>First, we’re going to need some info.</div>
+
+    <%= form_for(current_user, as: :user, url: registration_path(current_user),
+          html: { class: 'form-signin', remote: true } ) do |f| %>
+      <%= render partial: 'devise/registrations/registration_form', locals: { f: f } %>
+    <% end %>
+  </div>
+
+  <%= render partial:  'users/braintree_form', locals: { new_subscription: params[:new_subscription] || true } %>
+
+
+
+<% else %>
+  <div id="step-1"
+       class="signup-panel c-panel bg-white">
+    <div class="big-blue-number">1.</div>
+    <h1>LET’S GET STARTED.</h1>
+    <div class="signup-free">
+    <input type="checkbox" name="free-terms-and-conditions" id="free-terms-and-conditions">
+    <label for="free-terms-and-conditions" class="my-4 ml-2">
+      I agree with the
+      <%= link_to "Terms and Conditions", "#",
+          class: "font-weight-bold",
+          data: {toggle: "modal", target: "#infoModal"} %>
+    </label>
+    <br>
+    <input type="checkbox" name="free-code-of-conduct" id="free-code-of-conduct" style="margin-left: 65px;">
+    <label for="free-code-of-conduct" class="mb-4 ml-2">
+      I agree with the
+      <%= link_to "Code of Conduct", "#",
+          class: "font-weight-bold",
+          data: {toggle: "modal", target: "#infoModal"} %>
+    </label>
+    <br>
+
+    <button class="btn c-btn-red btn-wide signup-free-btn mt-4">join now</button>
+  </div>
+  </div>
+
+
+
+<% end %>
+<% content_for :body_area do %>
+  <div class="modal modal-blured" id="infoModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-wide" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body w-100">
+          <%= render 'home/terms_and_conditions_text' %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

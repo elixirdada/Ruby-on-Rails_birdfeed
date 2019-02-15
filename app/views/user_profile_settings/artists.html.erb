@@ -1,0 +1,52 @@
+<%= render 'user_profile_settings/header' %>
+
+<div class="user-profile-settings">
+  <div class="row">
+    <div class="side-bar col-lg-3">
+      <%= render partial: 'users/user_profile_nav', locals: {current_index: 'FRIENDS'}  %>
+    </div>
+    <div class="main-content col-lg-9">
+      <div class="row page-header">
+        <div class="col-sm-6">
+          <label class="title">
+            YOUR ARTISTS
+          </label>
+        </div>
+        <div class="col-sm-6 text-right">
+          <%= link_to 'FRIENDS', usr_friends_path, class: 'header-btn friends-link-btn' %>
+          <%= link_to 'ARTISTS', usr_artists_path, class: 'header-btn artists-link-btn' %>
+        </div>
+      </div>
+      <div class="row page-content artists-content">
+        <% @artists.each_with_index do |artist, index| %>
+        	<div class="col-sm-6">
+            <div class="artist">
+              <div class="row custom-vertical-align">
+                <div class="col-sm-4">
+                  <%= image_tag artist.avatar.thumb, class: "" %>
+                </div>
+                <div class="col-sm-4 p-0">
+                  <div class="name">
+                    CLAUDE VONSTROKE
+                  </div>
+                  <div class="count">
+                    <%= artist.artist_info.followers_count %> Followers
+                  </div>
+                  <div class="count">
+                    ? Releases | <%= artist.artist_info.tracks_count %> Tracks
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <!-- <button class="following-btn"> -->
+                    <!-- FOLLOWING -->
+                  <!-- </button> -->
+                  <%= render 'follows/follow_button', object: artist %>
+                </div>
+              </div>
+            </div>
+        	</div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

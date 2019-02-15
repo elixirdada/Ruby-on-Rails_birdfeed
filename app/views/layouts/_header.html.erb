@@ -1,0 +1,633 @@
+<header>
+  <%= render 'layouts/player' %>
+
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <%= image_tag 'birdfeed-logo-white.png' %>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <span class="navbar-text">
+        THE <b>DIRTYBIRD</b> PLAYGROUND
+      </span>
+
+      <div class="collapse navbar-collapse justify-content-end text-center mb-4 mb-lg-0" id="navbarCollapse">
+        <ul class="navbar-nav nav-menu">
+          <!--<% if current_user && current_user.has_role?(:admin) %>
+            <li class="nav-item <%= 'active' if current_page?(birdfeed_path) %>">
+              <%= link_to birdfeed_path, class: "nav-link" do %>
+                Birdfeed
+                <%= '<span class="sr-only">(current)</span>'.html_safe if current_page?(birdfeed_path) %>
+              <% end %>
+            </li>
+          <% end %> -->
+          <% if current_user && current_user.subscriber_type == 'CHIRP FREE' %>
+            <li class="nav-item <%= 'active' if current_page?(user_path(current_user)) || current_page?(artist_path(current_user)) || current_page?(admin_path(current_user)) %>">
+              <a class="nav-link" href="/">
+                Home
+              </a>
+            </li>
+
+            <li class="nav-item <%= 'active' if current_page?(what_is_birdfeed_path) %>">
+              <%= link_to what_is_birdfeed_path, class: "nav-link" do %>
+                What is Birdfeed?
+                <%= '<span class="sr-only">(current)</span>'.html_safe if current_page?(what_is_birdfeed_path) %>
+              <% end %>
+            </li>
+
+            <li class="nav-item <%= 'active' if current_page?(chirp_index_path) %>">
+              <%= link_to chirp_index_path, class: "nav-link" do %>
+                Chirp
+                <%= '<span class="sr-only">(current)</span>'.html_safe if current_page?(chirp_index_path) %>
+              <% end %>
+            </li>
+
+            <li class="nav-item">
+              <%= link_to '', class: "nav-link" do %>
+                Releases
+              <% end %>
+            </li>
+
+            <li class="nav-item <%= 'active' if current_page?(choose_profile_path) %>">
+              <%= link_to choose_profile_path, class: "nav-link" do %>
+                Upgrade
+                <%= '<span class="sr-only">(current)</span>'.html_safe if current_page?(choose_profile_path) %>
+              <% end %>
+            </li>
+
+
+          <% elsif current_user %>
+            <li class="nav-item <%= 'active' if current_page?(user_path(current_user)) || current_page?(artist_path(current_user)) || current_page?(admin_path(current_user)) %>">
+              <a class="nav-link" href="/">
+                Home
+              </a>
+            </li>
+
+            <li class="nav-item <%= 'active' if current_page?(chirp_index_path) %>">
+              <%= link_to chirp_index_path, class: "nav-link" do %>
+                Chirp
+                <%= '<span class="sr-only">(current)</span>'.html_safe if current_page?(chirp_index_path) %>
+              <% end %>
+            </li>
+            <% @user ||= current_user %>
+            <% listen =
+                (controller?('releases') && action?('index') && params[:player] == true ) ||
+                (controller?('player') && action?('listen')) ||
+                (controller?('playlists') && action?('show')) %>
+
+            <li class="nav-item <%= 'active' if listen %>">
+              <%= link_to player_listen_path(current_user), class: "nav-link" do %>
+                Listen
+                <%= '<span class="sr-only">(current)</span>'.html_safe if listen %>
+              <% end %>
+            </li>
+
+            <li class="nav-item <%= 'active' if current_page?(player_connect_path(current_user)) %>">
+              <%= link_to player_connect_path(current_user), class: "nav-link" do %>
+                Connect
+                <%= '<span class="sr-only">(current)</span>'.html_safe if current_page?(player_connect_path(current_user)) %>
+              <% end %>
+            </li>
+
+            <li class="nav-item <%= 'active' if current_page?(player_play_path(current_user.id)) %>">
+              <%= link_to player_play_path(current_user.id), class: "nav-link" do %>
+                Play
+                <%= '<span class="sr-only">(current)</span>'.html_safe if current_page?(player_play_path(current_user.id)) %>
+              <% end %>
+            </li>
+
+          <% else %>
+            <li class="nav-item <%= 'active' if current_page?(what_is_birdfeed_path) %>">
+              <%= link_to what_is_birdfeed_path, class: "nav-link" do %>
+                What is Birdfeed?
+                <%= '<span class="sr-only">(current)</span>'.html_safe if current_page?(what_is_birdfeed_path) %>
+              <% end %>
+            </li>
+
+            <li class="nav-item <%= 'active' if current_page?(chirp_index_path) %>">
+              <%= link_to chirp_index_path, class: "nav-link" do %>
+                Chirp
+                <%= '<span class="sr-only">(current)</span>'.html_safe if current_page?(chirp_index_path) %>
+              <% end %>
+            </li>
+
+            <li class="nav-item <%= 'active' if current_page?(pricing_path) %>">
+              <%= link_to pricing_path, class: "nav-link" do %>
+                Pricing
+                <%= '<span class="sr-only">(current)</span>'.html_safe if current_page?(pricing_path) %>
+              <% end %>
+            </li>
+
+          <% end %>
+
+          <li class="nav-item">
+            <button class="nav-link search-button" type="button" data-toggle="modal" data-target="#searchModal">
+              <%= image_tag 'icons/icon-search.svg' %>
+            </button>
+          </li>
+           <!--<li class="nav-item <%#= 'active' if current_page?(contacts_path) %>">
+            <%#= link_to contacts_path, class: "nav-link" do %>
+              Contact
+              <%#= '<span class="sr-only">(current)</span>'.html_safe if current_page?(contacts_path) %>
+            <%# end %>
+          </li> -->
+          <div class="nav-divider"></div>
+        </ul>
+
+        <% if current_user %>
+          <ul class="navbar-nav align-items-center navbar-controls my-2 my-lg-0">
+            <div class="header-user">
+              <%= link_to image_tag(current_user.avatar.thumb, class: "user-avatar", alt: ''),
+                  root_path %>
+              <span><%= link_to current_user.name, root_path %></span>
+            </div>
+
+            <% if current_user.has_role?(:artist) %>
+              <li id="request-friend-menu"
+                  class="nav-item dropdown dropdown-notify-menu pr-2 mr-3">
+                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <div class="nav-icon">
+                    <%= show_svg "icons/red-bird.svg" %>
+                  </div>
+                  <% if @friend_requests && @friend_requests.count > 0 %>
+                    <span class="nav-request-count" style="right: -8px">
+                      <%= @friend_requests.count < 10 ? @friend_requests.count : "9+" %>
+                    </span>
+                  <% end %>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right pb-4">
+                  <div class="notify-menu-header">
+                    <h5>New Followers</h5>
+                  </div>
+
+                  <div class="notify-list">
+                    <%= render 'users/friend_requests' %>
+                  </div>
+                </div>
+              </li>
+            <% else %>
+              <li class="nav-item dropdown dropdown-requests-menu pr-2 mr-3">
+                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <div class="nav-icon">
+                    <%= show_svg "icons/red-bird.svg" %>
+                  </div>
+                  <% if @friend_requests && @friend_requests.count > 0 %>
+                    <span class="nav-request-count" style="right: -8px">
+                      <%= @friend_requests.count < 10 ? @friend_requests.count : "9+" %>
+                    </span>
+                  <% end %>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right pb-4">
+                  <div class="notify-menu-header">
+                    <h5>Friend Requests</h5>
+                  </div>
+
+                  <div class="notify-list">
+                    <%= render 'users/friend_requests' %>
+                  </div>
+                </div>
+              </li>
+            <% end %>
+
+            <li id="notify-menu"
+                class="nav-item dropdown dropdown-notify-menu pr-2 mr-1"
+                data-current-user="<%= current_user.id %>">
+              <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= image_tag "icons/icon-notifications.svg" %>
+                <% if @unseen_count && @unseen_count > 0 %>
+                  <span class="nav-notify-count">
+                    <%= @unseen_count < 10 ? @unseen_count : "9+" %>
+                  </span>
+                <% end %>
+              </a>
+
+              <div class="dropdown-menu dropdown-menu-right pb-4">
+                <div class="notify-menu-header">
+                  <h5>NOTIFICATIONS</h5>
+                  <%= link_to "clear", is_read_path,
+                      class: "is-read-btn", remote: true %>
+                </div>
+
+                <div class="notify-list">
+                  <%= render 'feeds/notify' %>
+                </div>
+              </div>
+            </li>
+
+            <li class="nav-item dropdown dropdown-usermenu mr-2">
+              <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= image_tag "icons/icon-chevron.svg" %>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right">
+                <%= link_to "My Profile", current_user, class: "modal-button btn-bg-gray" %>
+                <% if current_user.has_role?(:admin) || current_user.has_role?(:boss) || current_user.has_role?(:artist) %>
+                  <%= link_to "Admin Dashboard", admin_root_path, class: "modal-button btn-bg-gray" %>
+                <% end %>
+                <%= link_to "Edit Profile", usr_edit_profile_path, class: "modal-button btn-bg-gray" %>
+                <%= link_to "Sign Out", destroy_user_session_path,
+                    class: "modal-button btn-bg-red", method: :delete %>
+              </div>
+            </li>
+
+            <li class="nav-item dropdown dropdown-help-menu">
+              <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= image_tag "icons/help.svg" %>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right m-2">
+                <h5 >Help pages</h5>
+                <% if @ninja %>
+                  <%= button_tag data: { toggle: 'modal', target: "#headerReportModal#{@ninja.id}" },
+                      class: "btn c-btn-red btn-square mb-2" do %>
+                    <%= image_tag @ninja.avatar.thumb.url,
+                        class: 'user-avatar',
+                        alt: '' %>
+                    ask Marcus
+                    <% if @ninja.online? %>
+                      <span class="ninja-online">online</span>
+                    <% end %>
+                  <% end %>
+                <% end %>
+
+                <%= button_tag data: { toggle: 'modal', target: "#headerReportModal#{current_user.id}" },
+                    class: "btn c-btn-blue btn-square" do %>
+                  report a problem or abuse
+                <% end %>
+                <%= link_to support_path, class: "btn c-btn-blue btn-square" do %>
+                  Support
+                <% end %>
+              </div>
+            </li>
+          </ul>
+        <% else %>
+          <button class="btn c-btn-red nav-signup-btn" type="button" data-toggle="modal" data-target="#signupModal">
+            SIGN UP
+          </button>
+
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown dropdown-login">
+              <a href="#" class="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                LOG IN
+              </a>
+              <div class="dropdown-menu dropdown-menu-right">
+                <%= link_to user_facebook_omniauth_authorize_path, class: "modal-button btn-bg-blue" do %>
+                  Log in with Facebook
+                <% end %>
+
+                <%= link_to user_google_oauth2_omniauth_authorize_path, class: "modal-button btn-bg-red" do %>
+                  Log in with Google+
+                <% end %>
+
+                <%= form_for(resource, as: resource_name,
+                    url: session_path(resource_name),
+                    html: {id: "sign_in_user", class: "sign_in_user"}) do |f| %>
+                  <%= devise_error_messages! %>
+
+                  <p>Sign in with your e-mail adress</p>
+
+                  <div class="form-label-group">
+                    <%= f.email_field :email, autocomplete: "email",
+                        class: 'form-control', id: "user_login_email",
+                        placeholder: 'E-mail', required: true %>
+                    <%= f.label :login_email, "E-mail" %>
+                  </div>
+
+                  <div class="form-label-group">
+                    <%= f.password_field :password, autocomplete: "off",
+                        required: true, class: 'form-control',
+                        placeholder: "Password", id: "user_login_password" %>
+                    <%= f.label :login_password, "Password" %>
+                  </div>
+
+                  <%= f.submit "Sign in", class: "modal-button btn-bg-dark" %>
+                <% end %>
+              </div>
+            </li>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<% content_for :body_area do %>
+  <div class="modal modal-blured" id="signupModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-wide" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body width-600 padding-top-0">
+          <h5 class="modal-title download-btn-heading safron-heading">Welcome to BirdFeed</h5>
+          <p class="modal-text">
+            <% #TODO write text here %>
+          </p>
+          <div class="display-inline">
+            <%= link_to user_facebook_omniauth_authorize_path,
+                class: "btn btn-facebook fit-content" do %>
+              <i class="fa fa-facebook"></i>
+              SIGNUP WITH FACEBOOK
+            <% end %>
+            &nbsp;
+            <%= link_to user_google_oauth2_omniauth_authorize_path,
+                class: "btn btn-google fit-content" do %>
+              <span class="fa fa-google"></span>
+              SIGNUP WITH GOOGLE+
+            <% end %>
+          </div>
+          <br>
+          <%= link_to "SIGNUP WITH EMAIL", new_user_registration_path,
+              class: "modal-button btn-bg-gray", style: 'width: 420px;' %>
+          <%= link_to "LOGIN", user_session_path, class: "modal-button btn-bg-gray", style: 'width: 420px;' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal modal-blured" id="signInModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog-centered container" role="document">
+      <div class="modal-content sign-in-modal">
+        <%= image_tag 'dj1.jpg', class: 'img-left d-none d-xl-block' %>
+
+        <div class="sign-in-modal-body">
+          <h3>
+            LOGIn
+          </h3>
+
+          <%= form_for(resource, as: resource_name,
+              url: session_path(resource_name),
+              html: {id: "sign_in_user_modal", class: ""}) do |f| %>
+            <%= devise_error_messages! %>
+
+            <div class="form-group">
+              <%= f.label :user_login_email_modal, "E-mail" %>
+              <%= f.email_field :email, autocomplete: "email",
+                  class: 'form-control', id: "user_login_email_modal",
+                  required: true %>
+            </div>
+
+            <div class="form-group mb-4">
+              <%= f.label :user_login_password_modal, "Password" %>
+              <%= f.password_field :password, autocomplete: "off",
+                  required: true, class: 'form-control',
+                  id: "user_login_password_modal" %>
+            </div>
+
+            <%= f.submit "login", class: "btn c-btn-red btn-square btn-wide" %>
+
+            <span class="mx-2">or</span>
+            <div class="d-block mb-3 d-sm-none"></div>
+
+            <%= link_to user_facebook_omniauth_authorize_path, class: "" do %>
+              <%= image_tag 'icons/flogo_rgb_hex-brc-site-250.png', height: 30 %>
+            <% end %>
+
+            <%= link_to user_google_oauth2_omniauth_authorize_path, class: "" do %>
+              <%= image_tag 'icons/btn_google_dark_normal_ios.svg', height: 34 %>
+            <% end %>
+          <% end %>
+
+          <%= link_to "I Forgot", new_password_path(resource_name), class: 'c-text' %>
+
+          <div class="text-right mb-4">
+            <span class="or">or</span>
+          </div>
+
+          <%= link_to "Create an account", new_user_registration_path,
+              class: "btn c-btn-blue btn-square btn-wide float-right mt-4 mb-3" %>
+        </div>
+
+        <div class="sign-in-modal-owl d-none d-xl-block">
+          <%= image_tag 'owl.png' %>
+          <%= image_tag 'dialog.png', class: 'dialog-img' %>
+          <%= image_tag 'key.png', class: 'key-img' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal modal-blured" id="searchModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-wide" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="aa-input-container" id="aa-input-container">
+            <input type="search" id="aa-search-input" class="aa-input-search" placeholder="Type whatever you’re looking for" name="search" autocomplete="off" autofocus />
+            <%= image_tag 'icons/icon-search-big.svg', class: 'aa-input-icon' %>
+          </div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <% [@ninja, current_user].uniq.compact.each do |report_for| %>
+    <div class="modal modal-blured" id="headerReportModal<%= report_for.id %>" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-wide" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body w-100">
+            <h5 class="modal-title">Describe the problem</h5>
+
+            <%= render 'home/report_form', object: report_for  %>
+
+            or send an email to
+            <a href="mailto:birdfeedsupport@dirtybird.com">birdfeedsupport@dirtybird.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="modal modal-blured" id="downloadModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-wide" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body width-600 padding-top-0">
+          <div class="row top-holder">
+            <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+              <%= image_tag "icons/bird-blue.svg", style: "width:100%" %>
+            </div>
+            <div class="col-lg-8 col-md-6 col-sm-12 col-xs-12">
+              <h5 class="download-modal-title good-to-go-heading">GOOD TO GO!</h5>
+            </div>
+          </div>
+          <div class="song-description-holder">
+            <div class="display-inline col-lg-12">
+              <img id="download_modal_track_image" class="release-previous-img" style="width: 70px;height: 70px;" src="https://dirtybirdrec-dev.s3.amazonaws.com/uploads/release/avatar/1/large_VangelisK_TakeYourShirtOff.jpg" alt="Large vangelisk takeyourshirtoff">
+              <div class="download-btn-heading" id="download-btn-heading-release">
+                RELEASE NAME
+                <br>
+                <div style="font-size: 0.6rem;font-family: 'Titillium Web';">
+                  <div class="display-inline">
+                    Catalog ID:
+                    <div style="font-weight: normal;padding-left: 3px;" id="download_model_release_catalog">-</div>
+                  </div>
+                  <br>
+                  <div class="display-inline">
+                    Tracks:
+                    <div style="font-weight: normal;padding-left: 3px;" id="download_model_release_tracks">-</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="formats-holder">
+            <div class="c-panel bg-c-dark mb-4 formats-style">
+              <div class="modal-cflag mb-4">DOWNLOAD NOW</div>
+            </div>
+          </div>
+          <p class="modal-desc">YOUR DOWNLOADS ARE ALSO AVAILABLE IN YOUR</p>
+          <div class="links-holder-modal">
+            <br>
+            <%= link_to "DOWNLOADS AREA", usr_downloads_path, class: "modal-downloads-btn" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal modal-blured" id="NotEnoughDownloadModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-wide" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body width-600 padding-top-0">
+          <div class="row top-holder">
+            <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+              <%= image_tag "icons/bird-blue.svg", style: "width:80%" %>
+            </div>
+            <div class="col-lg-8 col-md-6 col-sm-12 col-xs-12">
+              <h5 class="download-modal-title good-to-go-heading">YOU'RE GOING TO NEED A FEW MORE EGGS</h5>
+            </div>
+          </div>
+          <p class="p-style">THIS RELEASE REQUIRES</p>
+          <div class="row eggs-holder">
+            <div class="col-lg-6" style="margin: 2% -11% 8% -10%;">
+              <%= image_tag "egg-big.svg", style: "width:85%" %>
+            </div>
+            <div class="col-lg-6">
+              <span class="eggs-count">12</span>EGGS
+            </div>
+          </div>
+          <div class="btn-formats-holder">
+            <div class="c-panel bg-c-dark mb-4 formats-style">
+              <div class="modal-cflag mb-4">WOULD YOU LIKE TO</div>
+              <div class="links-holder-modal">
+                <%= link_to "GRAB MORE EGGS", usr_downloads_path, class: "modal-downloads-btn egg-credits-link-btn" %>
+                <%= link_to "DOWNLOAD INDIVIDUAL TRACKS", usr_downloads_path, class: "modal-downloads-btn" %>
+              </div>
+            </div>
+          </div>
+          <p class="modal-desc">You're next 10 eggs come in 2 weeks</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+   <div class="modal modal-blured" id="artistQAReadmoreModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-wide" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body width-600 padding-top-0">
+          <div class="row top-holder">
+              <h5 class="download-modal-title good-to-go-heading">HOW AND WHEN DID YOU FIRST DISCOVERED BIRDFEED?</h5>
+          </div>
+          <p class="modal-desc-qa">You're next 10 eggs come in 2 weeksYou're next 10 eggs come in 2 weeksYou're next 10 eggs come in 2 weeksYou're next 10 eggs come in 2 weeksYou're next 10 eggs come in 2 weeksYou're next 10 eggs come in 2 weeksYou're next 10 eggs come in 2 weeksYou're next 10 eggs come in 2 weeksYou're next 10 eggs come in 2 weeksYou're next 10 eggs come in 2 weeksYou're next 10 eggs come in 2 weeksYou're next 10 eggs come in 2 weeksYou're next 10 eggs come in 2 weeksYou're next 10 eggs come in 2 weeksYou're next 10 eggs come in 2 weeksYou're next 10 eggs come in 2 weeksYou're next 10 eggs come in 2 weeksYou're next 10 eggs come in 2 weeks</p>
+          <div class="how_and_when_text">
+            <a clas="read_more_btn" class="close" data-dismiss="modal" aria-label="Close">
+              Close
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <div class="modal modal-blured" id="ReadmoreReleasesModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-wide" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body width-600 padding-top-0">
+          <div class="row top-holder">
+              <h5 class="download-modal-title good-to-go-heading">RELEASE DETAILS</h5>
+          </div>
+          <div class="modal-desc-qa_div"></div>
+          <p class="modal-desc-release">You</p>
+          <div class="release_read_more_text">
+            <a clas="read_more_btn" class="close" data-dismiss="modal" aria-label="Close">
+              Close
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal modal-blured" id="ShareModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-wide" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body-share padding-top-0">
+          <div class="row top-holder">
+              <h5 class="download-modal-title good-to-go-heading">SHARE THIS TRACK</h5>
+          </div>
+          <p class="second_text">By sharing this track you will be offer</p>
+          <div class="share_buttons row">
+            <a class="facebook_share_button row ssb-icon ssb-facebook" onclick="return SocialShareButton.share(this);" data-title="Set It Off (Justin Martin Remixes)" data-site="facebook" href="#" title="Share to Facebook">
+              <div class="share-icon">
+                <%= image_tag "facebook-white.png"%>
+              </div>
+              <p class="share-text">SHARE</p>
+            </a>
+            <a class="twitter_share_button row" href="#" onclick="return SocialShareButton.share(this);" data-site="twitter" data-title="Set It Off (Justin Martin Remixes)" rel="nofollow" data-img="https://dirtybirdrec-dev.s3.amazonaws.com/uploads/release/avatar/223/Set-It-Off-Cover_remixes_3000.jpg" title="Share to Twitter">
+              <div class="share-icon">
+                <%= image_tag "twitter-white.png"%>
+              </div>
+              <p class="share-text">SHARE</p>
+            </a>
+          </div>
+          <div class="new_text"></div>
+
+          <div class="release_read_more_text">
+            <a clas="read_more_btn" class="close" data-dismiss="modal" aria-label="Close">
+              Close
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<% end %>

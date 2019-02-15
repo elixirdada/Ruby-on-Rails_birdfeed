@@ -1,0 +1,37 @@
+<div class="user-profile-nav">
+	<ul>
+		<li class='nav-bar-item <%= current_index === "PROFILE" ? "active" : "" %>'>
+        	<%= link_to "PROFILE", usr_edit_profile_path %>
+		</li>
+		<li class='nav-bar-item <%= current_index === "ACCOUNT" ? "active" : "" %>'>
+        	<%= link_to "ACCOUNT", usr_edit_account_path %>
+		</li>
+		<li class='nav-bar-item <%= current_index === "NOTIFICATIONS" ? "active" : "" %>'>
+			<%= link_to "NOTIFICATIONS", usr_notifications_path %>
+		</li>
+		<li class='nav-bar-item <%= current_index === "INTEGRATION" ? "active" : "" %>'>
+			<%= link_to "INTEGRATION", usr_integrations_path %>
+		</li>
+		<li class='nav-bar-item <%= current_index === "BILLING" ? "active" : "" %>'>
+			<%= link_to "BILLING / ORDER HISTORY", usr_billing_order_history_path %>
+		</li>
+		<li class='nav-bar-item <%= current_index === "FEEDS" ? "active" : "" %>'>
+			<%= link_to "FEEDS YOU FOLLOW", usr_releases_path %>
+		</li>
+		<li class='nav-bar-item <%= current_index === "FRIENDS" ? "active" : "" %>'>
+			<%= link_to "FRIENDS & ARTISTS", usr_friends_path %>
+		</li>
+		<li class='nav-bar-item <%= current_index === "EGG" ? "active" : "" %>'>
+        	<%= link_to "EGG CREDITS & REWARDS", usr_egg_credits_path %>
+		</li>
+		<li class='nav-bar-item <%= current_index === "DOWNLOADS" ? "active" : "" %>'>
+        	<%= link_to "DOWNLOADS AREA", usr_downloads_path %>
+		</li>
+		<!-- <li class='<%#= current_index === "HEADERS" ? "active" : "" %>'> -->
+        	<%#= link_to "HEADERS & SKINS", usr_headers_path %>
+		<!-- </li> -->
+    	<!-- <li class='<%#= current_index === "CANCELLATION" ? "active" : "" %>'> -->
+	        <%#= link_to "CANCELLATION", usr_cancel_account_path %>
+    	<!-- </li> -->
+	</ul>
+</div>

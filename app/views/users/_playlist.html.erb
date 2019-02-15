@@ -1,0 +1,20 @@
+<% if current_user && (current_user.cached_active_subscription? || 
+    current_user.can_use_credits? ) &&
+    @user.current_playlist %>
+
+
+  <div class="c-panel bg-dark mb-4">
+    <div class="c-flag c-flag-inner mb-4">PLAYLISTS</div>
+
+    <ol class="light-scroll user-playlist-items">
+      <% for playlist in @user.playlists.visible %>
+        <li class="<%= current_user.current_playlist_id == playlist.id ? 'active' : '' %>">
+          <button class="select-playlist" data-playlist-id="<%= playlist.id %>">
+            <%= "#{playlist.name}: #{pluralize(playlist.tracks_count, "Track")}" %>
+          </button>
+        </li>
+      <% end %>
+    </ol>
+  </div>
+
+<% end %>

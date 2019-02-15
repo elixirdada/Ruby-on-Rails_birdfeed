@@ -1,0 +1,126 @@
+#cropModal.modal.modal-blured{"aria-hidden" => "true", :role => "dialog", :tabindex => "-1"}
+.col-sm-12
+  .message-container.display-inline.width-100
+    .col-sm-2
+      = image_tag 'onboarding_avatar.png'
+    .col-sm-10
+      .margin-top-15
+        - if %w(monthly_old yearly_old).include? current_user.subscription_length
+          Let’s get you setup.
+        - elsif @style_type == 'vib-style'
+          What’s up this is Marcus, Director of marketing here at Birdfeed, I wanted to welcome you peronally to the crew. If you have any questions or concerns feel free to reach out.
+        - elsif @style_type == 'insider-style'
+          Welcome to Birdfeed, My name is Marcus, the creator of Birdfeed 2.0, i’m here to answer your questions and hook you up. As your fist friend i’m happy to set you up proper for your first
+        - else
+          Welcome to Birdfeed, My name is Marcus,director of marketing  of Birdfeed, i’m here to answer your questions and hook you up. As your fist friend i’m happy to set you up proper for your first
+
+%br
+.col-sm-12
+  .message-container.display-inline{style: 'width: 100%'}
+    .col-sm-4
+      = form_for(current_user, remote: true, html: { id: 'header-change-avatar', class: 'avatar-size userpage-avatar left-avatar', method: :put } ) do |f| |
+        = image_tag current_user.avatar.big_thumb, alt: '', class: 'avatar-size'
+        = f.file_field :avatar, class: 'form-control-file'
+        = f.hidden_field :avatar_cache
+    - if @member == 'Chirp Free' || @member == 'Chirp Grandfather'
+      = image_tag 'icons/corner-chirp.png', class: 'chirp-corner'
+    .col-sm-8.padding-top-30
+      %strong.bold
+        1. Upload your Photo
+      %br
+      %br
+      Let’s sort your profile photo right quick
+      %br
+      %br
+      %input.btn.c-btn-red.btn-wide.d-block.profile-btn.upload-profile-avatar{"data-disable-with" => "Upload", :name => "commit", :type => "submit", :value => "Upload", form: 'header-change-avatar'}/
+      %br
+      .display-inline
+        .col-sm-7.italic-font.padding-0
+          = @member
+          status is reflected by the color of the frame around your user profile
+        .col-sm-2
+          = image_tag 'onboarding_avatar.png', style: 'width: 50px;'
+      = image_tag 'icons/left-arrow.png'
+- if @member == 'Chirp Free'
+  %br
+  .col-sm-12
+    .message-container.display-inline{style: 'width: 100%'}
+      .col-sm-2
+        - case @style_type
+        - when 'ninja-style'
+          = image_tag 'user_badges/3-Ninja-Bacon.png'
+        - when 'boss-style'
+          = image_tag 'user_badges/5-boss.png'
+        - when 'admin-style'
+          = image_tag 'user_badges/6-manager.png'
+        - when 'intern-style'
+          = image_tag 'user_badges/4-Intern.png'
+        - when 'admin-style'
+          = image_tag 'user_badges/4-Intern.png'
+        - when 'handler-style'
+          = image_tag 'user_badges/10-Handler.png'
+        - when 'insider-style'
+          = image_tag 'user_badges/8-Insider.png'
+        - when 'vib-style'
+          = image_tag 'user_badges/9-VIB.png'
+        - else
+          = image_tag 'user_badges/7-chirp.png'
+      .col-sm-10
+        %strong.bold.display-inline
+          Badge OF Birdfeed:
+          &nbsp;
+          .blue-text
+            = current_user.subscriber_type
+        %br
+        Your first badge of Birdfeed represents the level of your your membership status. As you progress in the system this will change.
+
+%br
+.col-sm-12
+  .message-container{style: 'width: 100%'}
+    .col-sm-12
+      %strong.bold
+        PROFILE HEADER
+    %br
+    .col-sm-12.display-inline
+      .col-sm-1
+        = image_tag 'onboarding_avatar.png', style: 'width: 50px;'
+      .col-sm-11.padding-0.italic-font
+        I’ve hooked you up with your first profile header. Dirtybird and artists will be giving you new headers for different occasions and rewards for particpation.
+    %br
+    %br.col-sm-12
+    - case @style_type
+    - when 'ninja-style'
+      = image_tag 'headers/ninja-bacon.jpg', style: 'width: 100%'
+    - when 'admin-style'
+      = image_tag 'headers/admin-admin.jpg', style: 'width: 100%'
+    - when 'boss-style'
+      = image_tag 'headers/bossbird.jpg', style: 'width: 100%'
+    - when 'intern-style'
+      = image_tag 'headers/Intern.jpg', style: 'width: 100%'
+    - when 'artist-style'
+      = image_tag 'headers/artist-bird.jpg', style: 'width: 100%'
+    - when 'handler-style'
+      = image_tag 'headers/handler-bird.jpg', style: 'width: 100%'
+    - when 'insider-style'
+      = image_tag 'headers/Insider_bird.jpg', style: 'width: 100%'
+    - when 'vib-style'
+      = image_tag 'headers/VIB-bird.jpg', style: 'width: 100%'
+    - when 'homey-style'
+      = image_tag 'headers/Homey-Bird.jpg', style: 'width: 100%'
+    - else
+      = image_tag 'headers/chirp_bird.jpg', style: 'width: 100%'
+
+%br
+- if @member == 'Chirp Free' || @member == 'Chirp Grandfather'
+  .col-sm-12
+    %a.btn.c-btn-red.btn-wide{href: "/onboarding/#{current_user.id}/onboarding_complete", style: 'float: right;'}
+      GO TO SITE
+- elsif @member == 'VIB Grandfather'
+  %a.btn.c-btn-red.btn-wide{href: "/onboarding/#{current_user.id}/step_2", style: 'float: right;'}
+    Badges
+- elsif @style_type == 'insider-style'
+  %a.btn.c-btn-red.btn-wide{href: "/onboarding/#{current_user.id}/step_2", style: 'float: right;'}
+    Badges
+- elsif @style_type == 'vib-style'
+  %a.btn.c-btn-red.btn-wide{href: "/onboarding/#{current_user.id}/step_2", style: 'float: right;'}
+    Badges & Eggs

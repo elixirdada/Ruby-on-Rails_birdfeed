@@ -1,0 +1,60 @@
+<% if @friend_requests.blank? %>
+  <div class="text-center mt-2">
+    No new friend requests
+  </div>
+<% end %>
+
+<% for user in @friend_requests %>
+  <% if current_user.has_role?(:artist) %>
+    <div class="nav-notify py-2 px-3">
+      <%= link_to user, class: "#{avatar_style(user)} sm-style" do %>
+        <%= image_tag user.avatar.thumb.url,
+            class: "feed-avatar align-top",
+            alt: '' %>
+      <% end %>
+
+      <%= link_to user, class: "notify-link" do %>
+        <div class="notify-item">
+          <strong>
+            <%= user.name %>
+          </strong>
+
+          <span class="notify-object">
+            is now following you
+          </span>
+          <br>
+          <span class="notify-time" style="left: 64px;">
+            <% user_requested = user.request_to(current_user) %>
+            <%= user_requested.try(:created_at) ? time_ago_in_words(user_requested.try(:created_at)) : "" %> ago
+          </span>
+        </div>
+      <% end %>
+    </div>
+
+    <hr style="margin: 2px 0 0;">
+  <% else %>
+    <div id="friend-request-item-<%= user.id %>" class="d-flex my-2 px-3 w-100">
+      <%= link_to user, class: "#{avatar_style(user)} sm-style" do %>
+        <%= image_tag user.avatar.thumb, class: "user-avatar mr-2", alt: '' %>
+      <% end %>
+
+      <div class="w-100">
+        <div class="user-name"><%= user.name %></div>
+        <div class="user-caption"><%= user.address_city %></div>
+        <div class="user-caption">
+          <% user_requested = user.request_to(current_user) %>
+          <%= user_requested.try(:created_at) ? time_ago_in_words(user_requested.try(:created_at)) : "" %> ago
+        </div>
+      </div>
+
+      <div>
+        <%= link_to "Add Friend", accept_request_path(user.id),
+            class: "btn c-btn-blue btn-square mb-1",
+            remote: true %>
+        <%= link_to "Nope", reject_request_path(user.id),
+            class: "btn c-btn-red btn-square",
+            remote: true %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

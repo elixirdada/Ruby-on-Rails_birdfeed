@@ -1,0 +1,5 @@
+<% likes_count = object.try(:likes_count) ? object.likes_count : object.likes.count %>
+<span id='<%= "likes-count-#{object.class.to_s}-#{object.id}" %>' style="<%= 'display: none;' if likes_count < 1 %>">
+  <%= image_tag 'icons/like-thumbup_.svg', style: 'position: relative; z-index: 2;' %>
+  <span class="likes-count"><%= likes_count %></span>
+</span>

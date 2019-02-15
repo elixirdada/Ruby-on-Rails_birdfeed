@@ -1,0 +1,36 @@
+.user-profile-nav {
+	width: 225px;
+	ul {
+		list-style: none;
+	    font-size: 15px;
+    letter-spacing: 0.68px;
+    padding: 50px 0;
+    text-align: left;
+    font-family: 'Phosphate-Solid';
+
+    li {
+		padding: 10px 20px;
+	    border-top: 1px solid rgba(112, 112, 112, 0.43);
+
+	    a {
+			color: #7b7b7b;
+			font-family: Phosphate-solid;
+			font-size: 15px;
+			letter-spacing: 0.68px;
+	    }
+
+	    &.active {
+	    	background-color: #3ed4e0;
+
+	    	a {
+				color: #ffffff;
+	    	}
+	    }
+    }
+		li.nav-bar-item{
+			&:hover{
+				background-color: lightgray;
+			}
+		}
+	}
+}

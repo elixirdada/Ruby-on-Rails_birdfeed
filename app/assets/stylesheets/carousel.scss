@@ -1,0 +1,222 @@
+/* GLOBAL STYLES
+-------------------------------------------------- */
+/* Padding below the footer and lighter body text */
+
+
+
+
+/* CUSTOMIZE THE CAROUSEL
+-------------------------------------------------- */
+
+/* Carousel base class */
+.carousel {
+  /*margin-bottom: 4rem;*/
+  margin-left: -15px;
+  margin-right: -15px;
+  margin-top: -24px;
+}
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption {
+  bottom: 3rem;
+  z-index: 10;
+}
+
+/* Declare heights because of positioning of img element */
+.carousel-item {
+  height: 278px;
+  background-color: #777;
+}
+.carousel-item > img {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 100%;
+  height: 382px;
+  object-fit: cover;
+}
+
+
+/* MARKETING CONTENT
+-------------------------------------------------- */
+
+/* Center align the text within the three columns below the carousel */
+.marketing .col-lg-4 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.marketing h2 {
+  font-weight: 400;
+}
+.marketing .col-lg-4 p {
+  margin-right: .75rem;
+  margin-left: .75rem;
+}
+
+
+/* Featurettes
+------------------------- */
+
+.featurette-divider {
+  margin: 5rem 0; /* Space out the Bootstrap <hr> more */
+}
+
+/* Thin out the marketing headings */
+.featurette-heading {
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -.05rem;
+}
+
+
+/* RESPONSIVE CSS
+-------------------------------------------------- */
+
+@media (min-width: 40em) {
+  /* Bump up size of carousel content */
+  .carousel-caption p {
+    margin-bottom: 1.25rem;
+    font-size: 1.25rem;
+    line-height: 1.4;
+  }
+
+  .featurette-heading {
+    font-size: 50px;
+  }
+}
+
+@media (min-width: 62em) {
+  .featurette-heading {
+    margin-top: 2rem;
+  }
+
+  .featurette-image {
+    margin-top: 2rem;
+  }
+}
+
+.home-promo {
+  border-top: 9px solid #faae03;
+  border-bottom: 9px solid #3ed4e0;
+  margin-left: -15px;
+  margin-right: -15px;
+  height: auto;
+  background-size: cover;
+  position: relative;
+  margin-bottom: 40px;
+
+  .promo-link {
+    width: 134px;
+    height: 48px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+    border: 3px solid #3ed4e0;
+    background-color: #434343;
+    color: #ffffff;
+    font-family: 'Phosphate-Solid';
+    font-size: 21px;
+    letter-spacing: 0.94px;
+    text-transform: uppercase;
+    padding: 10px 25px;
+  }
+
+  .promo-footer {
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+
+  .promo-blocks {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    align-items: center;
+    flex-direction: column;
+
+    & > a {
+      width: 100%;
+    }
+  }
+
+  .promo-block {
+    margin: 10px 0;
+    height: 117px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+    background-color: #434343;
+    position: relative;
+    line-height: 19px;
+
+    &:after {
+      width: 24px;
+      height: 24px;
+      border: 12px solid transparent;
+      content: '';
+      position: absolute;
+      left:48%;
+    }
+
+    &.red-arrow {
+      border: 5px solid #ff7979;
+
+      &:after {
+        border-right: 12px solid #ff7979;
+        top: -14px;
+      }
+    }
+
+    &.yellow-arrow {
+      border: 5px solid #faae03;
+
+      &:after {
+        border-right: 12px solid #faae03;
+        bottom: -14px;
+      }
+    }
+
+    h3 {
+      text-shadow: 0 3px 6px rgba(0, 0, 0, 0.57);
+      color: #ffffff;
+      font-family: 'Phosphate-Inline';
+      font-size: 44px;
+      letter-spacing: 3.08px;
+      text-transform: uppercase;
+      text-align: center;
+      margin: 15px 0 0;
+    }
+  }
+
+  .promo-subheader {
+    color: #ffffff;
+    font-family: 'Phosphate-Solid';
+    font-size: 17px;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .promo-logo {
+    position: absolute;
+    left: 50%;
+    top: -28px;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    display: none;
+  }
+}
+
+@media (min-width: 992px) {
+  .home-promo {
+    height: 244px;
+    margin-bottom: 20px;
+
+    .promo-blocks {
+      margin-bottom: 0;
+      flex-direction: row;
+    }
+
+    .promo-block {
+      margin: 0 20px;
+    }
+  }
+}

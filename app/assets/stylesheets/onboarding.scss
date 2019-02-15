@@ -1,0 +1,61 @@
+// Place all the styles related to the onboarding controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.message-container {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  border-radius: 18px;
+  background-color: #ffffff;
+  padding: 25px;
+
+  color: #5f5f5f;
+  font-family: "Titillium Web";
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 1.13px;
+  line-height: 29px;
+  .chirp-corner {
+    position: absolute;
+    z-index: 3;
+    top: 136px;
+    left: 68px;
+    height: 200px;
+  }
+}
+
+.italic-font {
+  font-style: italic;
+}
+
+.margin-top-15 {
+  margin-top: 15px;
+}
+
+.padding-top-30 {
+  padding-top: 30px;
+}
+
+.padding-0 {
+  padding: 0px
+}
+
+.avatar-size {
+  width: 300px !important;
+  height: 300px !important;
+}
+
+.bold {
+  font-family: 'Phosphate-Inline';
+  font-size: 23px;
+  letter-spacing: 1.03px;
+  /* Text style for "Badge OF B" */
+  color: #5f5f5f;
+}
+
+.blue-text {
+  color: #3ed4e0 !important;
+}
+
+.width-100 {
+  width: 100%;
+}

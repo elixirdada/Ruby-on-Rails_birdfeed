@@ -1,0 +1,8 @@
+<%= object.fields_for :feed_images do |image| %>
+  <%= image.hidden_field :feedable_id %>
+  <%= image.hidden_field :feedable_type %>
+  <%= image.label :image, "&nbsp;".html_safe, class: "image-attach" %>
+  <%= image.file_field :image %>
+
+  <%#= image.check_box :_destroy %>
+<% end %>

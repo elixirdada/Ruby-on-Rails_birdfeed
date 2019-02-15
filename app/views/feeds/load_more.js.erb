@@ -1,0 +1,21 @@
+$('#last-item-id').remove();
+
+<% if @activities.count == 0 %>
+
+  $('#loading').remove();
+
+<% else %>
+  <% renderer = (@feed == 'user_aggregated' || @feed == 'timeline_aggregated') ? "feeds/aggregated_user" : "feeds/commentable_feed" %>
+
+  <% case @feed %>
+  <% when 'user_aggregated' then renderer = "feeds/aggregated_user" %>
+  <% when 'timeline_aggregated' then renderer = "feeds/aggregated_user" %>
+  <% when 'masterfeed' then renderer = "feeds/masterfeed" %>
+  <% else renderer = "feeds/commentable_feed" %>
+  <% end %>
+
+  $('.feed-block').append(`
+      <%= escape_javascript( render renderer ) %>
+    `);
+
+<% end %>

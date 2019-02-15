@@ -1,0 +1,17 @@
+<p class="feed-posted"> 
+  <%= time_ago_in_words(activity['time'].in_time_zone) %> ago.
+</p>
+
+<%= link_to activity['actor'], class: "#{avatar_style(activity['actor'])} sm-style" do %>
+  <%= image_tag activity['actor'].avatar.thumb.url, class: "feed-avatar", alt: '' %>
+  <%= activity['actor'].name %>
+<% end %>
+
+<em>
+  has downloaded
+  <%= activity['object'].class.to_s.downcase %>
+</em>
+
+<%= link_to activity['object'].title.truncate(20), activity['object'] %>
+
+<hr class="feed-divider">

@@ -1,0 +1,51 @@
+<% case icon %>
+<% when 'white' then btn_image = 'icons/icon-sharing-black.svg' %>
+<% when 'black' then btn_image = 'icons/icon-sharing-black.svg' %>
+<% end %>
+
+<div class="table-icon" style="max-width: 44px">
+  <% if object.class.to_s == 'Announcement' %>
+    <a  style="cursor: pointer; max-width: inherit;" data-toggle="modal"  data-a="" data-b="" data-c="" data-target="#ShareModal">
+      <%= image_tag 'icons/share.png', style: 'max-width:inherit;' %>
+      <span class="gray-bold">Share</span>
+    </a>
+    <!-- <div style="cursor: pointer; max-width: inherit;" data-toggle="collapse" data-target=".<%#= "#{object.class.to_s}-#{object.id}" %>-share" aria-expanded="false" aria-controls="collapseExample"> -->
+      <%#= image_tag 'icons/share.png', style: 'max-width:inherit;' %>
+      <!-- <span class="gray-bold">Share</span> -->
+    <!-- </div> -->
+
+  <% else %>
+    <a class="icon-share" style="max-width: inherit;" id="" data-toggle="modal" data-a="" data-b="" data-c="" data-target="#ShareModal">
+      <%= image_tag(btn_image, title: "Share", style: 'max-width: inherit;padding: 3px 2px 1px 6px;') %>
+    </a>
+
+    <!-- <button class="icon-share" style="max-width: inherit;" type="button" data-toggle="collapse" data-target=".<%#= "#{object.class.to_s}-#{object.id}" %>-share" aria-expanded="false" aria-controls="collapseExample"> -->
+      <%#= image_tag(btn_image, title: "Share", style: 'max-width: inherit;padding: 3px 2px 1px 6px;') %>
+    <!-- </button> -->
+  <% end %>
+</div>
+
+<div class="collapse share-panel <%= "#{object.class.to_s}-#{object.id}" %>-share" style="top: -11px;">
+  <h5 class="mx-3 my-2">Share</h5>
+  <% case object.class.to_s %>
+  <% when 'Track' %>
+    <% object_type = 'release' %>
+    <% object_id = object.release.id %>
+    <% object_subtype = 'track' %>
+    <% object_subid = object.id %>
+    <% title = object.release.title %>
+    <% text = object.release.text %>
+  <% else %>
+    <% object_type = object.class.to_s.downcase %>
+    <% object_id = object.id %>
+    <% title = object.title || '' %>
+    <% text = object.text || '' %>
+  <% end %>
+  <div class="mx-3 mb-3" data-object-type="<%= object_type %>" data-object-id="<%= object_id %>" data-object-subtype="<%= object_subtype %>" data-object-subid="<%= object_subid %>">
+
+    <div class="my_text_btn">
+      <%= social_share_button_tag(strip_tags(title).gsub("\'",''), desc: strip_tags(text).gsub("\'",''), image: object.avatar.url) %>
+
+    </div>
+  </div>
+</div>

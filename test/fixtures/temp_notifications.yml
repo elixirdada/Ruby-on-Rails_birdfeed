@@ -1,0 +1,51 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sound_main: false
+  desktop_main: false
+  email_important: false
+  email_newsletter: false
+  email_gaming: false
+  social_profile_new_friend_alert: false
+  social_profile_new_friend_email: false
+  social_profile_new_favorite_alert: false
+  social_profile_new_favorite_email: false
+  social_feeds_comment_alert: false
+  social_feeds_comment_email: false
+  social_feeds_reply_alert: false
+  social_feeds_reply_email: false
+  social_feeds_follow_alert: false
+  social_feeds_follow_email: false
+  social_friends_new_alert: false
+  social_friends_new_email: false
+  social_friends_comment_alert: false
+  social_friends_comment_email: false
+  social_friends_follow_alert: false
+  social_friends_follow_email: false
+  social_playlists_new_alert: false
+  social_playlists_new_email: false
+
+two:
+  sound_main: false
+  desktop_main: false
+  email_important: false
+  email_newsletter: false
+  email_gaming: false
+  social_profile_new_friend_alert: false
+  social_profile_new_friend_email: false
+  social_profile_new_favorite_alert: false
+  social_profile_new_favorite_email: false
+  social_feeds_comment_alert: false
+  social_feeds_comment_email: false
+  social_feeds_reply_alert: false
+  social_feeds_reply_email: false
+  social_feeds_follow_alert: false
+  social_feeds_follow_email: false
+  social_friends_new_alert: false
+  social_friends_new_email: false
+  social_friends_comment_alert: false
+  social_friends_comment_email: false
+  social_friends_follow_alert: false
+  social_friends_follow_email: false
+  social_playlists_new_alert: false
+  social_playlists_new_email: false

@@ -1,0 +1,671 @@
+.about-main-container {
+  margin: -24px -15px 0px -16px;
+
+  .background-1 {
+    background-image: asset-data-url("about/background_1.png");
+    width: 1200px;
+    height: 876px;
+    position: absolute;
+    z-index: 0;
+  }
+
+  .background-2 {
+    background-image: asset-data-url("about/container_blue_bg.png");
+    transform: rotate(180deg);
+    top: 1041px;
+    width: 1200px;
+    height: 1293px;
+    position: absolute;
+    z-index: 0;
+  }
+
+  .background-3 {
+    background-image: asset-data-url("about/container_red_bg.png");
+    top: 1780px;
+    width: 1203px;
+    height: 947px;
+    position: absolute;
+    z-index: 0;
+  }
+
+  .top-container {
+    background-image: asset-data-url("about/top_header.png");
+    height: 294px;
+    padding-top: 60px;
+    padding-left: 106px;
+    padding-bottom: 115px;
+    padding-right: 106px;
+
+    .header-box {
+      position: relative;
+      width: 988px;
+      height: 192px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+      border: 12px solid #ff5a5a;
+      background-color: #070606;
+
+      .header-box-upper {
+        position: absolute;
+        top: -32px;
+        left: 346px;
+        width: 253px;
+        height: 41px;
+        background-color: #faae03;
+        padding: 4px 36px 5px 37px;
+      }
+
+      .top-container-heading {
+        position: absolute;
+        left: 186px;
+        right:215px;
+        top: 20px;
+        bottom: 61px;
+        width: 587px;
+        height: 87px;
+        color: #3ed4e0;
+        font-family: 'Phosphate-Inline';
+        font-size: 65px;
+        text-transform: uppercase;
+      }
+
+      .dirtybird-red-icon {
+        position: absolute;
+        top: 42px;
+        right: 176px;
+        bottom: 70px;
+        left: 746px;
+      }
+
+      .top-container-secondary-heading {
+        width: 692px;
+        height: 45px;
+        color: #ffffff;
+        font-family: 'Phosphate-Solid';
+        font-size: 36px;
+        text-transform: uppercase;
+        position: absolute;
+        left: 122px;
+        top: 87px;
+      }
+
+      .header-box-lower {
+        position: absolute;
+        left: 248px;
+        bottom: -25px;
+        width: 458px;
+        height: 35px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+        background-color: #faae03;
+        color: #ffffff;
+        font-family: 'Phosphate-Solid';
+        font-size: 25px;
+        text-transform: uppercase;
+        text-align: center;
+      }
+    }
+  }
+
+  .divider {
+    width: 1201px;
+    height: 0;
+    border: 10px solid #faae03;
+  }
+
+  .second-container {
+    width: 1200px;
+    height: 876px;
+    position: relative;
+
+    .listen-btn-top {
+      position: absolute;
+      top: 56px;
+      left: 664px;
+      width: 161px;
+      height: 38px;
+      background-color: #3ed4e0;
+      font-family: 'Phosphate-Solid';
+      font-size: 14px;
+      letter-spacing: 0.63px;
+      color: white;
+      padding: 11px 59px 10px 59px;
+    }
+
+    .connect-btn-top {
+      position: absolute;
+      top: 56px;
+      left: 836px;
+      width: 161px;
+      height: 38px;
+      background-color: #3ed4e0;
+      font-family: 'Phosphate-Solid';
+      font-size: 14px;
+      letter-spacing: 0.63px;
+      color: white;
+      padding: 11px 49px 10px 49px;
+    }
+
+    .play-btn-top {
+      position: absolute;
+      top: 56px;
+      left: 1010px;
+      width: 161px;
+      height: 38px;
+      background-color: #3ed4e0;
+      font-family: 'Phosphate-Solid';
+      font-size: 14px;
+      letter-spacing: 0.63px;
+      color: white;
+      padding: 11px 63px 10px 64px;
+    }
+
+    .second-container-heading {
+      text-align: center;
+      width: 272px;
+      height: 60px;
+      text-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+      color: #464646;
+      font-family: 'Phosphate-Solid';
+      font-size: 60px;
+      letter-spacing: 4.2px;
+      text-transform: uppercase;
+      position: absolute;
+      left: 3px;
+      top: 26px;
+    }
+
+    .left-arrow {
+      width: 23px;
+      height: 32px;
+      position: absolute;
+      left: 244px;
+      bottom: 787px;
+    }
+
+    .second-container-subheading {
+      width: 610px;
+      height: 32px;
+      color: #464646;
+      font-family: 'Phosphate-Solid';
+      font-size: 30px;
+      letter-spacing: 2.1px;
+      position: absolute;
+      right: 543px;
+      top: 106px;
+    }
+
+    .music-bars-cloud {
+      position: absolute;
+      left: 101px;
+      bottom: 488px;
+    }
+
+    .download-cloud {
+      position: absolute;
+      left: 515px;
+      bottom: 488px;
+    }
+
+    .rate-cloud {
+      position: absolute;
+      right: 71px;
+      bottom: 488px;
+    }
+
+    .music-bars-cloud-heading {
+      width: 136px;
+      height: 36px;
+      color: #4b4949;
+      font-family: 'Phosphate-Solid';
+      font-size: 30px;
+      line-height: 26px;
+      position: absolute;
+      left: 142px;
+      bottom: 445px;
+    }
+
+    .download-cloud-heading {
+      width: 189px;
+      height: 36px;
+      color: #4b4949;
+      font-family: 'Phosphate-Solid';
+      font-size: 30px;
+      line-height: 26px;
+      text-transform: uppercase;
+      bottom: 445px;
+      left: 524px;
+      position: absolute;
+    }
+
+    .rate-cloud-heading {
+      width: 108px;
+      height: 36px;
+      color: #4b4949;
+      font-family: 'Phosphate-Solid';
+      font-size: 30px;
+      line-height: 26px;
+      text-transform: uppercase;
+      position: absolute;
+      bottom: 445px;
+      right: 127px;
+    }
+
+    .music-bars-cloud-description {
+      width: 335px;
+      height: 114px;
+      color: #4b4949;
+      font-family: "Titillium Web";
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 24px;
+      position: absolute;
+      left: 47px;
+      bottom: 320px;
+      text-align: center;
+    }
+
+    .download-cloud-description {
+      width: 335px;
+      height: 114px;
+      color: #4b4949;
+      font-family: "Titillium Web";
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 24px;
+      position: absolute;
+      bottom: 320px;
+      text-align: center;
+      left: 446px;
+    }
+
+    .rate-cloud-description {
+      width: 335px;
+      height: 114px;
+      color: #4b4949;
+      font-family: "Titillium Web";
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 24px;
+      text-align: center;
+      position: absolute;
+      right: 16px;
+      bottom: 320px;
+    }
+
+    .join-now-btn {
+      padding: 11px 69px 10px 53px;
+      width: 191px;
+      height: 38px;
+      background-color: #3ed4e0;
+      color: #ffffff;
+      font-family: 'Phosphate-Solid';
+      font-size: 14px;
+      letter-spacing: 0.63px;
+      right: 554px;
+      position: absolute;
+      bottom: 236px;
+    }
+
+    .listen-btn {
+      width: 161px;
+      height: 38px;
+      background-color: #ff7979;
+      color: #ffffff;
+      font-family: 'Phosphate-Solid';
+      font-size: 14px;
+      letter-spacing: 0.63px;
+      padding: 11px 59px 10px 59px;
+      position: absolute;
+      right: 393px;
+      bottom: 236px;
+    }
+
+    .second-container-heading-2 {
+      width: 205px;
+      height: 60px;
+      text-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+      color: #ffffff;
+      font-family: 'Phosphate-Solid';
+      font-size: 60px;
+      letter-spacing: 4.2px;
+      text-transform: uppercase;
+      position: absolute;
+      left: 41px;
+      bottom: 4px;
+    }
+
+    .left-arrow-yellow {
+      position: absolute;
+      bottom: 3px;
+      left: 330px;
+    }
+  }
+
+  .third-container {
+    position: relative;
+    height: 500px;
+
+    .play-sub-heading {
+      width: 596px;
+      height: 36px;
+      color: #ffffff;
+      font-family: 'Phosphate-Solid';
+      font-size: 30px;
+      letter-spacing: 2.1px;
+      position: absolute;
+      left: 40px;
+      top: 18px;
+    }
+
+    .puzzle-cloud {
+      position: absolute;
+      left: 110px;
+      top: 105px;
+    }
+
+    .achievements-cloud {
+      position: absolute;
+      left: 480px;
+      top: 105px;
+    }
+
+    .rewards-cloud {
+      position: absolute;
+      right: 90px;
+      top: 105px;
+    }
+
+    .puzzle-cloud-heading {
+      width: 105px;
+      height: 36px;
+      color: #ffffff;
+      font-family: 'Phosphate-Solid';
+      font-size: 30px;
+      letter-spacing: 1.35px;
+      line-height: 26px;
+      position: absolute;
+      left: 130px;
+      top: 300px;
+    }
+
+    .achievements-cloud-heading {
+      width: 219px;
+      height: 36px;
+      color: #ffffff;
+      font-family: 'Phosphate-Solid';
+      font-size: 30px;
+      letter-spacing: 1.35px;
+      line-height: 26px;
+      position: absolute;
+      top: 300px;
+      left: 536px;
+    }
+
+    .rewards-cloud-heading {
+      width: 136px;
+      height: 36px;
+      color: #ffffff;
+      font-family: 'Phosphate-Solid';
+      font-size: 30px;
+      letter-spacing: 1.35px;
+      line-height: 26px;
+      position: absolute;
+      top: 300px;
+      right: 125px;
+    }
+
+    .puzzle-cloud-description {
+      text-align: center;
+      width: 335px;
+      height: 115px;
+      color: #ffffff;
+      font-family: "Titillium Web";
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      position: absolute;
+      left: 44px;
+      top: 350px;
+    }
+
+    .achievements-cloud-description {
+      text-align: center;
+      width: 335px;
+      height: 92px;
+      color: #ffffff;
+      font-family: "Titillium Web";
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      position: absolute;
+      top: 350px;
+      left: 430px;
+    }
+
+    .rewards-cloud-description {
+      width: 335px;
+      height: 91px;
+      color: #ffffff;
+      font-family: "Titillium Web";
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      position: absolute;
+      text-align: center;
+      top: 350px;
+      right: 28px;
+    }
+
+    .join-now-btn {
+      width: 161px;
+      height: 38px;
+      background-color: #ff7979;
+      padding: 11px 47px 10px 42px;
+      position: absolute;
+      top: 480px;
+      left: 430px;
+      color: #ffffff;
+      font-family: 'Phosphate-Solid';
+      font-size: 14px;
+      letter-spacing: 0.63px;
+    }
+
+    .connect-btn {
+      width: 161px;
+      height: 38px;
+      background-color: #ffffff;
+      color: #ff7979;
+      font-family: 'Phosphate-Solid';
+      font-size: 14px;
+      letter-spacing: 0.63px;
+      position: absolute;
+      padding: 11px 49px 10px 49px;
+      left: 607px;
+      top: 480px;
+      z-index: 1;
+    }
+  }
+
+  .fourth-container {
+    height: 948px;
+    position: relative;
+    margin-bottom: -35px;
+
+    .fourth-container-heading {
+      width: 327px;
+      height: 60px;
+      text-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+      color: #ffffff;
+      font-family: 'Phosphate-Solid';
+      font-size: 60px;
+      letter-spacing: 4.2px;
+      position: absolute;
+      top: 157px;
+      left: -32px;
+      text-align: center;
+    }
+
+    .left-arrow-blue {
+      position: absolute;
+      left: 210px;
+      top: 186px;
+    }
+
+    .fourth-container-subheading {
+      width: 634px;
+      height: 36px;
+      color: #ffffff;
+      font-family: 'Phosphate-Solid';
+      font-size: 30px;
+      letter-spacing: 2.1px;
+      position: absolute;
+      left: 58px;
+      top: 246px;
+    }
+
+    .heading-description {
+      width: 832px;
+      height: 62px;
+      color: #ffffff;
+      font-family: "Titillium Web";
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      position: absolute;
+      left: 58px;
+      top: 299px;
+    }
+
+    .community-cloud {
+      width: 210px;
+      height: 171px;
+      position: absolute;
+      left: 104px;
+      top: 388px;
+    }
+
+    .culture-cloud {
+      width: 210px;
+      height: 171px;
+      position: absolute;
+      left: 518px;
+      top: 388px;
+    }
+
+    .friends-cloud {
+      width: 210px;
+      height: 171px;
+      position: absolute;
+      left: 901px;
+      top: 388px;
+    }
+
+    .community-cloud-heading {
+      width: 178px;
+      height: 36px;
+      color: #ffffff;
+      font-family: 'Phosphate-Solid';
+      font-size: 30px;
+      letter-spacing: 1.35px;
+      line-height: 26px;
+      position: absolute;
+      left: 124px;
+      top: 584px;
+    }
+
+    .culture-cloud-heading {
+      width: 124px;
+      height: 36px;
+      color: #ffffff;
+      font-family: 'Phosphate-Solid';
+      font-size: 30px;
+      letter-spacing: 1.35px;
+      line-height: 26px;
+      position: absolute;
+      left: 581px;
+      top: 584px;
+    }
+
+    .friends-cloud-heading {
+      width: 123px;
+      height: 36px;
+      color: #ffffff;
+      font-family: 'Phosphate-Solid';
+      font-size: 30px;
+      letter-spacing: 1.35px;
+      line-height: 26px;
+      position: absolute;
+      right: 120px;
+      top: 584px;
+    }
+
+    .community-cloud-description {
+      width: 335px;
+      height: 129px;
+      color: #ffffff;
+      font-family: "Titillium Web";
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      position: absolute;
+      text-align: center;
+      left: 32px;
+      top: 638px;
+    }
+
+    .culture-cloud-description {
+      width: 335px;
+      height: 129px;
+      color: #ffffff;
+      font-family: "Titillium Web";
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      position: absolute;
+      text-align: center;
+      left: 465px;
+      top: 638px;
+    }
+
+    .friends-cloud-description {
+      width: 335px;
+      height: 129px;
+      color: #ffffff;
+      font-family: "Titillium Web";
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      position: absolute;
+      text-align: center;
+      right: 28px;
+      top: 638px;
+    }
+
+    .join-now-btn {
+      width: 161px;
+      height: 38px;
+      background-color: #ffffff;
+      color: #3ed4e0;
+      font-family: 'Phosphate-Solid';
+      font-size: 14px;
+      letter-spacing: 0.63px;
+      padding: 11px 47px 10px 42px;
+      position: absolute;
+      left: 436px;
+      bottom: 105px;
+    }
+
+    .connect-btn {
+      width: 161px;
+      height: 38px;
+      background-color: #3ed4e0;
+      color: #ffffff;
+      font-family: 'Phosphate-Solid';
+      font-size: 14px;
+      letter-spacing: 0.63px;
+      padding: 11px 49px 10px 49px;
+      left: 608px;
+      bottom: 105px;
+      position: absolute;
+    }
+  }
+}

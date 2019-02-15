@@ -1,0 +1,288 @@
+#user-feed {
+  border-top: 100px solid transparent;
+  margin-top: -100px;
+  background-clip: padding-box;
+}
+
+.feed-block {
+  padding: 25px 30px 20px 25px;
+  font-size: 12px;
+
+  h3 {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.72px;
+    margin-bottom: 3px;
+  }
+
+  .feed-name {
+    padding: 10px 0;
+  }
+
+  .nav-item {
+    padding-right: 15px;
+    font-size: 15px !important;
+  }
+}
+
+.feed-tabs {
+  list-style-type: none;
+  position: absolute;
+  top: 23px;
+  left: 50%;
+  transform: translateX(-50%);
+  li {
+    display: inline-block;
+    font-size: 12px;
+
+    a.active {
+      font-weight: 700;
+    }
+  }
+}
+
+.feed-divider {
+  margin: 20px 0 25px;
+}
+
+.feed-item {
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: calc(100% + 16px);
+    left: -15.5px;
+    top: 15px;
+    z-index: 1;
+    background-color: #222;
+  }
+
+  &:nth-last-child(1):before {
+    display: none;
+  }
+}
+
+.post-owner {
+  position: absolute;
+  top: 25px;
+  left: 0;
+}
+
+.feed-comment-replies {
+  background: #f7f7f7;
+  padding: 20px;
+  text-align: center;
+  border-radius: 0 0 10px 10px;
+
+  .like-button img {
+    vertical-align: middle;
+  }
+}
+
+.feed-item-replies {
+  background: #f7f7f7;
+  padding: 8px 20px;
+  margin-top: 8px;
+  text-align: center;
+}
+
+.feed-owner {
+  background-color: #c4ffeb !important;
+}
+
+.feed-form {
+  padding-bottom: 25px;
+  padding-left: 15px;
+  position: relative;
+  z-index: 2;
+
+  [type=text], textarea {
+    width: 100%;
+    border: 1px solid #3e3e3e;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  [type=submit] {
+    float: right;
+  }
+}
+
+.feed-posted {
+  font-size: 10px;
+  margin-bottom: 8px;
+  color: #797979;
+
+  &:before {
+    content: '';
+    z-index: 1;
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background-color: #222;
+    left: -22px;
+    top: 2px;
+    border-radius: 8px;
+  }
+}
+
+.gray-bold {
+  color: #424242 !important;
+  font-weight: bold;
+}
+
+.feed-item-body {
+  background-color: #e2e2e2;
+  border-radius: 15px 15px 0 0;
+  position: relative;
+  background-color: rgba(175, 175, 175, 0.16);
+
+  .comment-footer {
+    background-color: #cce8eb;
+    font-size: 14px;
+    margin:0;
+
+    .col-sm-6 {
+      text-align: center;
+    }
+
+    .likes-wrapper {
+      border-right: 1px solid #707070;
+    }
+
+    .likes-count, .comments-count {
+      color: #ff7979;
+    }
+  }
+}
+
+.feed-item-comment-body {
+  background-color: #f7f7f7;
+}
+
+.release-feed-avatar {
+  width: 52px;
+  height: 52px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-right: 15px;
+}
+
+.feed-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 16px;
+  object-fit: cover;
+  display: inline-block;
+}
+
+.feed-image {
+  width: 100%;
+  object-fit: cover;
+  max-height: 313px;
+  overflow: hidden;
+}
+
+.feed-name > a {
+  font-weight: bold;
+  color: #222222;
+  font-family: Phosphate-solid;
+  font-size: 15px;
+  letter-spacing: 0.68px;
+  line-height: 16px;
+}
+
+.feed-description {
+  color: #393939;
+  font-family: "Titillium Web";
+  font-size: 22px;
+  font-weight: 400;
+}
+
+.feed-release {
+  margin-top: 10px;
+  width: 100%;
+  background-color: #e3e3e3;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  border-radius: 10px;
+  color: #222;
+
+  .release-listen {
+    position: absolute;
+    bottom: 15px;
+  }
+}
+
+.feed-new-header {
+  display: flex;
+}
+
+
+.feed-new-posted {
+  white-space: nowrap;
+  margin-right: 15px;
+
+  &:before {
+    content: '';
+    z-index: 1;
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background-color: #222;
+    left: -22px;
+    top: 2px;
+    border-radius: 8px;
+  }
+}
+
+.feed-top-pane {
+  background-color: black;
+  border-radius: 8px;
+  padding: 7px 13px;
+  color: white;
+  font-size: 15px;
+  flex-grow: 1;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.feed-new-avatar {
+  border-radius: 10px;
+  margin: 15px;
+}
+
+.feed-new-type {
+  float: right;
+  margin-left: 15px;
+  height: 100%;
+  display: flex;
+
+  img {
+    margin: auto;
+  }
+}
+
+.feed-new-artists {
+  position: absolute;
+  right: 60px;
+  bottom: 15px;
+}
+
+.feed-announcement-img {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+@media (max-width: 575px) {
+  .whats-in-your-mind {
+    position: absolute !important;
+    right: 7px;
+  }
+}
+

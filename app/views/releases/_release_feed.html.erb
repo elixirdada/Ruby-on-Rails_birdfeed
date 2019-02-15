@@ -1,0 +1,12 @@
+<div class="c-panel bg-white big-c-buttons">
+  <div id="release-feed" class="c-flag mb-4">RELEASE FEED</div>
+
+
+
+  <div class="feed-block" data-feed-id="<%= @release.id %>" data-feed="release">
+    <%= render 'feeds/commentable_feed' %>
+  </div>
+
+  <div id="loading" style="display: none;">Loading...</div>
+
+</div>

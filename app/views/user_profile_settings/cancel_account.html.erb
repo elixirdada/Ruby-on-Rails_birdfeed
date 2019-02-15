@@ -1,0 +1,95 @@
+<%= render 'user_profile_settings/header' %>
+
+<div class="user-profile-settings">
+  <div class="row">
+    <div class="side-bar col-lg-3">
+      <%= render partial: 'users/user_profile_nav', locals: {current_index: 'NOTIFICATIONS'}  %>
+    </div>    
+    <div class="main-content cancel-account-main-content col-lg-9">
+      <div class="row page-header">
+        <div class="col-sm-12">
+          <label class="title">
+            CANCEL YOUR MEMBERSHIP
+          </label>
+        </div>
+      </div>
+      <div class="row page-content">
+        <div class="col-sm-12">
+          <%= form_tag usr_cancel_account_path(current_user), method: :delete do %>
+            <div class="row content-section">
+              <div class="col-sm-12">
+                Can we ask why you've chosen to cancel?
+              </div>
+              <div class="col-sm-12">
+                <label class="custom-radio-container">
+                  I don't want to pay the price
+                  <%= radio_button_tag 'why_cancel_account', "I don't want to pay the price", true%>
+                  <span class="radio-check-mark"></span>
+              </div>
+              <div class="col-sm-12">
+                <label class="custom-radio-container">
+                  I don't see the value
+                  <%= radio_button_tag 'why_cancel_account', "I don't see the value", false %>
+                  <span class="radio-check-mark"></span>
+                </label>
+              </div>
+              <div class="col-sm-12">
+                <label class="custom-radio-container">
+                  I've lost interest
+                  <%= radio_button_tag 'why_cancel_account', "I've lost interest", false %>
+                  <span class="radio-check-mark"></span>
+                </label>
+              </div>
+              <div class="col-sm-12">
+                <label class="custom-radio-container">
+                  Other
+                  <%= radio_button_tag 'why_cancel_account', "Other", false %>
+                  <span class="radio-check-mark"></span>
+                </label>
+              </div>
+            </div>
+            <div class="row content-section">
+              <div class="col-sm-12 sub-header">
+                SEND US YOUR THOUGHTS
+              </div>
+              <div class="col-sm-12">
+                <%= text_area_tag 'your_thoughts', '', class: 'w-100' %>
+              </div>
+            </div>
+            <div class="row content-section things-to-note">
+              <div class="col-sm-12 sub-header">
+                A FEW THINGS TO NOTE BEFORE CANCELLING
+              </div>
+              <div class="col-sm-12">
+                <strong class="note-no">1.</strong>
+                By cancelling your membership you are  forfeiting your current fam status, points, badges & achievements gained through games, seasons and all Dirtybird activities archived in Birdfeed.
+              </div>
+              <div class="col-sm-12">
+                <strong class="note-no">2.</strong>
+                If you are currently a VIB member any egg credits you’ve accumulated cannot be transferred and will be lost. 
+              </div>
+              <div class="col-sm-12">
+                <strong class="note-no">3.</strong>
+                You’re Birdfeed status at physical Dirtybird events will be no longer valid. 
+              </div>
+              <div class="col-sm-12">
+                <strong class="note-no">4.</strong>
+                All of your comments & likes will be unlinked from your profile 
+              </div>
+              <div class="col-sm-12">
+                <strong class="note-no">5.</strong>
+                All Chirp posts will not be deleted but will be unlinked from your current account   
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <%= submit_tag "CANCEL MY MEMBERSHIP LEVEL", name: 'submit_source', class: "cancel-membership-level" %>
+                <%= submit_tag "CHANGE MY ACCOUNT", name: 'submit_source', class: "cancel-account" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

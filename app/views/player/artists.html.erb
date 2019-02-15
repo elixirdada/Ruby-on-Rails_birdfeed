@@ -1,0 +1,32 @@
+<% content_for :user_header_title, 'Artists' %>
+
+<% if @user.has_role? :artist %>
+  <%= render 'users/artist_header' %>
+<% else %>
+  <%= render 'users/user_header' %>
+<% end %>
+
+<div class="row">
+  <div class="col-lg-3">
+    <%= render 'player/player_page_menu' %>
+  </div>
+
+  <div class="col-lg-9 music-wrapper">
+    <div class="music-block">
+      <div class="row mt-3 artists-list">
+        <% for artist in @artists %>
+          <div class="col-md-6 mb-5">
+            <%= render 'users/artist_gray', object: artist %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="text-center">
+        <% if @limit <= @artists.count %>
+          <%= link_to "Show more", player_load_more_artists_path(player_id: current_user, page: params[:page] ? params[:page].to_i + 1 : 2), 
+              remote: true, class: "btn c-btn-blue show-more" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

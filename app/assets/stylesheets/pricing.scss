@@ -1,0 +1,202 @@
+@mixin with_arrow_down($color) {
+  background-color: $color;
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 20px;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-top: 20px solid $color;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -37px;
+  }
+}
+
+.pricing-panel {
+  max-width: unset;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+@media (min-width: 576px) {
+  .pricing-panel {
+    max-width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+
+.pricing-table {
+  color: #646464;
+  font-family: 'Phosphate-Solid';
+  font-size: 15px;
+  letter-spacing: 0.72px;
+  width: 100%;
+  table-layout: fixed;
+
+  .hidden-td {
+    background-color: #f7f7f7;
+  }
+
+  .join-chirp-td {
+    cursor: pointer;
+    background-color: #faae03;
+    color: #ffffff;
+    font-family: 'Phosphate-Solid';
+    font-size: 18px;
+    padding: 24px 38px 18px 52px;
+
+    a {
+      color: #ffffff !important;
+    }
+  }
+
+  .join-insider-td {
+    background-color: #ff7979;
+    color: #ffffff;
+    font-family: 'Phosphate-Solid';
+    font-size: 18px;
+    padding: 20px 51px 17px 67px;
+    cursor: pointer;
+
+    a {
+      color: #ffffff !important;
+    }
+  }
+
+  .join-vib-td {
+    background-color: #3ed4e0;
+    color: #ffffff;
+    font-family: 'Phosphate-Solid';
+    font-size: 18px;
+    padding: 20px 35px 17px 77px;
+    cursor: pointer;
+
+    a {
+      color: #ffffff !important;
+    }
+  }
+
+  th {
+    color: white;
+    height: 170px;
+
+    &:nth-child(1) {
+      color: #646464;
+    }
+
+    &:nth-child(2) {
+      @include with_arrow_down(#faae03);
+    }
+
+    &:nth-child(3) {
+      @include with_arrow_down(#ff7979);
+    }
+
+    &:nth-child(4) {
+      @include with_arrow_down(#3ed4e0);
+      border-radius: 0 7px 0 0;
+    }
+
+    .join-now-top-btn {
+      padding-top: 22px;
+      position: relative;
+      bottom: -28px;
+      width: 276px;
+      height: 78px;
+      background-color: #5c5c5c;
+      color: #ffffff;
+      font-family: 'Phosphate-Solid';
+      font-size: 21px;
+    }
+
+    .plan-period-switcher {
+      top: 3px;
+      padding: 0px 0px;
+    }
+
+    .text-1 {
+      font-size: 18px;
+      line-height: 35px;
+    }
+
+    .text-2 {
+      font-size: 13px;
+      letter-spacing: 0.58px;
+
+      span {
+        font-size: 18px;
+        line-height: 18px;
+      }
+    }
+
+    .text-3 {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.54px;
+      font-family: "Titillium Web";
+    }
+  }
+
+
+  tr {
+    height: 78px;
+  }
+
+  td {
+    padding: 0 15px;
+    border-left: 1px solid rgba(112, 112, 112, 0.11);
+
+    &:first-child {
+      border-left: none;
+    }
+  }
+
+  tr:nth-child(even) {
+    background-color: rgba(219, 219, 219, 0.4);
+  }
+}
+
+@media (min-width: 576px) {
+  .pricing-table {
+    th {
+      .text-1 {
+        font-size: 35px;
+      }
+
+      .text-2 {
+        span {
+          font-size: 64px;
+          line-height: 64px;
+        }
+      }
+    }
+  }
+}
+
+.common-questions {
+
+  h2 {
+    color: #393939;
+    font-family: 'Phosphate-Solid';
+    font-size: 28px;
+    text-align: center;
+  }
+
+  h3 {
+    font-weight: 700;
+  }
+
+  h3, p {
+    color: #2f2f2f;
+    font-size: 20px;
+    line-height: 24px;
+    padding-right: 30px;
+  }
+}

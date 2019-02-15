@@ -1,0 +1,38 @@
+var releases = [];
+
+<% @releases.each do |release| %>
+  <% if @player_view %>
+    releases.push('<div class="col-lg-4 col-md-6 mb-5"><%= escape_javascript(render release) %></div>');
+  <% else %>
+    releases.push('<div class="col-xl-3 col-lg-4 col-md-6 mb-5 text-center"><%= escape_javascript(render release) %></div>');
+  <% end %>
+<% end %>
+
+$(".releases-list").append(releases);
+
+var params = $('.show-more').attr('href').match(/\?.+/);
+
+if (!params) {
+  params = 'releases?page=2';
+}
+
+window.history.replaceState("", "", "releases" + params);
+
+var href = $('.show-more').attr('href').replace(/page=(\d+)/, function(match, offset) {
+    return "page=" + (parseInt(offset)+1);
+  });
+
+$('.show-more').attr('href', href);
+
+<% if @releases.count == 0 || @releases.count < @limit %>
+
+  $('.show-more').remove();
+
+<% end %>
+
+$(".lazy").Lazy({
+  scrollDirection: 'vertical',
+  effect: 'fadeIn',
+  visibleOnly: true,
+  effectTime: 2000,
+});

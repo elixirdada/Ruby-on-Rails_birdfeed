@@ -1,0 +1,49 @@
+<% for _activity in activity['activities'] %>
+  <% if _activity['foreign_id'].class.to_s != 'Like' %>
+    <div class="feed-item">
+      <p class="feed-posted">
+        <%= time_ago_in_words(_activity['time'].in_time_zone) %> ago
+      </p>
+
+      <div class="t-wide">
+
+        <%= link_to activity['activities'][0]['actor'],
+            class: "#{avatar_style(activity['activities'][0]['actor'])} sm-style" do %>
+          <%= image_tag activity['activities'][0]['actor'].avatar.thumb.url,
+              class: "feed-avatar", alt: '' %>
+          <strong><%= activity['activities'][0]['actor'].name %>:</strong>
+        <% end %>
+
+        <% case _activity['foreign_id'].class.to_s %>
+        <% when "Like" %>
+          <%= "Has Liked the comment" %>
+        <% when "Post" %>
+          <%= "Has Commented the comment" %>
+        <% else %>
+          <%= _activity['foreign_id'].class.to_s %>
+        <% end %>
+
+        <strong>
+          <%= link_to _activity['object'] do %>
+            <% if _activity['object'].class.to_s == "Post" %>
+
+              <% if _activity['object'].body.present? %>
+                <%= _activity['object'].body.truncate(20) %>
+              <% else %>
+                with Picture
+              <% end %>
+
+            <% else %>
+              <%= _activity['object'] %>
+            <% end %>
+          <% end %>
+        </strong>
+      </div>
+
+      <%= render 'comments/feed_item', object: _activity['foreign_id'] %>
+
+      <hr class="feed-divider">
+
+    </div>
+  <% end %>
+<% end %>

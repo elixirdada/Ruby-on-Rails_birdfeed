@@ -1,0 +1,49 @@
+<% comment = post %>
+<div id="post-<%= comment.id %>-outer" class="comment-outer">
+  <div id="post-<%= comment.id %>-inner" class="comment-inner text-left d-flex"%>
+    <%= link_to image_tag(comment.user.avatar.thumb, class: "post-user-avatar", alt: ''),
+        comment.user,
+        class: " #{avatar_style(comment.user)}" %>
+    <div class="comment-body">
+      <div class="feed-reply feed-owner">
+        <strong><%= comment.user.name %></strong>
+        <%= comment_with_meta_data(comment.body).html_safe %>
+
+        <% comment.feed_images.each do |image| %>
+          <div>
+            <a href="<%= image.image.url %>" data-lightbox="image-<%=image.id%>">
+              <%= image_tag image.image, class: "feed-image" %>
+            </a>
+          </div>
+        <% end %>
+
+        <% if comment.edited_at.present? %>
+          <i>edited</i>
+        <% end %>
+      </div>
+
+
+      <div class="comment-substring">
+
+        <strong>
+          <%= render partial: 'likes/like_button',
+              locals: { object: comment,  style: 'thumbup-reply' } %>
+          &middot;
+          <%= link_to comment_reply_form_path(
+                commentable_id: comment.id,
+                commentable_type: 'Post'
+              ), remote: true, id: "comment-#{comment.id}-link" do %>
+            Reply
+          <% end %>
+          &middot;
+        </strong>
+
+        <%= time_ago_in_words( comment.created_at ) %>
+      </div>
+    </div>
+    <div class='likes-count-body margin-left-neg-10'>
+      <%= render 'likes/likes_count_with_thumb', object: comment %>
+      <%= render 'comments/comment_controls', object: comment %>
+    </div>
+  </div>
+</div>

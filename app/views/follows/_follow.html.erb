@@ -1,0 +1,6 @@
+<%= button_to text[0], follows_path, 
+    params: { followable_id: object.id, followable_type: object.class.to_s,
+      text: text.to_s, classes: classes }, 
+    method: :post, class: "#{classes}", remote: true,
+    form_class: "follow-form follow-#{object.class.to_s}-#{object['id']} #{object.class.to_s == 'Topic' && object.locked ? 'follow-form-locked' : ''}", disabled: (object.locked if object.class.to_s == 'Topic')
+%>

@@ -1,0 +1,90 @@
+<div class="mt-4 mb-2">
+  <div class="c-flag">LEADERBOARD</div>
+
+  <div class="c-flag-links">
+    <b>Top 5</b>
+    <%= link_to "All", users_path %>
+  </div>
+</div>
+
+
+<ul class="leaderboard-top">
+  <% leader_users_ids = @leader_users.map {|u| u['id']} %>
+
+  <% @leader_users.each do |u| %>
+    <% user = User.find u['id'] %>
+    <li class="row">
+      <div class="col-md-8">
+        <div class="c-panel bg-white">
+          <%= link_to user, class: "leader-avatar" do %>
+            <%= image_tag user.avatar.big_thumb %>
+            <input type="text" class="btn c-btn-blue" value="FULL STATS">
+          <% end %>
+
+          <div class="d-inline-block align-top">
+            <div>
+              <span class="leaderboard-position">
+                #<%= leader_users_ids.index(user.id) + 1 %>
+              </span>
+
+              <div class="leaderboard-name">
+                <h2><%= link_to user.name.upcase, user %></h2>
+                <span><%= user.address_city %></span>
+              </div>
+
+              <div class="leaderboard-points">
+                <% if user.monthly_old? || user.monthly_insider? || user.yearly_insider? %>
+                  <%= image_tag 'icons/yellow-egg.svg' %>
+                <% elsif user.yearly_old? || user.monthly_vib? || user.yearly_vib? %>
+                  <%= image_tag 'icons/red-egg.svg' %>
+                <% end %>
+
+                <b><%= "#{user.points} POINTS" %></b>
+              </div>
+
+            </div>
+
+            <div class="rating-chart">
+              <div class="rating-kinds">
+                <% @badge_kinds.each do |kind| %>
+                  <div><b><%= kind.name %></b></div>
+                <% end %>
+              </div>
+
+              <div class="rating-kind-points">
+                <% @badge_kinds.each do |kind| %>
+                  <div><%= user.points(kind.id) %></div>
+                <% end %>
+              </div>
+
+              <div class="rating-bars">
+                <% @badge_kinds.each do |kind| %>
+                  <% color = case kind.name 
+                    when "music" then "blue"
+                    when "forum" then "yellow"
+                    when "community" then "red"
+                    end %>
+                  <div class="progress-wrapper">
+                    <div class="progress-<%= color %>">
+                      <div class="c-progress-bar" role="progressbar" style="width: <%= user.next_badges[kind.id] || 0 %>%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="c-panel bg-white h-100">
+          <%= pluralize(user.badges.count, "Badge") + " Achieved" %>
+          <div class="leaderboard-badges">
+            <% user.badges.limit(8).each do |badge| %>
+              <%= image_tag(badge.image.url) if badge.image.present? %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ul>

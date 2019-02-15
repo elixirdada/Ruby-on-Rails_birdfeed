@@ -1,0 +1,63 @@
+<%= render 'user_profile_settings/header' %>
+
+<div class="user-profile-settings">
+  <div class="row">
+    <div class="side-bar col-lg-3">
+      <%= render partial: 'users/user_profile_nav', locals: {current_index: 'BILLING'}  %>
+    </div>
+    <div class="main-content col-lg-9">
+      <div class="row page-header">
+        <div class="col-sm-12">
+          <label class="title">
+            BILLING & ORDER HISTORY
+          </label>
+        </div>
+      </div>
+      <div class="row page-content downloads-content">
+        <div class="col-sm-12">
+          <table class="downloads-table">
+            <tr>
+              <th>
+                Order ID
+              </th>
+              <th>
+                Transaction Date
+              </th>
+              <th>
+                Product
+              </th>
+              <th>
+                Amount
+              </th>
+              <th>
+                
+              </th>
+            </tr>
+            <% @billing_order_histories.each_with_index do |history, index| %>
+              <tr class="<%= index.even? ? "grey" : "dark-grey" %>">
+                <td>
+                  <%= history.id %>
+                </td>
+                <td>
+                  <%= history.created_at.strftime("%m/%d/%Y")[0..-5] + history.created_at.strftime("%m/%d/%Y")[-2..-1] %>
+                </td>
+                <td>
+                  <%= history.type %>
+                </td>
+                <td>
+                  <%= history.amount %>
+                </td>
+                <td>
+                  <button class="invoice-btn">
+                    INVOICE
+                  </button>
+                </td>
+              </tr>
+            <% end %>
+          </table>
+        
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

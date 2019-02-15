@@ -1,0 +1,37 @@
+<% releases_ids = object.map(&:release_id).uniq %>
+<% releases = [] %>
+<% releases_ids.each do |release_id| %>
+  <% if release = Release.find_by_id(release_id) %>
+    <% releases << release %>
+    <% return if releases.count >= 4 %>
+  <% end %>
+<% end %>
+
+<div class="playlist-covers" style="width: <%= size %>px; height: <%= size %>px;">
+  <% if releases.count == 0 %>
+    <%= image_tag '/images/default_release.png', class: 'w-100' %>
+  <% elsif releases.count == 1 %>
+    <%= image_tag object.first.release.avatar.url(:large), class: "w-100" %>
+  <% elsif releases.count == 2 %>
+
+    <% releases[0..1].each do |release| %>
+      <%= image_tag release.avatar.url(:large), style: "width: 100%; height: 50%; object-fit: cover;" %>
+    <% end %>
+
+  <% elsif releases.count == 3 %>
+
+    <% release = releases[2] %>
+    <%= image_tag release.avatar.url(:large), style: "width: 100%; height: 50%; object-fit: cover;" %>
+
+    <% releases[0..1].each do |release| %>
+      <%= image_tag release.avatar.url(:large), style: "width: 50%; height: 50%; object-fit: cover; float: left;" %>
+    <% end %>
+
+  <% else %>
+
+    <% releases[0..3].each do |release| %>
+      <%= image_tag release.avatar.url(:large), style: "width: 50%; height: 50%; object-fit: cover; float: left;" %>
+    <% end %>
+
+  <% end %>
+</div>

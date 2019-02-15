@@ -1,0 +1,117 @@
+.account-settings {
+	label {
+		letter-spacing: 0.72px;
+		color: #434343;
+		font-family: 'Phosphate-Solid';
+	}
+
+	.profile-btn {
+		height: 38px;
+		border-radius: initial;
+		font-size: 16px;
+
+		&.upload-profile-avatar {
+			margin: 30px 0;
+		}
+	}
+
+	.change-password-header {
+		margin: 20px 0;
+	}
+
+	.profile-avatar-area {
+		padding-right: 40px;
+	}
+
+	.shipping-address-group {
+		margin-left: 0px;
+		margin-right: 0px;
+		border: 1px solid rgba(112, 112, 112, 0.24);
+		box-shadow: 0 3px 6px rgba(0, 0, 0, 0.11);
+		border-radius: 6px;
+		background-color: #ffffff;
+
+		.shipping-address-group-header {
+			padding: 15px;
+
+			.header {
+				font-size: 20px;
+			    letter-spacing: 0.9px;
+			    color: #434343;
+			}
+			.description {
+				font-size: 15px;
+			    font-weight: 400;
+			    letter-spacing: 0.68px;
+			    line-height: 18px;
+			    color: #434343;
+			    font-family: "Titillium Web";
+			}
+		}
+	}
+
+	.t-shirt-size-group {
+	    margin-top: 0px;
+	    padding-top: 0px;
+	    height: 100px;
+	    border: 1px solid rgba(112, 112, 112, 0.24);
+	    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.11);
+	    border-radius: 6px;
+	    background-color: #ffffff;
+
+	    .form-group {
+			margin: 15px;
+		    width: 100%;
+	    }
+	}
+
+	.subscription-panel {
+    background-color: #434343;
+    border: 2px solid #faae03;
+		padding: 30px 0 30px 20px;
+    margin-top: 50px;
+
+    .subscription-title {
+	    position: absolute;
+	    top: -50px;
+	    left: 15px;
+	    border: 1px solid #faae03;
+	    background-color: #434343;
+	    font-size: 20px;
+	    color: #ffffff;
+	    padding: 5px 10px;
+    }
+
+    .insider-wrapper {
+    	flex-direction: row;
+	    .insider-label {
+		    font-size: 49px;
+		    color: #3ed4e0;
+	    }
+
+	    .insider-change {
+			    font-size: 12px;
+			    color: #ff7272;
+		    }
+
+	    .insider-right {
+  	    margin-top: -25px;
+		    line-height: 15px;
+				font-family: "Titillium Web";
+				font-weight: 700;
+
+		    .insider-montly {
+			    color: #ffffff;
+			    font-size: 16px;
+		    }
+	    }
+    }
+	}
+}
+.cancel-account {
+	padding-left: 0px;
+	font-size: 12px;
+  a { color: #afafaf; }
+  font-family: Phosphate-solid;
+  a:hover { color: black; }
+}

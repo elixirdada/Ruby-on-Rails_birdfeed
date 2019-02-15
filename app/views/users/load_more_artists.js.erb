@@ -1,0 +1,22 @@
+<% all_ids = @artists.map {|u| u['id']} %>
+
+<% @artists.each do |user| %>
+  $(".artists-list")
+      .append(`
+        <div class="col-lg-6 mb-3">
+          <%= escape_javascript(render 'users/artist_gray', object: user) %>
+        </div>`);
+<% end %>
+
+var href = $('.show-more').attr('href').replace(/page=(\d+)/, function(match, offset) {
+    window.history.replaceState("", "", "artists?page="+offset);
+    return "page=" + (parseInt(offset)+1);
+  });
+
+$('.show-more').attr('href', href);
+  
+<% if all_ids.count == 0 || all_ids.count < @limit %>
+
+  $('.show-more').remove();
+
+<% end %>

@@ -1,0 +1,7 @@
+$('#cropModal').html('<%= escape_javascript(render "users/crop" ) %>');
+
+$('#cropModal').modal('show');
+
+$('#cropbox').on('load', function(){
+  new AvatarCropper();
+});

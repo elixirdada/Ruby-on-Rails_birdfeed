@@ -1,0 +1,32 @@
+<% if object['foreign_id'].class.to_s == "Download" %>
+  <strong>
+    Downloaded
+  </strong>
+  &nbsp;
+<% elsif object['foreign_id'].class.to_s == "Like" %>
+  <strong>
+    Favorited <%= image_tag 'icons/liked.svg' %>
+  </strong>
+  &nbsp;
+<% elsif object['foreign_id'].class.to_s == "Rate" %>
+  <strong>
+    Rated
+    <% object['foreign_id'].stars.to_i.times do |star| %>
+      <%= image_tag 'rate/egg/star-on.png' %>
+    <% end %>
+  </strong>
+  &nbsp;
+<% elsif object['foreign_id'] == "Share" %>
+  <strong>
+    Shared
+  </strong>
+  on <%= object['social'] %>
+  &nbsp;
+<% else %>
+  <% unless ["Release", "Announcement"].include? object['foreign_id'].class.to_s %>
+    <strong>
+      <%= object['foreign_id'].class.to_s+'ed' %>
+    </strong>
+    &nbsp;
+  <% end%>
+<% end %>

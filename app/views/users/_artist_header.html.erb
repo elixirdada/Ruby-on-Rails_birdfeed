@@ -1,0 +1,132 @@
+<div class="user-music-present">
+  <div class="d-block">
+    <% if current_user && current_user.id == @user.id %>
+      <%= form_for(@user, remote: true,
+          html: { id: 'change-avatar', class: 'userpage-avatar', method: :put } ) do |f| %>
+        <%= image_tag @user.avatar.big_thumb, alt: '' %>
+        <%= f.file_field :avatar, class: 'form-control-file' %>
+        <%= f.hidden_field :avatar_cache %>
+      <% end %>
+    <% else %>
+      <%= image_tag(@user.avatar.big_thumb.url, class: "userpage-avatar "+(@user.online? ? "red-circle" : ""), alt: '') %>
+    <% end %>
+  </div>
+
+  <%#= image_tag 'icons/point-green-big.svg', class: "artist-online" if @user.online? %>
+
+  <div class="user-bgrd" >
+    <% if @user.artist_info && @user.artist_info.image.present? %>
+      <%= image_tag(@user.artist_info.image) %>
+    <% else %>
+      <%= image_tag('crowd.jpg') %>
+    <% end %>
+  </div>
+
+  <div class="user-info">
+
+    <div class="artist-name mb-2 mb-sm-0">
+      <h1><%= @user.name.upcase %></h1>
+      <span>
+        <% if @user.artist_info %>
+          <%= "#{@user.artist_info.genre} / " if @user.artist_info.genre.present? %>
+          <b><%= "#{@user.artist_info.followers_count} #{'Follower'.pluralize(@user.artist_info.followers_count)}" %></b>
+        <% end %>
+      </span>
+    </div>
+
+    <div class="user-since" style="width: 200px;">
+      <%= image_tag 'icons/egg-orange.svg' %>
+      <h4 class="mt-1 d-block">DIRTYBIRD: <span>ALUMNI</span></h4>
+      DB Fam Since: <%= @user.created_at.strftime("%Y") %>
+    </div>
+    
+    <% if @user.artist_info %>
+      <div class="artist-stat">
+        <% if @user.releases.count > 0 %>
+          <div class="text-center">
+            <span><%= @user.releases.count %></span>
+            <br>
+            Releases
+          </div>
+        <% end %>
+
+        <% if @user.artist_info.tracks_count.to_i > 0 %>
+          <div class="text-center">
+            <span><%= @user.artist_info.tracks_count %></span>
+            <br>
+            Tracks
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <%= render 'follows/follow_button', object: @user %>
+  </div>
+</div>
+
+<div class="user-controls">
+  <div class="row">
+    <div class="col-sm-3 px-0 c-btn-group two-btns">
+      <% artist = current_page?(artist_path(@user)) %>
+      <% classes = ["btn c-btn-blue btn-square", "btn c-btn-black btn-square btn-disabled"] %>
+      <%= link_to "Artist Feed", @user, 
+          class: artist ? classes[1] : classes[0] %><!--
+     --><%= link_to "Artist Music", artist_tracks_path(@user), 
+          class: artist ? classes[0] : classes[1] %>
+    </div>
+
+    <div class="col-sm-3 px-0 d-flex">
+      <% if @user.artist_info.present? %>
+          <%= link_to image_tag('icons/social-insta-w.svg'), 
+                @user.artist_info.instagram,
+                class: "artist-social instagram" if @user.artist_info.instagram.present? %>
+          <%= link_to image_tag('icons/social-twitter-w.svg'), 
+                @user.artist_info.twitter,
+                class: "artist-social twitter" if @user.artist_info.twitter.present? %>
+          <%= link_to image_tag('icons/social-fb-w.svg'), 
+                @user.artist_info.facebook,
+                class: "artist-social facebook" if @user.artist_info.facebook.present? %>
+      <% end %>
+    </div> 
+
+    <div class="col-sm-6 px-0 text-right">
+      <div class="c-btn-group d-inline-block three-btns">
+        <% artist_releases_class = current_page?(artist_releases_path(@user)) ? 'c-btn-gray btn-disabled' : 'c-btn-white-gray' %>
+        <% artist_tracks_class = current_page?(artist_tracks_path(@user)) ? 'c-btn-gray btn-disabled' : 'c-btn-white-gray' %>
+        <% artist_plylists_class = current_page?(playlists_path(user_id: @user)) ? 'c-btn-gray btn-disabled' : 'c-btn-white-gray' %>
+        <%= link_to "RELEASES", artist_releases_path(@user), 
+            class: "btn btn-wide btn-square #{artist_releases_class}" %><!--
+        --><%= link_to "TRACKS", artist_tracks_path(@user), 
+            class: "btn btn-wide btn-square #{artist_tracks_class}" %><!--
+        --><%= link_to "Playlists", playlists_path(user_id: @user), 
+            class: "btn btn-wide btn-square #{artist_plylists_class}",
+            id: "playlist-user" %>
+      </div>
+    </div> 
+  </div>
+
+  <% unless artist %>
+    <div class="row">
+      <div class="col-lg-9 offset-3 px-0">
+        <div class="user-header-title"><%= content_for :user_header_title %></div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="d-none d-lg-block">
+    <%= image_tag 'icons/icon-chevron-black.svg', 
+        style: 'cursor: pointer; margin-right: 30px;', 
+        onclick: "window.history.back();" %>
+    <%= image_tag 'icons/icon-chevron-black.svg', 
+        style: 'cursor: pointer; transform: rotate(180deg);', 
+        onclick: "window.history.forward();" %>
+  </div>
+</div>
+
+<% if current_user && current_user.id == @user.id %>
+  <% content_for :body_area do %>
+    <div class="modal modal-blured" id="cropModal" tabindex="-1" role="dialog" aria-hidden="true">
+
+    </div>
+  <% end %>
+<% end %>

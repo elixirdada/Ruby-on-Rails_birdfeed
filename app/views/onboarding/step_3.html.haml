@@ -1,0 +1,14 @@
+- if @member == 'VIB Grandfather'
+  %center
+    = image_tag 'onboarding/grandfather_eggs.png'
+  .col-sm-12
+    %a.btn.c-btn-red.btn-wide{href: "/onboarding/#{current_user.id}/step_4", style: 'float: right; margin-right: 40px;'}
+      Points
+- else
+  %center
+    = image_tag 'onboarding/step_2.png'
+
+  %br
+    .col-sm-12
+      %a.btn.c-btn-red.btn-wide{href: "/onboarding/#{current_user.id}/onboarding_complete", style: 'float: right;'}
+        GO TO Birdfeed

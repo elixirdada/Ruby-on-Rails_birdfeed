@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Birdfeed</title>
+    <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/2.0.5/wavesurfer.min.js"></script>
+    <script src="https://js.braintreegateway.com/js/braintree-2.21.0.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/getstream/dist/js_min/getstream.js"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPOvJDItvZiWgrMrS9102xeX6VeHbt1G8&language=en&libraries=places"
+        async defer></script>
+
+    <!-- Start of Async Drift Code -->
+    <script type="text/javascript">var $zoho= $zoho || {livedesk:{values:{},ready:function(){$zoho.livedesk.chat.floatingwindow('all');}}};var d=document;s=d.createElement("script");s.type="text/javascript";s.defer=true;s.src="https://salesiq.zoho.com/support.dirtybirdrecords/float.ls?embedname=dirtybirdrecords";t=d.getElementsByTagName("script")[0];t.parentNode.insertBefore(s,t);</script>
+    <!-- End of Async Drift Code -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<%= ENV['gtm_key'] %>"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', '<%= ENV['gtm_key'] %>');
+    </script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <%= action_cable_meta_tag %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body class="<%= 'player_page' if @player_pages %>">
+    <div class="main-container">
+
+      <div class="notice"><%= notice %></div>
+      <div class="alert"><%= alert %></div>
+      <% if current_user && !current_user.old_user? && !current_user.onboarded? %>
+        <%= render "layouts/onboarding_header" %>
+      <% else %>
+        <%= render "layouts/header" %>
+      <% end %>
+      <main role="main">
+
+        <div class="container py-4">
+          <% if controller?('home') && action?('index') %>
+            <%= render 'layouts/carousel' %>
+          <% end %>
+
+          <%= yield %>
+        </div>
+
+        <%= render 'player/bottom_player' %>
+
+        <%= render "layouts/footer" %>
+
+      </main>
+    </div>
+
+    <%= yield :body_area %>
+    <%= javascript_include_tag "footer" %>
+  </body>
+</html>

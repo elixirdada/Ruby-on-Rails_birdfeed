@@ -1,0 +1,349 @@
+.connect-main-container {
+  margin: -24px -15px 0px -16px;
+
+  .top-container {
+    background-image: asset-data-url("about/top_header.png");
+    height: 304px;
+    width: 1202px;
+    padding: 45px 153px 101px 154px;
+
+    .header-box {
+      position: relative;
+      width: 895px;
+      height: 158px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+      border: 8px solid #ff5a5a;
+      background-color: #070606;
+
+      .header-box-upper {
+        position: absolute;
+        top: -28px;
+        left: 291px;
+        width: 253px;
+        height: 41px;
+        background-color: #faae03;
+        padding: 1px 48px 8px 40px;
+      }
+
+      .bolt {
+        position: absolute;
+        left: 378px;
+        top: -42px;
+        z-index: 10;
+      }
+
+      .top-container-heading {
+        position: absolute;
+        left: 346px;
+        right: 379px;
+        top: 12px;
+        bottom: 81px;
+        width: 156px;
+        height: 87px;
+        color: #3ed4e0;
+        font-family: 'Phosphate-Inline';
+        font-size: 70px;
+        text-transform: uppercase;
+      }
+
+      .top-container-secondary-heading {
+        width: 310px;
+        height: 45px;
+        color: #ffffff;
+        font-family: 'Phosphate-Solid';
+        font-size: 36px;
+        text-transform: uppercase;
+        position: absolute;
+        left: 260px;
+        top: 80px;
+      }
+
+      .header-box-lower {
+        position: absolute;
+        left: 198px;
+        top: 129px;
+        width: 458px;
+        height: 32px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+        background-color: #faae03;
+        color: #ffffff;
+        font-family: 'Phosphate-Solid';
+        font-size: 25px;
+        text-transform: uppercase;
+        text-align: center;
+        padding: 0px 29px 10px 28px;
+        line-height: 33px
+      }
+    }
+  }
+
+  .second-container {
+    width: 1200px;
+    height: 2581px;
+    background-color: #f7f7f7;
+
+    .inner-container {
+      position: relative;
+      top: -63px;
+      left: 36px;
+      width: 1128px;
+      height: 2605px;
+      border-radius: 6px;
+      background-color: #ffffff;
+
+      .join-now-btn {
+        position: absolute;
+        left: 36px;
+        top: 20px;
+        width: 161px;
+        height: 38px;
+        background-color: #ff7979;
+        color: #ffffff;
+        font-family: 'Phosphate-Solid';
+        font-size: 14px;
+        letter-spacing: 0.63px;
+        padding: 11px 47px 10px 42px;
+        text-align: center;
+      }
+
+      .about-btn-top {
+        height: 38px;
+        background-color: #3ed4e0;
+        color: #ffffff;
+        font-family: 'Phosphate-Solid';
+        font-size: 14px;
+        letter-spacing: 0.63px;
+        text-align: center;
+        padding: 9px 30px 9px 30px;
+        position: absolute;
+        top: 17px;
+        left: 412px;
+      }
+
+      .listen-btn-top {
+        width: 161px;
+        height: 38px;
+        background-color: #3ed4e0;
+        color: #ffffff;
+        font-family: 'Phosphate-Solid';
+        font-size: 14px;
+        letter-spacing: 0.63px;
+        text-align: center;
+        padding: 11px 59px 10px 59px;
+        position: absolute;
+        top: 17px;
+        left: 607px;
+      }
+
+      .connect-btn-top {
+        width: 161px;
+        height: 38px;
+        background-color: #3ed4e0;
+        color: #ffffff;
+        font-family: 'Phosphate-Solid';
+        font-size: 14px;
+        letter-spacing: 0.63px;
+        text-align: center;
+        padding: 11px 49px 10px 49px;
+        position: absolute;
+        top: 17px;
+        left: 780px;
+      }
+
+      .play-btn-top {
+        position: absolute;
+        left: 954px;
+        top: 17px;
+        width: 161px;
+        height: 38px;
+        background-color: #ff7979;
+        color: #ffffff;
+        font-family: 'Phosphate-Solid';
+        font-size: 14px;
+        letter-spacing: 0.63px;
+        padding: 11px 63px 10px 64px;
+        text-align: center;
+      }
+
+      .heading-1 {
+        width: 283px;
+        height: 36px;
+        color: #ff7979;
+        font-family: 'Phosphate-Solid';
+        font-size: 30px;
+        line-height: 26px;
+        text-transform: uppercase;
+        position: absolute;
+        left: 404px;
+        top: 117px;
+      }
+
+      .description-1 {
+        width: 511px;
+        height: 125px;
+        color: #606060;
+        font-family: "Titillium Web";
+        font-size: 16px;
+        font-weight: 300;
+        line-height: 24px;
+        position: absolute;
+        left: 73px;
+        top: 208px;
+      }
+
+      .stats-img {
+        position: absolute;
+        left: 71px;
+        top: 359px;
+      }
+
+      .participate-heading {
+        width: 318px;
+        height: 53px;
+        background-color: #ff7979;
+        padding: 9px 54px 8px 63px;
+        top: 184px;
+        left: 688px;
+        color: #ffffff;
+        font-family: 'Phosphate-Solid';
+        font-size: 28px;
+        line-height: 35px;
+        text-transform: uppercase;
+        position: absolute;
+        z-index: 10;
+      }
+
+      .participate-description {
+        width: 430px;
+        height: 206px;
+        border: 5px solid #3ed4e0;
+        background-color: #ffffff;
+        position: absolute;
+        top: 211px;
+        left: 639px;
+        color: #606060;
+        font-family: "Titillium Web";
+        font-size: 16px;
+        font-weight: 300;
+        line-height: 24px;
+        padding: 40px 11px 16px 11px;
+      }
+
+      .bold-description {
+        font-family: "Titillium Web";
+        font-weight: 700;
+      }
+
+      .listen-points-heading {
+        position: absolute;
+        width: 172px;
+        height: 34px;
+        color: #4b4b4b;
+        font-family: 'Phosphate-Solid';
+        font-size: 20px;
+        line-height: 28px;
+        left: 70px;
+        top: 459px;
+      }
+
+      .connect-points-heading {
+        position: absolute;
+        width: 172px;
+        height: 34px;
+        color: #4b4b4b;
+        font-family: 'Phosphate-Solid';
+        font-size: 20px;
+        line-height: 28px;
+        left: 70px;
+        top: 588px;
+      }
+
+      .play-points-heading {
+        position: absolute;
+        width: 172px;
+        height: 34px;
+        color: #4b4b4b;
+        font-family: 'Phosphate-Solid';
+        font-size: 20px;
+        line-height: 28px;
+        left: 70px;
+        top: 707px;
+      }
+
+      .listen-points-description {
+        width: 510px;
+        height: 81px;
+        color: #606060;
+        font-family: "Titillium Web";
+        font-size: 16px;
+        font-weight: 300;
+        line-height: 24px;
+        position: absolute;
+        left: 74px;
+        top: 491px;
+      }
+
+      .connect-points-description {
+        width: 510px;
+        height: 81px;
+        color: #606060;
+        font-family: "Titillium Web";
+        font-size: 16px;
+        font-weight: 300;
+        line-height: 24px;
+        position: absolute;
+        left: 74px;
+        top: 621px;
+      }
+
+      .play-points-description {
+        width: 510px;
+        height: 81px;
+        color: #606060;
+        font-family: "Titillium Web";
+        font-size: 16px;
+        font-weight: 300;
+        line-height: 24px;
+        position: absolute;
+        left: 74px;
+        top: 742px;
+      }
+
+      .game-levels-heading {
+        width: 182px;
+        height: 36px;
+        color: #ff7979;
+        font-family: 'Phosphate-Solid';
+        font-size: 30px;
+        line-height: 26px;
+        position: absolute;
+        left: 622px;
+        top: 457px;
+      }
+
+      .game-levels-description {
+        width: 321px;
+        height: 105px;
+        color: #707070;
+        font-family: "Titillium Web";
+        font-size: 16px;
+        font-weight: 400;
+        position: absolute;
+        left: 636px;
+        top: 508px;
+      }
+
+      .level-one-img {
+        position: absolute;
+        left: 969px;
+        top: 472px;
+      }
+
+      .horizontal-bar-levels {
+        position: absolute;
+        left: 626px;
+        top: 626px;
+      }
+    }
+  }
+}

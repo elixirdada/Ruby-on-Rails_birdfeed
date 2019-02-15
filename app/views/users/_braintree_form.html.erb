@@ -1,0 +1,271 @@
+  <% braintree_subscription = current_user.braintree_subscription %>
+  <div id="step-2" class="signup-panel c-panel bg-white">
+    <div class="big-blue-number">2.</div>
+    <div class="d-flex justify-content-between flex-column flex-sm-row">
+      <h1>MEMBERSHIP LEVEL</h1>
+      <div class="plan-period-switcher">
+        <span class="switcher-btn switcher-annualy">BILLED ANNUALY</span>
+        <span class="switcher <%= 'monthly' if current_user.subscription_length == 'monthly_insider' || current_user.subscription_length == 'monthly_vib' || current_user.subscription_length == 'monthly_old' %>"></span>
+        <span class="switcher-btn switcher-monthly">BILLED MONTHLY</span>
+      </div>
+      <%= link_to 'What’s the difference?', pricing_path, class: "font-weight-bold", target: '_blank' %>
+    </div>
+    <div>How do you roll?</div>
+    <div class="plan-blocks mb-4">
+      <div class="free-plan plan-block <%= 'active' unless braintree_subscription %>" data-type="chirp">
+        <div class="tip float-right">
+          <span class="icon">?</span>
+          <div class="message square">
+            <h3>CHIRP</h3>
+            <p>
+              Chirp is a free membership allowing access to the chirp questions & discussions forum.
+              This level of membership does not include participation in community functionality, music, games, achievements and points
+            </p>
+          </div>
+        </div>
+        <div class="text-1">CHIRP</div>
+        <div class="text-2"><span>$0</span>/free</div>
+      </div>
+
+      <div class="insider-plan plan-block <%= 'active' if current_user.subscription_length == 'monthly_insider' || current_user.subscription_length == 'yearly_insider' %>" data-type="insider">
+        <div class="tip float-right">
+          <span class="icon">?</span>
+          <div class="message square">
+            <h3>INSIDER</h3>
+            <p>
+              Birdfeed insiders have the ability to stream all music, create playlists and engage in the community on all levels of communication and play & mischeif
+            </p>
+          </div>
+        </div>
+        <div class="text-1">INSIDER</div>
+        <div class="text-2"><span>$6.25</span>/month</div>
+        <div class="text-3">($75 billed Annualy)</div>
+      </div>
+
+      <div class="vib-plan plan-block <%= 'active' if current_user.subscription_length == 'monthly_vib' || current_user.subscription_length == 'yearly_vib' || current_user.subscription_length == 'monthly_old' || current_user.subscription_length == 'yearly_old' %>" data-type="vib">
+        <div class="tip float-right">
+          <span class="icon">?</span>
+          <div class="message square">
+            <h3>VIB</h3>
+            <p>
+              VIB aka “very important bird” is our top tier member and includes all perks of our Insider members + access to our egg credits system including 10 eggs per month allowing for the download of music as well as future usage opportunitie
+            </p>
+          </div>
+        </div>
+        <div class="text-1">VIB</div>
+        <div class="text-2"><span>$8.25</span>/month</div>
+        <div class="text-3">($99 billed Annualy)</div>
+      </div>
+    </div>
+
+    <div class="center-text"><small class="show-all-plans">Show more plans ...</small></div>
+
+    <a href="#step-1" class="btn c-btn-blue btn-wide mr-1 scroll-back-btn">back</a>
+    <a href="#step-3" class="btn c-btn-red btn-wide">next:checkout</a>
+  </div>
+
+  <% if current_user %>
+    <% subscription = current_user.subscription_length.split('_') %>
+    <div id="step-3" class="signup-panel c-panel bg-white">
+      <div class="big-blue-number">3.</div>
+      <h1>CHECKOUT</h1>
+      <span class="selected-plan">
+        You Are registering as
+        <span class="selected-type">
+          <%= subscription[1] || 'Chirp' %>
+        </span> /
+        <span class="selected-period">
+          <% if subscription[0].blank? || subscription[0] == 'free' %>
+            Free
+          <% else %>
+          <%= subscription[0] %>
+          <% end %>
+        </span>
+      </span>
+      <div>You’re close, we can <br>hear the birds calling!</div>
+
+      <div class="row mt-3">
+        <div class="col-lg-8">
+          <div class="signup-payed" style="<%= 'display: none;' unless braintree_subscription %>">
+
+            <div class="row">
+              <div class="col-lg-6">
+                <%= form_tag callbacks_braintree_nonce_path, id: "subscribe-form" do |f| %>
+                  <% if braintree_subscription %>
+                    <div class="form-group">
+                      Card:
+                      <% payment_method = current_user.braintree_customer.payment_methods.first %>
+                      <img src="<%= payment_method.image_url %>" width=37 height=25>
+                      <% if payment_method.respond_to?(:last_4) %>
+                        ending in <%= payment_method.last_4 %>
+                        <br>
+                        <button class="btn c-btn-red mt-2 update-cc">Update Credit Card</button>
+                      <% end %>
+                    </div>
+                  <% else %>
+                    <div class="form-group" id="payment-form"></div>
+                  <% end %>
+
+                  <div class="d-none">
+                    <%= label_tag(:subscription_free, 'Free', class: "sr-only") %>
+                    <%= radio_button_tag(:subscription, 'free', false,
+                        data: { period: 'free', type: 'chirp', cost: '0' },
+                        checked: !braintree_subscription) %>
+
+                    <%= label_tag(:subscription_monthly_insider, 'Monthly - $6.99/month - listen tracks', class: "sr-only") %>
+                    <%= radio_button_tag(:subscription, 'monthly_insider', false,
+                        data: { period: 'monthly', type: 'insider', cost: '6.99' },
+                        checked: current_user.subscription_length == 'monthly_insider') %>
+
+                    <%= label_tag(:subscription_yearly_insider, 'Yearly - $75/year - listen tracks', class: "sr-only") %>
+                    <%= radio_button_tag(:subscription, 'yearly_insider', false,
+                        data: { period: 'yearly', type: 'insider', cost: '75' },
+                        checked: current_user.subscription_length == 'yearly_insider') %>
+
+                    <%= label_tag(:subscription_monthly_vib, 'Monthly - $9.99/month - plus download 10 tracks per month', class: "sr-only") %>
+                    <%= radio_button_tag(:subscription, 'monthly_vib', false,
+                        data: { period: 'monthly', type: 'vib', cost: '9.99' },
+                        checked: current_user.subscription_length == 'monthly_vib' || current_user.subscription_length == 'monthly_old') %>
+
+                    <%= label_tag(:subscription_yearly_vib, 'Yearly - $99.00/year - plus download 10 tracks per month', class: "sr-only") %>
+                    <%= radio_button_tag(:subscription, 'yearly_vib', false,
+                        data: { period: 'yearly', type: 'vib', cost: '99' },
+                        checked: current_user.subscription_length == 'yearly_vib' || current_user.subscription_length == 'yearly_old' ) %>
+                  </div>
+                  <% if !current_user.terms_and_conditions && !current_user.code_of_conduct %>
+                    <input type="checkbox" name="terms-and-conditions" id="terms-and-conditions" required="required">
+                    <label for="terms-and-conditions" class="mb-4 ml-2">
+                      I agree with the
+                      <%= link_to "Terms and Conditions", "#",
+                          class: "font-weight-bold",
+                          data: {toggle: "modal", target: "#infoModal"} %>
+                    </label>
+                    <br>
+                    <input type="checkbox" name="code-of-conduct" id="code-of-conduct" required="required">
+                    <label for="code-of-conduct" class="mb-4 ml-2">
+                      I agree with the
+                      <%= link_to "Code of Conduct", "#",
+                          class: "font-weight-bold",
+                          data: {toggle: "modal", target: "#infoModal"} %>
+                    </label>
+                  <% end %>
+
+                  <a href="#step-2" class="btn c-btn-blue btn-wide">back</a>
+                  <% if braintree_subscription %>
+                    <%= submit_tag 'Submit', class: 'btn c-btn-red btn-wide',
+                        data: { disable_with: false } %>
+                  <% else %>
+                    <%= submit_tag 'join now', class: 'btn c-btn-red btn-wide',
+                        data: { disable_with: false } %>
+                  <% end %>
+                <% end %>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="form-group text-muted" style="box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);">
+                  <a href="https://www.braintreegateway.com/merchants/<%= ENV['BRAINTREE_MERCHANT_ID'] %>/verified" target="_blank">
+                    <img src="https://s3.amazonaws.com/braintree-badges/braintree-badge-wide-light.png" width="280px" height ="44px" border="0"/>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="signup-free" style="<%= 'display: none;' if braintree_subscription %>">
+            <% if !current_user.terms_and_conditions && !current_user.code_of_conduct %>
+              <input type="checkbox" name="free-terms-and-conditions" id="free-terms-and-conditions">
+              <label for="free-terms-and-conditions" class="my-4 ml-2">
+                I agree with the
+                <%= link_to "Terms and Conditions", "#",
+                    class: "font-weight-bold",
+                    data: {toggle: "modal", target: "#infoModal"} %>
+              </label>
+              <br>
+              <input type="checkbox" name="free-code-of-conduct" id="free-code-of-conduct">
+              <label for="free-code-of-conduct" class="mb-4 ml-2">
+                I agree with the
+                <%= link_to "Code of Conduct", "#",
+                    class: "font-weight-bold",
+                    data: {toggle: "modal", target: "#infoModal"} %>
+              </label>
+            <% end %>
+            <br>
+
+            <div class="promo-code-div mt-4">
+              <%= form_tag apply_promocode_path,
+                  multipart: true,
+                  remote: true,
+                  id: 'promocode-form',
+                  style: 'max-width: 250px; display: inline-block;' do %>
+                <label for="promo-code">BirdFeed Promo Code</label>
+                <div class="tip float-right">
+                  <span class="icon">?</span>
+                  <div class="message">
+                    Add the promo code you were hooked up with
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <%= text_field_tag :promocode, nil, class: 'form-control' %>
+                  <div class="input-group-append">
+                    <%= submit_tag "use it!", class: "btn c-btn-red" %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+
+            <a href="#step-2" class="btn c-btn-blue btn-wide mt-4">back</a>
+            <button class="btn c-btn-red btn-wide signup-free-btn mt-4">join now</button>
+          </div>
+        </div>
+
+        <div class="col-lg-1 text-center">
+          <div class="divider"></div>
+        </div>
+
+        <div class="col-lg-3 signup-billing-block">
+          <div class="text-1">Today's payment:</div>
+          <span class="signup-billing-cost">
+            <%= braintree_subscription.try(:next_bill_amount) || 'FREE' %>
+          </span>
+          <div class="text-2">Your next payment will be on</div>
+          <span class="signup-billing-time">
+            <%= braintree_subscription.try(:next_billing_date) || 'never' %>
+          </span>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+<script>
+  $('.credits-dropdown').collapse('hide');
+  $(document).ready((function() {
+    if (sessionStorage.getItem('payment_plan') == 'monthly') {
+      $('.switcher').addClass('monthly')
+    }
+
+    if (sessionStorage.getItem('sign_up_plan') == 'chirp') {
+      $('.show-all-plans').hide()
+      $('.plan-block').removeClass('active');
+      $('.free-plan').addClass('active')
+    }
+
+    if (sessionStorage.getItem('sign_up_plan') == 'insider') {
+      $('.plan-block').removeClass('active');
+      $('.insider-plan').addClass('active')
+      $('.free-plan').hide();
+    }
+
+    if (sessionStorage.getItem('sign_up_plan') == 'vib') {
+      $('.plan-block').removeClass('active');
+      $('.vib-plan').addClass('active')
+      $('.free-plan').hide();
+      $('.insider-plan').hide();
+    }
+
+    $('.show-all-plans').on('click', function() {
+      $('.free-plan').fadeIn();
+      $('.insider-plan').fadeIn();
+      $(this).fadeOut();
+    })
+  }))
+</script>

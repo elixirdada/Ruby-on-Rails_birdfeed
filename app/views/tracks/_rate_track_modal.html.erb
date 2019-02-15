@@ -1,0 +1,128 @@
+<div class="modal modal-blured rate-track-modal" data-track-id="<%= track.id %>" tabindex="-1" role="dialog" id='rating_modal'>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-wide" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body w-100">
+        <% user_rate = get_user_rate_for_track track %>
+        <% if user_rate == 0 %>
+          <h5 class="modal-title gray-big-text">RATE THIS TRACK</h5>
+        <% else %>
+          <h5 class="modal-title gray-big-text">YOU RATED THIS TRACK</h5>
+        <% end %>
+        <%= rating_for track, 'main',
+            star: 4,
+            cancel: false,
+            disable_after_rate: false,
+            star_on: image_path('rate/egg-stars/star-on.png'),
+            star_half: image_path('rate/egg-stars/star-on.png'),
+            star_off: image_path('rate/egg-stars/star-off.png')
+          %>
+        <br>
+        <div class="rate-track-detail">
+          <%= link_to image_tag(image, style: "width: 28px; height: 28px; border-radius: 2px; margin: 0 5px 0 10px;"), release, :class => 'track-image' %>
+          <div class="track-title jp-title-info" aria-label="title">
+            <%= "%02i" % track.track_number %>
+            <%= "#{track.title} - #{track.artists}" %>
+          </div>
+        </div>
+        <input type="submit" name="Submit" value="Submit" class="submit_rating btn c-btn-blue btn-wide mt-2 rating-submit">
+        <a data-dismiss="modal" href="#how_ratings_work_modal" data-toggle="modal" data-target="#how_ratings_work_modal" class="ratings-helper">How do ratings work?</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal modal-blured after-rate-track-modal" data-track-id="<%= track.id %>" tabindex="-1" role="dialog" id='rating_modal'>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-wide" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body w-100">
+        <h5 class="modal-title gray-big-text">ALL SET!</h5>
+        <p>Your rating has been submitted, thanks fam.</p>
+        <div class="rate-track-detail">
+          <%= link_to image_tag(image, style: "width: 28px; height: 28px; border-radius: 2px; margin: 0 5px 0 10px;"), release, :class => 'track-image' %>
+          <div class="track-title jp-title-info" aria-label="title">
+            <%= "%02i" % track.track_number %>
+            <%= "#{track.title} - #{track.artists}" %>
+          </div>
+        </div>
+        <br>
+        <strong>Tell us what you love about this track</strong>
+        <input style="width: fit-content;" data-dismiss="modal" href="#addcommentModal" data-toggle="modal" data-target="#addcommentModal" name="go_to_comment" value="Leave a comment" class="submit_rating btn c-btn-blue btn-wide mt-2 rating-submit">
+        <a data-dismiss="modal" href="#how_ratings_work_modal" data-toggle="modal" data-target="#how_ratings_work_modal" class="ratings-helper">How do ratings work?</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal modal-blured" id="how_ratings_work_modal" data-track-id="<%= track.id %>" tabindex="-1" role="dialog" id='rating_modal'>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5 class="modal-title gray-big-text">MUSIC RATINGS</h5>
+        <br>
+        <strong>How do track ratings work?</strong>
+        <p>Release ratings are based on members egg ratings 1-4 and is based on the accumulated average of all ratings made.</p>
+        <br>
+        <strong>How is the release rating calculated?</strong>
+        <p>A release rating is made up of the accumulated ratings of all tracks in a release.</p>
+        <br>
+        <strong>My ratings</strong>
+        <p>By rating you are submitting your personal opinion of the sound and production quality of this track. Your rating can be edited by clicking on your rating which shows in red below the overall community rating.</p>
+        <br>
+        <strong>Who sees your ratings?</strong>
+        <p>When you rate a track only people you have chosen to be friends with in the Birdfeed community will see. Artists will not know what you personally rated their tracks. We do not allow members to choose what their friends see and don't see.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal modal-blured" id="addcommentModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-wide" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body w-100">
+        <% if current_user %>
+          <%= render partial: 'comments/modal_form', locals: {
+            object: release, submit_text: 'SUBMIT'
+          } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $('.rate-track-modal').off().on('show.bs.modal', function () {
+    $('<input name="dont_submit_rating" type="hidden" value="true" readonly="">').insertAfter('input[name="score"]')
+  });
+
+  $("#how_ratings_work_modal").on("show.bs.modal", function() {
+    $('.main-container').css({'filter': 'blur(15px)'});
+    if($('.jp-release-playlist')[0]){
+      $('.jp-release-playlist').hide();
+    }
+  });
+
+  $("#addcommentModal").on("show.bs.modal", function() {
+    setTimeout(function(){ $('.after-rate-track-modal').hide(); }, 200);
+  });
+
+</script>

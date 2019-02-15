@@ -1,0 +1,17 @@
+<%= track.average("main").try(:avg).try(:round,1) %>
+<%= rating_for track, "main", 
+    star: 4, 
+    cancel: false, 
+    disable_after_rate: true, 
+    star_on: image_path('rate/egg/star-on.png'), 
+    star_half: image_path('rate/egg/star-on.png'), 
+    star_off: image_path('rate/egg/star-off.png') %>
+<hr class="split-line">
+RATE <%= release.average("main").try(:avg).try(:round,1) %>
+<%= rating_for release, "main", 
+    star: 4, 
+    cancel: false, 
+    readonly: true, 
+    star_on: image_path('rate/egg/star-on.png'), 
+    star_half: image_path('rate/egg/star-on.png'), 
+    star_off: image_path('rate/egg/star-off.png') %>

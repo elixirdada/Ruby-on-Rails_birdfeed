@@ -1,0 +1,145 @@
+<%= render 'user_profile_settings/header' %>
+
+<div class="user-profile-settings">
+  <div class="row">
+    <div class="side-bar col-lg-3">
+      <%= render partial: 'users/user_profile_nav', locals: {current_index: 'ACCOUNT'}  %>
+    </div>
+    <div class="main-content account-settings col-lg-9">
+      <div class="row page-header">
+        <div class="col-sm-12">
+          <label class="title">
+            ACCOUNT SETTINGS
+          </label>
+        </div>
+      </div>
+      <!--
+        User Profile Edit Form
+       -->
+      <%= form_for(resource, as: resource_name, url: usr_update_account_path, html: { class: 'form-signin', method: :put } ) do |f| %>
+
+        <div class="row">
+          <%= devise_error_messages! %>
+
+          <div class="col-lg-12">
+            <div class="form-group">
+              <%= f.label :email, 'Email Address', class: 'required' %>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email",
+                class: 'form-control w-60', required: true %>
+            </div>
+
+            <div class="text-center mx-4">
+              <% if current_user && devise_mapping.confirmable? && current_user.pending_reconfirmation? %>
+                <div>Currently waiting confirmation for: <%= current_user.unconfirmed_email %></div>
+              <% end %>
+            </div>
+          </div>
+
+          <!-- <div class="col-lg-12"> -->
+            <!-- <div class="form-group"> -->
+              <%#= f.label :profile_url, 'PROFILE URL', class: 'required' %>
+              <%#= f.text_field :profile_url, autofocus: true, autocomplete: "Profile Url",
+                class: 'form-control w-60', required: true %>
+            <!-- </div> -->
+          <!-- </div> -->
+          <% if current_user %>
+            <div class="col-lg-12">
+              <label class="md-font change-password-header">CHANGE PASSWORD</label>
+              <% if current_user.provider.nil? %>
+                <div class="form-group">
+                  <%= f.label :current_password %>
+                  <%= f.password_field :current_password, autocomplete: "off", required: true,
+                      class: 'form-control w-60', placeholder: "Current password" %>
+                </div>
+              <% end %>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <%= f.label :password, 'NEW PASSWORD', class: 'required' %>
+                <%= f.password_field :password, autocomplete: "off",
+                    class: 'form-control' %>
+              </div>
+            </div>
+            <% if current_user %>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <%= f.label :password_confirmation, 'CONFIRM NEW PASSWORD', class: 'required' %>
+                  <%= f.password_field :password_confirmation, autocomplete: "off",
+                      class: 'form-control' %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+          <div class="col-lg-3">
+            <div class="form-group">
+              <label>&nbsp;</label>
+              <% btn_text = current_user ? 'SAVE PROFILE SETTINGS' : 'NEXT: MEMERSHIP LEVEL' %>
+              <button class="btn c-btn-red btn-wide d-block profile-btn save-profile-btn">
+                <%= btn_text %>
+              </button>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <br>
+      <% if current_user.braintree_subscription_id.present? %>
+        <%= form_tag callbacks_braintree_update_cc_path, id: "subscribe-form" do |f| %>
+          Current Card:
+          <% payment_method = current_user.braintree_customer.payment_methods.first %>
+          <img src="<%= payment_method.image_url %>" width=37 height=25>
+          <% if payment_method.respond_to?(:last_4) %>
+            ending in <%= payment_method.last_4 %>
+            <br>
+            <button class="btn c-btn-red mt-2 update-cc">Update Credit Card</button>
+          <% end %>
+          <%= submit_tag 'Update', class: "hide submit-update-cc btn c-btn-blue btn-wide mt-2" %>
+        <% end %>
+      <% end %>
+     <!--
+      User Profile Edit Form
+      -->
+      <div class="subscription-panel">
+        <div class="row row-eq-height vertical-align w-100">
+          <div class="col-lg-12">
+            <label class="subscription-title" >SUBSCRIPTION</label>
+          </div>
+          <div class="col col-lg-6 insider-wrapper" style="display: initial;">
+            <label class="insider-label"><%= user_tag current_user %></label>
+            <%= link_to 'Change', choose_profile_path, class: 'insider-change' %>
+            <div class="insider-right">
+              <span class="insider-monthly" style="color: white;"><%= subscription_length current_user %></span>
+            </div>
+            <br><br>
+            <div class="insider-right">
+              <span class="insider-monthly" style="color: white;">Your next payment is due on <%= current_user.braintree_subscription.try(:next_billing_date) || 'never' %></span>
+            </div>
+          </div>
+          <div class="col col-lg-4">
+            <%= form_tag apply_promocode_path,
+                multipart: true,
+                remote: true,
+                id: 'promocode-form',
+                style: 'max-width: 250px; display: inline-block;' do %>
+              <label for="promo-code" style="color: white;">Upgrade Promo Code</label>
+              <div class="tip float-right">
+                <span class="icon">?</span>
+                <div class="message">
+                  Add the promo code you were hooked up with
+                </div>
+              </div>
+              <div class="input-group mb-3">
+                <%= text_field_tag :promocode, nil, class: 'form-control' %>
+                <div class="input-group-append">
+                  <button class="btn c-btn-red" type="submit">use it!</button>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="col col-lg-4 cancel-account">
+        <%= link_to "CANCEL ACCOUNT", usr_cancel_account_path, class: "btn btn-sm" %>
+      </div>
+    </div>
+  </div>
+</div>

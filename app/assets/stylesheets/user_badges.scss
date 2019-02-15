@@ -1,0 +1,33 @@
+#badges-play{
+	margin-bottom: 23%;
+
+	.music-block-play {
+	  height: 20%;
+
+	  .main-area-nav {
+	    height: 187px;
+	    position: relative;
+	    font-family: 'Phosphate-Solid';
+	    font-size: 25px;
+	    letter-spacing: 1.13px;
+	    padding: 3% 3% 2% 4%;
+
+	    .user_badge_img{
+	    	width: 9.5%;
+		    height: 9.5%;
+		    padding: 5px;
+	    }
+
+	    .badge-heading{
+				height: 28px;margin-left: -1%;
+				color: #000000;
+				font-size: 18px;
+				letter-spacing: 0.68px;
+				text-transform: uppercase;
+	    }
+
+
+	  }
+
+	}
+}

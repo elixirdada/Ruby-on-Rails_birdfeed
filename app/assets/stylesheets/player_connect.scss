@@ -1,0 +1,184 @@
+.listen-banner {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  overflow: hidden;
+  height: 280px;
+
+  .banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+  }
+
+  .banner-footer {
+    height: 70px;
+    position: absolute;
+    bottom: 0;
+    z-index: 3;
+    width: 100%;
+    display: flex;
+  }
+
+  .left-side {
+    flex-grow: 1;
+    background-color: rgba(255,255,255,0.9);
+    display: flex;
+    align-items: center;
+    color: #484848;
+    padding: 0 50px 0 20px;
+  }
+
+  .banner-title {
+    font-family: 'Phosphate-Solid';
+    font-size: 25px;
+    letter-spacing: 1.13px;
+    line-height: 17px;
+    margin-top: 12px;
+    flex-grow: 1;
+  }
+
+  .release-artists {
+    font-family: "Titillium Web";
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.26px;
+  }
+
+  .tracks-count {
+    font-size: 13px;
+    letter-spacing: 0.58px;
+  }
+
+  .star {
+    display: none;
+    
+    &:after {
+      content: 'release rating';
+      display: block;
+      color: #484848;
+      font-family: 'Phosphate-Solid';
+      font-size: 13px;
+      letter-spacing: 0.58px;
+    }
+  }
+
+  .details {
+    background-color: rgba(0,0,0,0.7);
+    color: #ffffff;
+    font-family: 'Phosphate-Solid';
+    font-size: 14px;
+    letter-spacing: 0.63px;
+    display:flex;
+    align-items: center;
+    justify-content:center;
+    padding: 0 20px;
+  }
+
+  .time {
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    z-index: 4;
+    border: 2px solid #faae03;
+    background-color: #434343;
+    padding: 0 15px;
+    color: #ffffff;
+    font-family: 'Phosphate-Solid';
+    font-size: 14px;
+    letter-spacing: 0.28px;
+  }
+  
+  .playlist-play-playlist {
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    top: 40px;
+    transform: translateX(-50%);
+  }
+}
+
+@media (min-width: 576px) { 
+  .listen-banner {
+    .star {
+      display: inline-block;;
+    }
+  }
+}
+
+.player-main-area {
+
+  .main-area-nav {
+    height: 187px;
+    position: relative;
+    font-family: 'Phosphate-Solid';
+    font-size: 25px;
+    letter-spacing: 1.13px;
+
+    a {
+      color: #ffffff;
+    }
+  }
+
+  .connect-nav-item {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: 'Phosphate-Solid';
+    font-size: 25px;
+    letter-spacing: 1.13px;
+    z-index: 1;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      filter: blur(5px) brightness(70%);
+      z-index: -1;
+    }
+
+    span {
+      line-height: 20px;
+    }
+  }
+
+  .connect-nav-artists:before {
+    background: asset-data-url('dirtybird-bbq-stage.jpg');
+  }
+
+  .connect-nav-playlists:before {
+    background: asset-data-url('dirtybird_bbq.jpg');
+  }
+
+  .connect-nav-releases:before {
+    background: asset-data-url('JLB.jpg');
+  }
+
+  .connect-nav-exclusives:before {
+    background: asset-data-url('dirtybird_bbq.jpg');
+  }
+
+  .main-area-nav-bgrd {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    filter: brightness(50%);
+  }
+
+  .main-area-nav-caption {
+    position: relative;
+    z-index: 2;
+  }
+}

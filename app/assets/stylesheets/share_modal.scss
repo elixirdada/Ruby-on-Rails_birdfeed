@@ -1,0 +1,116 @@
+#ShareModal{
+  font-family: 'Phosphate-Inline';
+  
+  .modal-content{
+    border-radius: 1%;
+  }
+  
+  .modal-header {
+    padding: 0;
+  }
+
+  .modal-body-share{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+
+    .p-style{
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: 0.1rem;
+      color: #434343;
+    }
+    .second_text{
+      width: 201px;
+      height: 32px;
+      color: #222222;
+      font-family: "Titillium Web";
+      font-size: 12px;
+      font-weight: 700;
+      float: left;
+      margin-left: -20%;
+      margin-top: 3%;
+    }
+    .share_buttons{
+      width: 115%;
+
+      .facebook_share_button{
+        width: 270px;
+        height: 115px;
+        border-radius: 19px;
+        background-color: #3b5998;
+        margin: 1%;
+        .share-icon{
+          width: 40%;
+          padding: 8% 10% 8% 10%;
+        }
+        .share-text{
+          width: 107px;
+          height: 48px;
+          color: #ffffff;
+          font-family: Phosphate-Solid;
+          font-size: 39px;
+          text-transform: uppercase;
+          padding: 0% 0% 0% 0%;
+          margin: 12% 0px 0 0px;
+          vertical-align: middle;
+        }
+      }
+      .twitter_share_button{
+        width: 270px;
+        height: 115px;
+        margin: 1%;
+        border-radius: 19px;
+        background-color:  #00acee;
+        .share-icon{
+          width: 40%;
+          padding: 8% 10% 8% 10%;
+        }
+        .share-text{
+          width: 107px;
+          height: 48px;
+          color: #ffffff;
+          font-family: Phosphate-Solid;
+          font-size: 39px;
+          text-transform: uppercase;
+          padding: 0% 0% 0% 0%;
+          margin: 12% 0px 0 0px;
+          vertical-align: middle;
+        }
+      }
+    }
+    .release_read_more_text{
+      padding: 10% 0 2% 0px; 
+    }
+    .top-holder{
+      align-items: center;      
+      .download-modal-title{
+        font-size: 35px;
+      }
+
+      .good-to-go-heading{
+        font-size: 39px;
+        line-height: 25px;
+        text-transform: uppercase;
+        text-align: center;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        margin-bottom: 0;
+        font-family: 'Phosphate-Inline';
+        color: #434343;
+      }
+    }
+  }
+
+  .close {
+    float: right;
+    margin: 3px;
+
+    span {
+      font-size: 40px;
+      top: 0;
+    }
+  }
+
+}

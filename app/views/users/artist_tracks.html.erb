@@ -1,0 +1,15 @@
+<%= render 'users/artist_header' %>
+
+<div class="row">
+  <div class="col-lg-3">
+    <%= render 'player/player_page_menu' %>
+  </div>
+
+  <div class="col-lg-9 music-wrapper">
+    <div class="music-block">
+      <%= render partial: 'playlists/page', 
+                 locals: { tracks: @tracks, source_type: 'user', source_id: @user.id } %>
+    </div>
+
+  </div>
+</div>

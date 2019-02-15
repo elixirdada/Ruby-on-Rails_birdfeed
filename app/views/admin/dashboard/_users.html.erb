@@ -1,0 +1,31 @@
+<h3>Sign up users by week</h3>
+
+<% data = [] %>
+<% data_for_type = {} %>
+
+<% User.subscription_lengths.keys.each do |key| %>
+  <% 8.step(0, -1) do |i| %>
+    <% date = Date.today.beginning_of_week(:sunday) - 7*i %>
+    <% data_for_type[date] = User.send(key).group_by_week(:created_at).count[date] || 0 %>
+  <% end %>
+
+  <% data << { name: key, data: data_for_type.dup } %>
+<% end %>
+
+<%= column_chart data, stacked: true %>
+
+
+<h3>Sign up users by month</h3>
+<% data = [] %>
+<% data_for_type = {} %>
+
+<% User.subscription_lengths.keys.each do |key| %>
+  <% 24.step(0, -1) do |i| %>
+    <% date = Date.today.beginning_of_month - 1.month*i %>
+    <% data_for_type[date] = User.send(key).group_by_month(:created_at).count[date] || 0 %>
+  <% end %>
+
+  <% data << { name: key, data: data_for_type.dup } %>
+<% end %>
+
+<%= column_chart data, stacked: true %>

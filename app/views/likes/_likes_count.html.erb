@@ -1,0 +1,17 @@
+<% if locals[:already_liked] && locals[:likes_count] > 0 %>
+  <% if locals[:likes_count] ==1 %>
+    <div class="display-inline">
+       <span>You have liked this</span>
+    </div>
+  <% else %>
+    <div class="display-inline">
+      <div class="like-desc-you"> You and </div>
+       <%= (locals[:likes_count]-1) %>
+       <div class="like-desc"> others </div>
+    </div>
+  <% end %>
+<% elsif locals[:likes_count] > 0 %>
+  <%= locals[:likes_count] %>
+<% else %>
+  <span>Be the first to like this</span>
+<% end %>

@@ -1,0 +1,36 @@
+<div class="artist-gray">
+  <%= link_to object, class: 'mr-4 '+ avatar_style(object) do %>
+    <%= image_tag object.avatar.big_thumb, class: "item-avatar "+(object.online? ? "red-circle" : "") %>
+    <%#= image_tag 'icons/point-green-big.svg', class: "artist-online" if object.online? %>
+    <% if avatar_style(object) == 'chirp-style' %>
+      <%#= image_tag 'icons/corner-chirp.png', class: 'chirp-corner', style: "position: absolute;top: 40%;width: 65%;" %>
+    <% end %>
+  <% end %>
+
+  <div class="item-body">
+
+    <h3><%= link_to object.name.upcase, object %></h3>
+
+    <div class="item-subtitle">
+      <strong>
+        <%= object.address_city %>
+        <br>
+        <%= object.followers.count %>
+        <%= "Friend".pluralize(object.followers.count) %>
+        <br>
+        Fam status
+        <%= "##{number_with_delimiter(user_position(object), :delimiter => ',')}" %>
+      </strong>
+    </div>
+
+    
+  </div>
+
+  <div class="item-controls">
+    <%= link_to 'profile', object, class: 'btn c-btn-black btn-square mb-1' %>
+    <%= render partial: 'follows/follow_button', 
+        locals: { object: object, 
+                  opt: { 
+                      text: ['add friend', 'unfollow'] } } %>
+  </div>
+</div>

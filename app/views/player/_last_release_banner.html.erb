@@ -1,0 +1,45 @@
+<% release = ReleasePresenter.new(
+  Release.published.by_roles(current_user.try(:roles).try(:pluck, :id)).first,
+  current_user) %>
+<div class="listen-banner">
+  <% if release.showcase.present? %>
+    <%= image_tag release.showcase.url, class: "banner-img" %>
+  <% else %>
+    <%= image_tag release.avatar.url(:large), class: "banner-img" %>
+  <% end %>
+
+  <%= link_to '', "#",
+              data: {
+                source_type: 'release',
+                source_id: release.id,
+                virtual: false
+              },
+              class: "play-release-#{release.id} playlist-play-playlist",
+              remote: true %>
+
+  <div class="banner-footer">
+    <div class="time"><%= time_ago_in_words( release.release_date ).upcase %> AGO</div>
+
+    <div class="left-side">
+      <div class="banner-title">
+        <%= release.title %>
+        <span class="tracks-count"><%= "#{release.tracks.count} #{'track'.pluralize(release.tracks.count)}" %></span>
+        <div class="release-artists">
+          By <%= release.artists(2) %>
+        </div>
+      </div>
+
+      <%#= release.average('main').try(:avg).try(:round,1) %>
+      <%= rating_for release, 'main',
+          star: 4,
+          cancel: false,
+          readonly: true,
+          star_on: image_path('rate/egg/star-on.svg'),
+          star_half: image_path('rate/egg/star-on.svg'),
+          star_off: image_path('rate/egg/star-off.svg')
+        %>
+    </div>
+
+    <%= link_to 'Details', release, class: 'details' %>
+  </div>
+</div>

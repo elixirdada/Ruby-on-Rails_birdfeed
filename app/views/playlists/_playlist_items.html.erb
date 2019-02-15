@@ -1,0 +1,84 @@
+<table class="playlist-items">
+  <tr>
+    <th></th>
+    <th>Title</th>
+    <th>Artist</th>
+    <% unless source_type == 'release' %>
+      <th>Release</th>
+    <% end %>
+    <th class="text-center"><%= image_tag 'icons/time.png' %></th>
+    <th>Rate</th>
+    <th></th>
+  </tr>
+  <% tracks.each_with_index do |_track, i| %>
+    <% track = TrackPresenter.new(_track, current_user, @browser) %>
+    <tr class='playlist-item'>
+      <td style="white-space: nowrap;">
+        <% if @playlist.present? || @with_index %>
+          <%= link_to "", "#",
+              class: "play-#{source_type}-#{source_id}-index-#{i} playlist-play-track",
+              data: {
+                source_type: source_type,
+                source_id: source_id,
+                track_index: i,
+                virtual: false
+              },
+              remote: true %>
+        <% else %>
+          <%= link_to "", "#",
+              class: "play-#{source_type}-#{source_id}-track-#{track.id} playlist-play-track",
+              data: {
+                source_type: source_type,
+                source_id: source_id,
+                track_index: i,
+                track_id: track.id,
+                virtual: false
+              },
+              remote: true %>
+        <% end %>
+        <%= render 'likes/like_button', object: track %>
+        <button class="playlist-add-track" data-track-id="<%= track.id %>">+</button>
+      </td>
+      <td>
+        <%= link_to track.release, class: "release-link release-link-img" do %>
+          <%= image_tag track.release.avatar.url(:large) %>
+        <% end %>
+        <%= truncate track.title, length: 27 %>
+      </td>
+      <% if track.users.any? %>
+        <td class="playlist-track-artists">
+          <% track.users.each do |user| %>
+            <%= link_to user.name, user %>
+          <% end %>
+        </td>
+      <% else %>
+        <td><%= truncate formatted_artists_name(track.artists), length: 24 %></td>
+      <% end %>
+      <% unless source_type == 'release' %>
+        <td>
+          <%= link_to track.release, class: "release-link" do %>
+            <%= truncate track.release.title, length: 28 %>
+          <% end %>
+        </td>
+      <% end %>
+      <td><%= formatted_track_time track.track_info.track_time %></td>
+      <td>
+        <%#= track.average("main").try(:avg).try(:round,1) %>
+        <% unless current_user && current_user.has_role?(:artist) %>
+          <%= rating_for track, "main",
+              star: 4,
+              cancel: false,
+              disable_after_rate: false,
+              star_on: image_path('rate/egg/star-on.png'),
+              star_half: image_path('rate/egg/star-on.png'),
+              star_off: image_path('rate/egg/star-off.png') %>
+          &nbsp;
+        <% end %>
+      </td>
+      <td style="position: relative;" class="table-icons-cell">
+        <%= render partial: 'tracks/download', locals: { track: track, icon: 'black' } %>
+        <%= render partial: 'layouts/share', locals: { object: track, icon: 'black' } %>
+      </td>
+    </tr>
+  <% end %>
+</table>

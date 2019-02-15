@@ -1,0 +1,106 @@
+<div class="release-flag-block">
+  <div class="c-flag">LATEST RELEASES</div>
+  <%= link_to "SEE ALL", releases_path, class: "btn c-btn-blue" %>
+</div>
+
+<div class="h-carousel mb-4">
+  <%= render @releases %>
+</div>
+
+<div class="row">
+  <!-- FANS LEADERBOARD -->
+  <div class="col-lg-8">
+    <div class="c-panel bg-br-blue mb-4">
+      <div class="display-inline">
+        <%= image_tag 'big_10.png' %>
+        <!-- <div class="see-all-btn" style="margin-left: 10rem;">Learn More</div>
+        <div class="see-all-btn" style="padding-left: 47px;margin-left: 10px;">Top 200</div> -->
+      </div>
+      <ol class="fans-block light-scroll mt-1">
+        <% @leader_users.each do |u| %>
+          <% user = User.find u['id'] %>
+          <% if user.cached_active_subscription? %>
+            <li style="margin-bottom: 20px;">
+              <%= link_to user, class: "d-inline-block align-middle #{avatar_style(user)}" do %>
+                <%= image_tag user.avatar.thumb, class: "user-avatar "+(user.online? ? "red-circle" : ""), alt: '' %>
+              <% end %>
+
+              <div class="fan-body">
+                <div class="fan-name display-inline">
+                  <%= "#{user.first_name.upcase} #{user.last_name[0]}." %>
+                  <%#= image_tag 'icons/point-green.svg', class: "point-green" if user.online? %>
+                </div>
+                &nbsp;&nbsp;&nbsp;
+                <span class="points-header"><%= "#{user.points} POINTS" %></span>
+                <span class="points-sub-heading">/12 BADGES</span>
+                <span class="level-sub">Level 1</span>
+                <div class="rating-chart">
+                  <div class="rating-kinds">
+                    <% ['Play', 'Listen', 'Connect'].each do |kind| %>
+                      <div class="rating-kind-sub"><%= kind %></div>
+                    <% end %>
+                  </div>
+
+                  <div class="rating-kind-points">
+                    <% @badge_kinds.each do |kind| %>
+                      <div class="bar-points"><%= user.points(kind.id) %></div>
+                    <% end %>
+                  </div>
+
+                  <div class="rating-bars">
+                    <% @badge_kinds.each do |kind| %>
+                      <% color = case kind.name
+                        when "music" then "red"
+                        when "forum" then "gray"
+                        when "community" then "yellow"
+                        end %>
+                      <div class="progress-wrapper">
+                        <div class="progress-<%= color %>">
+                          <div class="c-progress-bar" role="progressbar" style="width: <%= rand(10..100) %>%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </li>
+          <% end  %>
+        <% end %>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ARTISTS -->
+  <div class="col-lg-4">
+    <div class="c-panel bg-c-dark mb-4" style="border: 4px solid #faae03;box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);">
+      <div class="c-flag c-flag-inner mb-4" style="left: -31px;">LATEST ARTISTS</div>
+      <%= link_to "SEE ALL", artists_path, class: "btn c-btn-blue no-border-red" %>
+
+      <ol class="users-block dark-scroll list-unstyled mt-1">
+        <% @artists.each do |artist| %>
+          <li>
+            <%= link_to artist_path(artist),
+                class: "d-inline-block align-middle #{avatar_style(artist)}" do %>
+              <%= image_tag artist.avatar.thumb,
+                  class: "user-avatar artist-style "+(artist.online? ? "red-circle" : ""),
+                  alt: '' %>
+            <% end %>
+            <div>
+              <h5>
+                <%= link_to artist.name, artist_path(artist) %>
+                <%#= image_tag 'icons/point-green.svg', class: "point-green" if artist.online? %>
+              </h5>
+              <div>
+                <%= artist.try(:artist_info).try(:tracks_count) || 0 %>
+                <%= "Track".pluralize(artist.try(:artist_info).try(:tracks_count)) %>
+                /
+                <%= artist.try(:artist_info).try(:followers_count) || 0 %>
+                <%= "Follower".pluralize(artist.try(:artist_info).try(:followers_count)) %>
+              </div>
+            </div>
+          </li>
+        <% end %>
+      </ol>
+    </div>
+  </div>
+</div>

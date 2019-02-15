@@ -1,0 +1,208 @@
+<div class="signup-header" style="margin-bottom: -100px;">
+  <%= image_tag '/images/birdfeed-header.jpg', class: "h-100" %>
+
+  <div class="success-banner signup-logo">
+    <div class="success-logo">
+      <%= image_tag 'icons/flash.svg', class: "flash-lightning" %>
+      <%= image_tag 'birdfeed-logo-white.png', class: 'success-logo-img' %>
+    </div>
+
+    <div class="text-1">
+      HOW EGGS WORK
+    </div>
+
+    <div class="text-2">
+      AND HOW TO USE THEM
+    </div>
+
+    <div class="success-bottom d-flex justify-content-around">
+      <span>HUNT</span>
+      <span>STACK</span>
+      <span>Crack</span>
+    </div>
+  </div>
+</div>
+
+<div class="signup-panel c-panel bg-white">
+  <div class="black-square">
+    <div class="row">
+      <div class="col-4 d-none d-lg-block">
+        <%= image_tag 'egg-big.svg', class: "black-square-img" %>
+      </div>
+      <div class="col-8">
+        <h3 class="h3-eggs">What are eggs?</h3>
+        <p class="mb-4">
+          Eggs are Birdfeeds exchange system. You can trade eggs for music downloads, Dirtybird & artist items as well as exclusive access to areas in the site and events.
+        </p>
+        <h3 class="h3-eggs">VIB members only</h3>
+        <p class="mb-4">
+          In order to participate in the Birdfeed egg credit system, you must hold a membership status of VIB.
+        </p>
+
+        <%= link_to "Sign up", new_registration_path(resource_name), 
+            class: "btn c-btn-red btn-square btn-wide" %>
+        &nbsp;
+        <%= link_to "Upgrade", choose_profile_path, 
+            class: "btn c-btn-blue btn-square btn-wide" %>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="h2-eggs">WHAT do I Get for my Eggs?</h2>
+
+  <div class="row mb-4 pb-4">
+    <div class="col-lg-5">
+      <h2 class="h2-eggs text-left text-red">Available Now</h2>
+      <h3 class="h3-eggs">Music Downloads:</h3>
+      <p>
+        Use your eggs to download the latest releases or the entire Dirtybird catalog of EPs LPs, remixes and exclusives all in one place. 
+      </p>
+      <div class="d-flex align-items-center justify-content-between">
+        <%= image_tag 'usual.png' %>
+        <%= image_tag 'd_select.png' %>
+        <%= image_tag 'exclusive.png' %>
+      </div>
+    </div>
+
+    <div class="col-lg-7">
+      <div class="d-flex justify-content-between">
+        <%= image_tag 'release1.jpg', width: '32%', height: '100%' %>
+        <%= image_tag 'release2.jpg', width: '32%', height: '100%' %>
+        <%= image_tag 'release3.jpg', width: '32%', height: '100%' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 pb-4">
+    <div class="col-md-6 mb-4">
+      <div class="download-now-eggs">
+        <div class="download-now-head">download now</div>
+        <div class="d-flex justify-content-around w-100">
+          <div class="download-now-pane">.WAV</div>
+          <div class="download-now-pane">.mp3</div>
+          <div class="download-now-pane">.aiff</div>
+          <div class="download-now-pane">.Flac</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <h3 class="h3-eggs">The Tracks you download</h3>
+      <p>
+        Our track system is a one trick pony. If you use an egg for downloading a track or release you own it and you can download it in .wav .mp3 .aiff .flacc as many times as you like forever. 
+      </p>
+    </div>
+  </div>
+
+  <hr class="mb-4 pb-4">
+
+  <div class="row mb-4 pb-4">
+    <div class="col-lg-5">
+      <h2 class="h2-eggs text-left text-red">COMING SOON</h2>
+      <h3 class="h3-eggs">GEAR AND MUCh MORE</h3>
+      <p>
+        We’ve got a growing list of pportunities for you to use your eggs, our advice, stack as many as you can so when we open up shop your ready to grab some stuff.
+      </p>
+      <ul class="ul-bird">
+        <li>Birdfeed & Dirtybird gear</li>
+        <li>Track Packs</li>
+        <li>Exclusive remixes</li>
+        <li>Exclusive access</li>
+        <li>Stickers</li>
+        <li>Dirtybird & patches </li>
+        <li>Track & release stems</li>
+        <li>Birdfeed site profile & status upgrades</li>
+        <li>Mystery Boxes</li>
+        <li>And much  more!</li>
+      </ul>
+    </div>
+
+    <div class="col-lg-7">
+      <div class="d-flex justify-content-between mb-4">
+        <%= image_tag 'hoody.png', width: '32%', height: '100%' %>
+        <%= image_tag 't-shirt.png', width: '32%', height: '100%' %>
+        <%= image_tag 'stickers.png', width: '32%', height: '100%' %>
+      </div>
+
+      <div class="p-4" style="border-radius: 5px;border: 1px solid rgba(112, 112, 112, 0.54);">
+        <div class="row">
+          <div class="col-sm-5 mb-3">
+            <%= image_tag 'bird-shop.svg', class: "w-100" %>
+          </div>
+          <div class="col-sm-7">
+            <h3 class="h3-eggs">Birdfeed  SHOP</h3>
+            <p>
+              The Birdfeed shop is coming soon! and will allow all members to use their egg credits to purchase. VIB members will be given opportunities to use their egg credits please note that the Birdfeed shop opens and closes just just like any other shop. 
+            </p>
+            <P>
+              All shop offers end at the end of every season to keep items fresh and new. 
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="mb-4 pb-4">
+
+  <h2 class="h2-eggs">The basics of Eggs</h2>
+
+  <div class="row mb-4 pb-4">
+    <div class="col-lg-6 mb-4">
+      <div class="row">
+        <div class="col-sm-6 d-flex align-items-center justify-content-center">
+          <%= image_tag 'eggs-shop.svg', class: 'w-75' %>
+        </div>
+        <div class="col-sm-6">
+          <h3 class="h3-eggs">Purchase More Eggs</h3>
+          <p>
+            Purchasing eggs is simple you can purchse eggs in quantities of 6 pack, 13 bakers donzen or 18 big large.  You must be a participating member to purchase eggs. 
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 mb-4">
+      <div class="row">
+        <div class="col-sm-6 d-flex align-items-center justify-content-center">
+          <%= image_tag 'eggs-rack.svg', class: 'w-75' %>
+        </div>
+        <div class="col-sm-6">
+          <h3 class="h3-eggs">Stacking Eggs</h3>
+          <p>
+            So long as you hold an VIB membership your eggs can stack monthly they contnue to rollover, the more eggs you have the more oppotunities you have to purchase cooler stuff. 
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 mb-4">
+      <div class="row">
+        <div class="col-sm-6 d-flex align-items-center justify-content-center">
+          <%= image_tag 'eggs-brolly.svg', class: 'w-75' %>
+        </div>
+        <div class="col-sm-6">
+          <br>
+          <br>
+          <br>
+          <br>
+          <h3 class="h3-eggs">Egg DRop</h3>
+          <p>
+            Every month VIB members are dropped 10 freshly laid  eggs into their account to use as they please.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 mb-4">
+      <div class="row">
+        <div class="col-sm-6 d-flex align-items-center justify-content-center">
+          <%= image_tag 'egg-colored.png', class: 'w-75' %>
+        </div>
+        <div class="col-sm-6">
+          <h3 class="h3-eggs">Designer Eggs</h3>
+          <p>
+            Designer Eggs are not egg credits they part of the Birdfeed game system and are hidden seasonally throughout the website. These eggs are collected by Birdfeed members and sometimes when found hold egg credits within them. Both VIB & Insiders can play to collect designer eggs. In the case that the prize inside the designer egg is egg credits only VIB members will collect ton that part of the prize.  
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

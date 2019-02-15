@@ -1,0 +1,72 @@
+<div class="container pt-4 change-password-page">
+  <div class="modal-content change-password-page-pane">
+    <div class="change-password-page-body">
+      <h3>
+        Password Reset
+        <%= show_svg('icons/bird-orange.svg') %>
+      </h3>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <p class="textemail">Lets get your new password set.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+            <%= f.hidden_field :reset_password_token %>
+            <div class="mb-6 field-holder">
+              <p style="margin-bottom: 1px;"><span class="labelemail"><strong>New Password</strong>
+                <% unless devise_error_messages!.eql? ""%>
+                  </span> &nbsp;&nbsp;&nbsp;<b class="txtnote">OOOPS:</b> &nbsp;&nbsp;<span class="txtRegister">
+                  <% if devise_error_messages!.include? "6"%>
+                    <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+                  <% else %>
+                    Your emails dont match
+                  <% end %>
+                  </span>
+                <% end%>
+              </p>
+              <div class="row mt-1">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <%= f.password_field :password, autofocus: true, autocomplete: "off", class: ""+((devise_error_messages!.eql? "" ) ? "form-control" : "emaillfield"), style: "width:55%;" %>
+                </div>
+              </div>
+            </div>
+            <div class="mb-6 field-holder">
+              <p style="margin-bottom: 1px;"><span class="labelemail"><strong>Confirm New Password</strong>
+                <% unless devise_error_messages!.eql? ""%>
+                  </span> &nbsp;&nbsp;&nbsp;<b class="txtnote">OOOPS:</b> &nbsp;&nbsp;<span class="txtRegister">
+                  <% if devise_error_messages!.include? "6" %>
+                    <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+                  <% else %>
+                    Your emails dont match
+                  <% end %>
+                  </span>
+                <% end%>
+              </p>
+              <div class="row mt-1">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <%= f.password_field :password_confirmation, autofocus: true, autocomplete: "off", class: ""+((devise_error_messages!.eql? "" ) ? "form-control" : "emaillfield"), style: "width:55%;" %>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="actions">
+              <%= f.submit "RESET", class: "btn btn-danger btnreset" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <strong>
+            <%= link_to "Sign In", new_session_path(resource_name), class: 'text-links' %>
+          </strong>
+          <span class="mr-4"></span>|<span class="ml-4"></span>
+          <%= link_to "Sign Up", new_registration_path(resource_name), class: "text-links" %><br />
+        </div>
+      </div>
+      <br>
+    </div>
+  </div>
+</div>

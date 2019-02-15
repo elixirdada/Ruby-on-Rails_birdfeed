@@ -1,0 +1,670 @@
+.birthdate_select {
+	#user_birthdate_1i {
+    width: 6.5rem;
+	}
+
+	#user_birthdate_2i {
+    width: 9rem;
+	}
+
+	#user_birthdate_3i {
+    width: 4.5rem;
+	}
+
+	.select-birthdate {
+    margin-right: 2px;
+	}
+}
+.user-profile-settings {
+	background-color: #ffffff;
+	margin:0 15px;
+	padding: 0 15px 70px 0;
+
+	.main-content {
+		.page-header {
+			margin-top: 40px;
+
+			.title {
+			    padding: 0;
+			    font-size: 36px;
+			    letter-spacing: 1.62px;
+				color: #434343;
+				font-family: 'Phosphate-Solid';
+			}
+
+			.label-margin{
+				margin-bottom: 0px !important;
+			}
+
+			.profile-question {
+				font-size: 15px;
+				font-weight: 400;
+				letter-spacing: 0.68px;
+				line-height: 18px;
+				font-family: "Titillium Web";
+			}
+
+			.header-btn {
+				color: #ffffff;
+				font-family: Phosphate-solid;
+				font-size: 13px;
+				letter-spacing: 0.58px;
+				padding: 15px 40px;
+			    min-width: 150px;
+			    display: inline-block;
+			    text-align: center;
+
+				&.egg-credits-link-btn {
+					background-color: #3ed4e0;
+				}
+
+				&.rewards-link-btn {
+					background-color: #000000;
+				}
+
+				&.headers-link-btn {
+					background-color: #050505;
+				}
+
+				&.skins-link-btn {
+					background-color: #3ed4e0;
+				}
+
+				&.friends-link-btn {
+					background-color: #000000;
+				}
+
+				&.artists-link-btn {
+					background-color: #3ed4e0;
+				}
+
+				&.releases-link-btn {
+					background-color: #3ed4e0;
+				}
+
+				&.chirp-feeds-link-btn {
+					background-color: #000000;
+				}
+			}
+
+		}
+
+		.page-note {
+		    color: #ff7979;
+		    font-family: "Titillium Web";
+		    font-size: 15px;
+		    line-height: 15px;
+		    font-style: italic;
+		    margin-bottom: 15px;
+
+		    b {
+		    	color: #3ed4e0;
+		    }
+		}
+		.page-content {
+
+			.sub-title {
+				color: #434343;
+				font-family: Phosphate-solid;
+				font-size: 20px;
+				letter-spacing: 0.9px;
+				margin-bottom: 0px;
+			}
+			&.rewards-content {
+ 				color: #5f5f5f;
+				font-family: Phosphate-solid;
+				font-size: 20px;
+				letter-spacing: 0.9px;
+			}
+
+			&.egg-credits-content {
+				.eggs-status {
+					border: 1px solid rgba(112, 112, 112, 0.26);
+				    background-color: #ffffff;
+				    padding: 15px;
+					.current-eggs-status {
+						color: #000000;
+					    font-family: Phosphate-solid;
+					    font-size: 20px;
+					    letter-spacing: 0.9px;
+					    line-height: 18px;
+
+					    .number-of-eggs {
+    						color: #ff7979;
+					    }
+					}
+				}
+				.future-eggs-status {
+					margin-top: 15px;
+				    color: #000000;
+				    font-family: "Titillium Web";
+				    font-size: 13px;
+				    font-weight: 400;
+				    line-height: 15px;
+				}
+
+				.grab-more-eggs-btn {
+					margin-top: 15px;
+				    width: 100%;
+				    border: 2px solid #faae03;
+				    background-color: #3e3e3e;
+				    padding: 11px;
+				    color: #ffffff;
+				    font-family: Phosphate-solid;
+				    font-size: 16px;
+				    letter-spacing: 0.72px;
+				}
+				.birdfeed-shop-btn {
+					position: relative;
+					margin-top: 15px;
+				    width: 100%;
+				    border: 2px solid #ff7979;
+				    background-color: #3e3e3e;
+				    padding: 11px;
+				    color: #ffffff;
+				    font-family: Phosphate-solid;
+				    font-size: 16px;
+				    letter-spacing: 0.72px;
+					color: #ffffff;
+					font-size: 16px;
+					letter-spacing: 0.72px;
+					text-transform: uppercase;
+
+					.closed-btn {
+						position: absolute;
+					    left: -10px;
+					    top: -15px;
+					}
+					.question-mark {
+						float: right;
+					}
+				}
+				.eggs-collection-wrapper {
+					.eggs-collection {
+						.single-egg {
+							width: 25px;
+							margin-left: -3.3px;
+							&:first-child {
+								margin-left: 10px
+							}
+						}
+					}
+					.eggs-table {
+						width: 100%;
+						margin-top: -10px;
+					}
+				}
+
+			}
+			&.headers-skins-content {
+				.total-numbers {
+				    color: #434343;
+				    font-family: Phosphate-solid;
+				    font-size: 20px;
+				    letter-spacing: 0.9px;
+				    margin-bottom: 20px;
+
+				    .real-num {
+						color: #3ed4e0;
+				    }
+				}
+				.default-grey-skin {
+					color: #000000;
+				    font-family: "Titillium Web";
+				    font-size: 13px;
+				    font-weight: 700;
+				    line-height: 13px;
+
+				    .shape {
+					    position: relative;
+				    	margin-top: 5px;
+					    width: 172px;
+					    height: 148px;
+					    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+					    border-radius: 9px;
+					    border: 1px solid #707070;
+					    background-color: #f7f7f7;
+
+					    .selected-status {
+							position: absolute;
+						    bottom: 20px;
+						    right: 0;
+						    padding: 6px 20px;
+						    background-color: #ff7979;
+						    border: none;
+						    color: #ffffff;
+						    font-family: Phosphate-solid;
+						    font-size: 13px;
+						    letter-spacing: 0.58px;
+					    }
+					}
+				}
+
+				.header-label {
+					color: #000000;
+					font-family: "Titillium Web";
+					font-size: 13px;
+					font-weight: 700;
+					line-height: 13px;
+				}
+
+				.header-content {
+					position: relative;
+					margin-bottom: 50px;
+
+					img {
+						width: 100%;
+            height: 150px;
+					}
+					input.apply, button {
+					    position: absolute;
+					    bottom: calc(50% - 15px);
+					    right: 0;
+						background-color: #3ed4e0;
+					    color: #ffffff;
+					    font-family: Phosphate-solid;
+					    font-size: 13px;
+					    letter-spacing: 0.58px;
+					    border: none;
+					    min-width: 130px;
+					    text-align: center;
+					    padding: 5px;
+              cursor: pointer;
+
+              &.current {
+                background-color: #ff7979;
+                cursor: initial;
+              }
+					}
+				}
+			}
+
+			&.downloads-content {
+				.downloads-table {
+					width: 100%;
+
+					tr {
+						&.dark-grey {
+							background-color: rgba(209, 209, 209, 0.55);
+						}
+						&.grey {
+							background-color: #f5f5f5;
+						}
+					}
+					th {
+						font-family: "Titillium Web";
+					    font-size: 13px;
+					    font-weight: 700;
+					    line-height: 15px;
+					    padding: 10px 5px;
+					}
+					td {
+						color: #000000;
+						font-family: "Titillium Web";
+						font-size: 13px;
+						font-weight: 400;
+						line-height: 15px;
+						padding: 15px 5px;
+
+						.download-type {
+							.row {
+								border: 1px solid #5a5a5a;
+								width: 100%;
+
+								.col-sm-3 {
+									border-right: 1px solid #5a5a5a;
+
+									div {
+										text-align: center;
+
+										&.number {
+											color: #000000;
+											font-family: "Titillium Web";
+											font-size: 9px;
+											font-weight: 700;
+											line-height: 15px;
+										}
+
+										&.type-name {
+											color: #5a5a5a;
+											font-family: Phosphate-solid;
+											font-size: 12px;
+											letter-spacing: 0.54px;
+											line-height: 13px;
+										}
+									}
+
+									&:last-child {
+										border-right: none;
+									}
+
+									&.active {
+										background-color: #3ed4e0;
+
+										.type-name {
+											color: #ffffff;
+											font-family: Phosphate-solid;
+											font-size: 12px;
+											letter-spacing: 0.54px;
+											line-height: 13px;											text-transform: uppercase;
+										}
+									}
+								}
+							}
+						}
+
+						.invoice-btn, .unfollow-btn {
+							background-color: #ff7979;
+							color: #ffffff;
+							font-family: Phosphate-solid;
+							font-size: 13px;
+							letter-spacing: 0.58px;
+						    border: none;
+						    padding: 10px 30px;
+						    float: right;
+						    width: 90%;
+						    max-width: 150px;
+						}
+					}
+				}
+			}
+
+			&.artists-content {
+				.artist {
+					background-color: #f5f5f5;
+					padding: 10px;
+
+					img {
+						width: 100%;
+					}
+					.name {
+						color: #4b4b4b;
+						font-family: Phosphate-solid;
+						font-size: 15px;
+						letter-spacing: 0.68px;
+						line-height: 15px;
+						margin-bottom: 10px;
+					}
+
+					.count {
+						color: #4b4b4b;
+						font-family: "Titillium Web";
+						font-size: 13px;
+						font-weight: 700;
+						line-height: 15px;
+						padding: 0px;
+					}
+
+					.following-btn, .unfollow-btn {
+						background-color: #ff7979;
+						color: #ffffff;
+						font-family: Phosphate-solid;
+						font-size: 13px;
+						letter-spacing: 0.58px;
+						padding: 10px 20px;
+						width: 100%;
+						border: none;
+					}
+				}
+			}
+
+			&.integrations-content{
+				.row{
+					background-color: #eeeeee;
+				    padding-top: 3%;
+					margin-left: 2%;
+					margin-right: 4%;
+					margin-top: 5px;
+				}
+				.plus-button {
+				    font-size: 32px;
+					line-height: 29px;
+					font-weight: 800;
+					margin: 0px 30px 0px 30px; 
+				}
+				.container-content{
+				    margin: 5px 0px 0px 30px;
+					.navbar-logos {
+					  	padding-top: 14px;
+						img {
+						    margin-top: -0.7rem;
+						}
+					}
+					.font-14{
+						font-size: 14px;
+						margin-top: 2%;
+    					line-height: 1.3;
+					}
+				}
+				.connect-holder{
+					padding: 35px;
+
+					.btn-connect{
+						background-color: #58d4e0;
+						color: white;
+						font-family: Phosphate-solid;
+						font-size: 15px;
+						padding: 5% 30%;
+	    			letter-spacing: inherit;
+					}
+					.btn-connected{
+						background-color: #f07879;
+						color: white;
+						font-family: Phosphate-solid;
+						font-size: 15px;
+						padding: 5% 23%;
+	    			letter-spacing: inherit;
+					}
+					.btn-soon{
+						background-color: #ffa113;
+						color: white;
+						font-family: Phosphate-solid;
+						font-size: 15px;
+						padding: 5% 12%;
+	    			letter-spacing: inherit;
+					}
+				}
+			}
+
+			&.notifications-content {
+				.notifications-form {
+					.submit-btn {
+						background-color: #ff7979;
+						color: #ffffff;
+						font-family: Phosphate-solid;
+						font-size: 13px;
+						letter-spacing: 0.58px;
+						padding: 10px 20px;
+						border: none;
+						margin-top: 20px;
+						min-width: 150px;
+					}
+				}
+
+				.single-option {
+					.option-header {
+						color: #434343;
+						font-family: Phosphate-solid;
+						font-size: 20px;
+						letter-spacing: 0.9px;
+					}
+
+					.option-content {
+						color: #000000;
+						font-family: "Titillium Web";
+						font-size: 15px;
+						font-weight: 400;
+						line-height: 30px;
+
+						.description {
+							margin-right: 10px
+						}
+
+						b {
+							margin: 0 10px;
+						}
+
+						table {
+							td, th {
+								padding: 5px 15px 5px 0;
+								vertical-align: top;
+
+								b {
+									margin: initial;
+								}
+							}
+
+						}
+					}
+				}
+			}
+
+
+		}
+
+	    &.cancel-account-main-content {
+	      padding: 30px 60px;
+
+	      .page-content {
+	        color: #343434;
+	        font-family: "Titillium Web";
+	        font-size: 16px;
+	        font-weight: 400;
+	        line-height: 33px;
+
+	        .content-section {
+	          padding: 15px 0;
+
+	          .sub-header {
+	            margin-bottom: 20px !important;
+	            color: #5f5f5f;
+	            font-family: Phosphate-solid;
+	            font-size: 25px;
+	            line-height: 26px;
+	          }
+
+	          &.things-to-note {
+	            color: #606060;
+	            font-family: "Titillium Web";
+	            font-size: 18px;
+	            font-weight: 400;
+	            line-height: 24px;
+
+	            .note-no {
+	              font-family: "Phosphate-solid";
+	              font-weight: Bold;
+	              font-size: 26px;
+	              margin-right: 5px;
+	            }
+
+	            .col-sm-12 {
+	              margin-bottom: 15px;
+	            }
+	          }
+	        }
+
+	        input[type='submit'] {
+	          color: #ffffff;
+	          font-family: Phosphate-solid;
+	          font-size: 13px;
+	          padding: 10px 20px;
+	          border: none;
+	          outline: none;
+	          cursor: pointer;
+
+	          &.cancel-membership-level {
+	            background-color: #ff7979;
+	            margin-right: 10px;
+	          }
+
+	          &.cancel-account {
+	            background-color: #3ed4e0;
+	          }
+	        }
+	      }
+	    }
+	    .btn-square{
+	      padding: 4% 10% 4% 14%;
+	    }
+	    .unfollow-state{
+	    	background-color: #ff7979;
+		    &:hover{
+		    	background-color: white;
+		    	color: #32d4e1;
+		    }
+	    }
+	    .follow-button{
+	    	padding: 7% 0% 7% 0%;
+		    &:hover{
+		    	background-color: white;
+		    	color: #32d4e1;
+		    }
+	    }
+	}
+}
+
+.user-edit-profile {
+	label {
+		font-size: 16px;
+		letter-spacing: 0.72px;
+		color: #434343;
+		font-family: 'Phosphate-Solid';
+	}
+
+	.profile-btn {
+		height: 38px;
+		border-radius: initial;
+		font-size: 16px;
+
+		&.upload-profile-avatar {
+			margin: 30px 0;
+		}
+	}
+
+	.profile-avatar-area {
+		padding-right: 20px;
+	}
+
+	.shipping-address-group {
+		margin-left: 0px;
+		margin-right: 0px;
+		border: 1px solid rgba(112, 112, 112, 0.24);
+		box-shadow: 0 3px 6px rgba(0, 0, 0, 0.11);
+		border-radius: 6px;
+		background-color: #ffffff;
+
+		.shipping-address-group-header {
+			padding: 15px;
+
+			.header {
+				font-size: 20px;
+			    letter-spacing: 0.9px;
+			    color: #434343;
+			}
+			.description {
+				font-size: 15px;
+			    font-weight: 400;
+			    letter-spacing: 0.68px;
+			    line-height: 18px;
+			    color: #434343;
+			    font-family: "Titillium Web";
+			}
+		}
+	}
+
+	.t-shirt-size-group {
+	    margin-top: 350px;
+	    padding: 15px;
+	    height: 100px;
+	    border: 1px solid rgba(112, 112, 112, 0.24);
+	    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.11);
+	    border-radius: 6px;
+	    background-color: #ffffff;
+
+	    .form-group {
+			margin: 15px;
+		    width: 100%;
+	    }
+	}
+
+}

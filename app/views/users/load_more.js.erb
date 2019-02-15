@@ -1,0 +1,19 @@
+<% all_ids = @leader_users.map {|u| u['id']} %>
+
+<% @leader_users.each do |u| %>
+  $(".leaderboard")
+      .append("<%= escape_javascript(render partial: 'users/leader_sm', locals: {u: u, all_ids: all_ids}) %>");
+<% end %>
+
+var href = $('.show-more').attr('href').replace(/page=(\d+)/, function(match, offset) {
+    window.history.replaceState("", "", "users?page="+offset);
+    return "page=" + (parseInt(offset)+1);
+  });
+
+$('.show-more').attr('href', href);
+  
+<% if all_ids.count == 0 || all_ids.count < @limit %>
+
+  $('.show-more').remove();
+
+<% end %>

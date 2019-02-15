@@ -1,0 +1,46 @@
+<div class="container pt-4 forgot-password-page">
+  <div class="modal-content forgot-password-page-pane">
+    <div class="forgot-password-page-body">
+      <h3>
+				Recover Password
+      </h3>
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<p class="textemail">Enter the email address you used when creating the account and click Reset. A message will be sent to that address containing a link to rest your password.</p>
+				</div>
+			</div>
+			<div class="row mt-4">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+					  <div class="mb-6">
+							<p style="margin-bottom: 1px;"><span class="labelemail"><strong>Email</strong>
+								<% unless devise_error_messages!.eql? ""%>
+									</span> &nbsp;&nbsp;&nbsp;<b class="txtnote">NOPE:</b> &nbsp;&nbsp;<span class="txtRegister">That email address is not registered, try again.</span>
+								<% end%>
+							</p>
+					    <div class="row mt-1">
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+									<%= f.email_field :email, autofocus: true, autocomplete: "email", class: ""+((devise_error_messages!.eql? "" ) ? "form-control" : "emaillfield"), style: "width:55%;" %>
+								</div>
+							</div>
+					  </div>
+					  <br>
+					  <div class="actions">
+					    <%= f.submit "SEND", class: "btn btn-danger btnreset" %>
+					  </div>
+					<% end %>
+				</div>
+			</div>
+			<div class="row mt-5">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<strong>
+						<%= link_to "Sign In", new_session_path(resource_name), class: 'text-links' %>
+					</strong>
+					<span class="mr-4"></span>|<span class="ml-4"></span>
+				  <%= link_to "Sign Up", new_registration_path(resource_name), class: "text-links" %><br />
+				</div>
+			</div>
+			<br>
+    </div>
+  </div>
+</div>

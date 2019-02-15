@@ -1,0 +1,11 @@
+<% if @comment.parent_id.blank? %>
+  $('.modal').modal('hide');
+<% end %>
+
+$('#new_comment-<%= @comment_hash %>').hide();
+
+if(window.location.href.split("?").length != 1){
+	$('#release-feed-btn')[0].click();
+  // $('html, body').animate({ scrollTop: 420 }, 500);
+}
+$('html, body').animate({ scrollTop: $('#release-feed').offset().top}, 2000);

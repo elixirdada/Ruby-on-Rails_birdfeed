@@ -1,0 +1,23 @@
+<h2 class="mt-4">Favorited  TRACKS</h2>
+<%= link_to 'see all', player_liked_tracks_path(user), class: 'see-all' %>
+<%= render partial: 'playlists/playlist_items', 
+    locals: { tracks: tracks, source_type: 'liked', source_id: user.id } %>
+
+<h2 class="mt-4">Favorited Releases</h2>
+<%= link_to "see all", 
+    releases_path(
+      filters: { liked: true }, 
+      player: true, 
+      user_id: user.id),
+      class: "see-all" %>
+<div class="row mt-3 releases-list">
+  <% for release in releases %>
+    <div class="col-lg-4 col-md-6 mb-5">
+      <%= render(release) %>
+    </div>
+  <% end %>
+</div>
+
+<h2>Favorited Playlists</h2>
+<%= link_to 'see all', player_liked_playlists_path(user), class: 'see-all' %>
+<%= render partial: 'playlists/list', locals: { playlists: playlists } %>

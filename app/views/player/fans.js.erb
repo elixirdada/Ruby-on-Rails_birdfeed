@@ -1,0 +1,6 @@
+$('.playlist-nav-body li.active').removeClass('active');
+$('#playlist-community').parent().addClass('active');
+$('.page-title').text('Community');
+$('.music-wrapper').empty();
+
+$('.music-wrapper').append(`<%= escape_javascript(render partial: 'fans') %>`);

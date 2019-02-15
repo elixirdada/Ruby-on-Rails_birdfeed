@@ -1,0 +1,20 @@
+<% content_for :user_header_title, 'Playlists' %>
+
+<% if @user.has_role? :artist %>
+  <%= render 'users/artist_header' %>
+<% else %>
+  <%= render 'users/user_header' %>
+<% end %>
+
+<div class="row">
+  <div class="col-lg-3">
+    <%= render 'player/player_page_menu' %>
+  </div>
+
+  <div class="col-lg-9 music-wrapper">
+    <div class="music-block">
+      <%= render partial: 'playlists/list', locals: { playlists: @playlists } %>
+    </div>
+
+  </div>
+</div>

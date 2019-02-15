@@ -1,0 +1,96 @@
+<% if track.release.present? %>
+  <div class="track-item w-md-50">
+    <div class="thumb">
+      <div class="overlay_play">
+        <%= link_to image_tag(track.release.avatar.url(:large), class: "thumbnail"), track.release, class: "item-avatar" %>
+        <%= link_to "", "#",
+          class: "play-release-#{track.release.id}-track-#{track.id} jp-play playWrapper",
+            style: "background-size: 76% 81% !important;",
+          data: {
+            source_type: 'release',
+            source_id: track.release.id,
+            track_index: track_counter,
+            track_id: track.id,
+            virtual: false
+          },
+          remote: true %>
+          <%#= link_to '',track.release ,class: "playWrapper"%>
+      </div>
+    </div>
+    <h3>
+      <%= track.track_number %>.
+      <%= track.title.truncate(70).upcase %>
+    </h3>
+
+    By
+    <% if track.artist_as_string && track.artist.present? %>
+      <%= track.artist %>
+    <% elsif track.users.any? %>
+      <% track.users.each do |u| %>
+        <%= link_to u.name, u %>
+      <% end %>
+    <% elsif track.artist.present? %>
+      <%= track.artist %>
+    <% else %>
+      Various Artists
+    <% end %>
+
+    <div class="jp-controls">
+      <!-- <div class="jp-current-time-track" role="timer" aria-label="time">0:00</div> -->
+      <!-- <button class="jp-previous" role="button" tabindex="0"></button> -->
+
+      <%#= link_to "", "#",
+          class: "play-release-#{track.release.id}-track-#{track.id} jp-play",
+          data: {
+            source_type: 'release',
+            source_id: track.release.id,
+            track_index: track_counter,
+            track_id: track.id,
+            virtual: false
+          },
+          remote: true %>
+
+      <!-- <button class="jp-next" role="button" tabindex="2"></button> -->
+      <!-- <div class="jp-duration-track" role="timer" aria-label="duration"></div><%# TODO get from database %> -->
+      <% unless current_user && current_user.has_role?(:artist) %>
+        <div class="individual-track-star-wrapper" data-track-id="<%=track.id%>">
+          <div class="individual-track-star">
+            <%= rating_for track, 'main',
+                star: 4,
+                cancel: false,
+                readonly: true,
+                disable_after_rate: true,
+                star_on: image_path('rate/egg/star-on.png'),
+                star_half: image_path('rate/egg/star-on.png'),
+                star_off: image_path('rate/egg/star-off.png')
+              %>
+          </div>
+          <div class="user-rate-wrapper" data-track-id="<%= track.id%>">
+            <% user_rate = get_user_rate_for_track track %>
+            <% if user_rate == 0 %>
+              <% if(current_user && track.listened?(current_user)) %>
+                <div class="rate-track-btn rate-word-btn">
+                  <%= image_tag "rateit.png" ,class: 'image-rate-it' %>
+                </div>
+              <% end %>
+            <% else %>
+              <div class="user-rate-mark rate-track-btn">
+                  <%= image_tag "check-circle.png" ,class: 'image-rated' %><%#= user_rate %>
+              </div>
+            <% end %>
+          </div>
+          <% content_for :body_area do %>
+            <%= render partial: "tracks/rate_track_modal", locals: {track: track, release: track.release, image: track.release.avatar.url(:large), current_user: current_user} %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <div class="track-social">
+      <div class="track_like_button_stylee">
+        <%= render 'likes/like_button', object: track %>
+      </div>
+      <%= render partial: 'tracks/download', locals: { track: track, icon: 'white' } %>
+      <%= render partial: 'layouts/share', locals: { object: track, icon: 'white' } %>
+    </div>
+  </div>
+<% end %>

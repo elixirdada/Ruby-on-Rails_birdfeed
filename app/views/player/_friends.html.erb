@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col">
+    <div class="c-panel bg-white">
+      <div class="c-flag mb-4">FRIENDS</div>
+
+      <ol>
+        <% @friends.each do |user| %>
+          <li class="mb-2">
+            <%= link_to user do %>
+              <%= image_tag user.avatar.thumb, class: "user-avatar mr-3", alt: '' %>
+              <%= user.name %>
+            <% end %>
+          </li>
+        <% end %>
+      </ol>
+    </div>
+  </div>
+</div>

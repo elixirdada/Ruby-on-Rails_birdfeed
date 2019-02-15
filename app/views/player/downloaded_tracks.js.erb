@@ -1,0 +1,7 @@
+$('.playlist-nav-body li.active').removeClass('active')
+$('#playlist-favorited-downloads').parent().addClass('active');
+
+$('.music-wrapper').empty();
+$('.music-wrapper').append('<div class="music-block"></div>')
+
+$('.music-block').append(`<%= render partial: 'playlists/page', locals: { tracks: @tracks, source_type: 'downloaded', source_id: @user.id } %>`);

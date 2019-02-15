@@ -1,0 +1,57 @@
+<%= render 'user_profile_settings/header' %>
+
+<div class="user-profile-settings">
+  <div class="row">
+    <div class="side-bar col-lg-3">
+      <%= render partial: 'users/user_profile_nav', locals: {current_index: 'FRIENDS'}  %>
+    </div>
+    <div class="main-content col-lg-9">
+      <div class="row page-header">
+        <div class="col-sm-6">
+          <label class="title">
+            YOUR FRIENDS
+          </label>
+        </div>
+        <div class="col-sm-6 text-right">
+          <%= link_to 'FRIENDS', usr_friends_path, class: 'header-btn friends-link-btn' %>
+          <%= link_to 'ARTISTS', usr_artists_path, class: 'header-btn artists-link-btn' %>
+        </div>
+      </div>
+      <div class="row page-content artists-content">
+        <% @friends.each_with_index do |friend, index| %>
+          <div class="col-sm-6">
+            <div class="artist">
+              <div class="row custom-vertical-align">
+                <div class="col-sm-4">
+                  <%= link_to artist_path(friend[:info]), class: 'mr-4 '+ avatar_style(friend[:info]) do %>
+                    <%= image_tag friend[:info].avatar.thumb, class: "" %>
+                  <% end %>
+                </div>
+                <div class="col-sm-4 p-0">
+                  <div class="name">
+                    <%= friend[:info].name %>
+                  </div>
+                  <div class="count">
+                    <%= friend[:number_of_friends] %> Friends
+                  </div>
+                  <div class="count">
+                    <!-- <%#= friend[:info].address_street.to_s + " " + friend[:info].address_street_number.to_s%> -->
+                    Fam Status #1235
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <!-- <button class="following-btn"> -->
+                    <!-- FRIENDS -->
+                  <!-- </button> -->
+
+                  <%= render partial: 'follows/follow_button',
+                    locals: { object: friend, opt: { text: ['add friend','friends'] } } %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

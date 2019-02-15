@@ -1,0 +1,53 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sounds_option: false
+  desktop_option: false
+  global_email_notification: false
+  important_notification: false
+  newsletter: false
+  gaming_activities: false
+  new_friend_request_alert: false
+  new_friend_request_email: false
+  new_favorite_alert: false
+  new_favorite_email: false
+  someone_comments_feed_you_follow_alert: false
+  someone_comments_feed_you_follow_email: false
+  user_replies_to_your_comment_alert: false
+  user_replies_to_your_comment_email: false
+  user_follows_topic_you_created_alert: false
+  user_follows_topic_you_created_email: false
+  new_friend_request_alert: false
+  new_friend_request_email: false
+  friend_comment_on_feed_alert: false
+  friend_comment_on_feed_email: false
+  friend_follows_feed_alert: false
+  friend_follows_feed_email: false
+  new_playlist_follower_alert: false
+  new_playlist_follower_email: false
+
+two:
+  sounds_option: false
+  desktop_option: false
+  global_email_notification: false
+  important_notification: false
+  newsletter: false
+  gaming_activities: false
+  new_friend_request_alert: false
+  new_friend_request_email: false
+  new_favorite_alert: false
+  new_favorite_email: false
+  someone_comments_feed_you_follow_alert: false
+  someone_comments_feed_you_follow_email: false
+  user_replies_to_your_comment_alert: false
+  user_replies_to_your_comment_email: false
+  user_follows_topic_you_created_alert: false
+  user_follows_topic_you_created_email: false
+  new_friend_request_alert: false
+  new_friend_request_email: false
+  friend_comment_on_feed_alert: false
+  friend_comment_on_feed_email: false
+  friend_follows_feed_alert: false
+  friend_follows_feed_email: false
+  new_playlist_follower_alert: false
+  new_playlist_follower_email: false

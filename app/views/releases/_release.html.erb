@@ -1,0 +1,64 @@
+<div class="item-with-tongue">
+  <div class="_item-container">
+    <div class="item-body">
+      <div class="item-panel">
+        <h3><%= link_to release.title.upcase, release %></h3>
+        <p>By <%= release.artists(1) %></p>
+        <%= link_to '', "#",
+                    data: {
+                      source_type: 'release',
+                      source_id: release.id,
+                      virtual: false
+                    },
+                    class: "play-release-#{release.id} playlist-play-playlist" %>
+
+        <p class="item-tracks">
+          <%= pluralize(release.tracks.count, "track") %>
+        </p>
+
+        <%= rating_for release, 'main',
+            star: 4,
+            cancel: false,
+            readonly: true,
+            star_on: image_path('rate/egg/star-on.png'),
+            star_half: image_path('rate/egg/star-on.png'),
+            star_off: image_path('rate/egg/star-off.png')
+          %>
+
+        <% if release.download_uris.any? && current_user %>
+          <button class="release-icon" type="button" data-toggle="collapse" data-target=".release-<%= release.id %>-download" aria-expanded="false" aria-controls="collapseExample">
+            <%= image_tag('icons/icon-download.svg', title: "Download full release") %>
+          </button>
+
+          <div class="collapse collapse-formats release-<%= release.id %>-download">
+            <% release.download_uris.each do |format, uri| %>
+              <a href="<%= uri %>" class="btn btn-danger"><%= format %></a>
+            <% end %>
+          </div>
+        <% end %>
+
+        <%= render partial: 'layouts/share', locals: { object: release, icon: 'white' } %>
+      </div>
+      <div class="item-footer">
+        <%= link_to "Details", "/releases/#{release.id}?player=true&user_id=#{current_user.try(:id) || 1}", class: "c-link" %>
+      </div>
+    </div>
+
+    <img class="item-original-image item-image lazy" data-src="<%= release.avatar.url(:large) %>" />
+
+    <% case release.release_type %>
+    <% when "Birdfeed Exclusive" %>
+      <%= image_tag 'birdfeed_exclusive.png', class: "item-release-type item-release-type-exclusive item-original-image" %>
+    <% when "Dirtybird" %>
+      <%= image_tag 'birdfeed.png', class: "item-release-type item-original-image" %>
+    <% end %>
+
+
+    <img class="item-darken-img item-image lazy" data-src="<%= release.avatar.url(:large) %>" />
+  </div>
+
+  <% time_slug = release.release_date > Time.now ? 'LATER' : 'AGO' %>
+  <mark class="t-small">
+    <%= "#{time_ago_in_words( release.release_date ).upcase} #{time_slug}" %>
+  </mark>
+</div>

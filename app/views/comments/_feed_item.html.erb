@@ -1,0 +1,31 @@
+<% if object.class.to_s != 'String' %>
+  <div id='<%= "#{object.class.to_s.downcase}-#{object.id}" %>-replies' class='feed-item-replies'>
+    <div class="comment-footer">
+      <span>
+        <%= render partial: 'likes/like_button', locals: { object: object,  style: 'thumbup' } %>
+      </span>
+      <div class="comment-footer-divider"></div>
+      <span>
+        <%= link_to "Comment", 
+          comment_reply_form_path(
+            commentable_id: object.id,
+            commentable_type: object.class.to_s
+          ), remote: true %>
+        (<span class="comments-count"><%= object.comments.count %></span>)
+      </span>
+    </div>
+
+    <% replies = object.comments.where(parent_id: nil) %>
+
+    <div class="feed-replies-list">
+      <% if replies.any? %>
+        <%= render partial: 'comments/comment', 
+            collection: replies.order(created_at: :asc) %>
+      <% end %>
+    </div>
+    
+    <% if replies.count > 3 %>
+      <a href="#" class="show-more-comments">View more comments (<%= replies.count - 3 %>)</a>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,265 @@
+<%= render 'users/artist_header' %>
+
+<div class="artist-bio truncated-description mb-4">
+  <% if @user.artist_info.present? && @user.artist_info.bio_short? %>
+    <article><%= @user.artist_info.bio_short %></article>
+    <a href="#" class="truncated-long">Read more</a>
+    <article><%= @user.artist_info.bio_long.html_safe %></article>
+    <a href="#" class="truncated-short"><br><br>Read less</a>
+  <% end %>
+</div>
+
+<!--
+<% if @releases.any? %>
+  <div class="release-flag-block mt-4">
+    <div class="c-flag">RELEASES FEED</div>
+  </div>
+
+  <div class="h-carousel mb-4">
+    <% @releases.each do |release| %>
+      <div class="item-wide">
+        <%= link_to image_tag(release.avatar.url), release, class: "item-avatar" %>
+
+        <div class="item-body">
+          <%= link_to image_tag('icons/icon-expand.svg'), release, class: "item-expand" %>
+          <h3>
+            <%= link_to release.title.truncate(70).upcase, release %>
+            <%= render 'likes/like_button', object: release %>
+          </h3>
+
+          <p>Release date: <%= time_ago_in_words( release.release_date ) %> ago</p>
+
+          <p class="item-text"><%= strip_tags(release.text).truncate(220) %></p>
+
+          <%= link_to "LISTEN", "#", 
+              class: "play-release-#{release.id} btn c-btn-white c-btn-sm", 
+              data: { 
+                source_type: 'release', 
+                source_id: release.id, 
+                virtual: false 
+              },
+              remote: true %>
+
+          <div class="jp-controls" style="display: none;">
+            <div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
+            <button class="jp-previous" role="button" tabindex="0"></button>
+
+            <%= link_to "", "#", 
+                class: "play-release-#{release.id} jp-play",
+                data: { 
+                  source_type: 'release', 
+                  source_id: release.id, 
+                  virtual: false
+                },
+                remote: true %>
+
+            <button class="jp-next" role="button" tabindex="2"></button>
+            <div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
+          </div>
+
+          <% if release.download_uris.any? %>
+            <a class="" type="button" data-toggle="collapse" data-target="#release-download<%= release.id %>" aria-expanded="false" aria-controls="collapseExample">
+              <%= image_tag('icons/icon-download.svg', title: "Download full release", class: "icon-download") %>
+            </a>
+
+            <div id="release-download<%= release.id %>" class="collapse collapse-formats text-left">
+              <% release.download_uris.each do |format, uri| %>
+                <a href="<%= uri %>" class="btn btn-danger"><%= format %></a>
+              <% end %>
+            </div>
+          <% end %>
+
+          <%= render partial: 'layouts/share', locals: { object: release, icon: 'white' } %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+-->
+
+<div class="row mb-2">
+  <!-- ARTIST FEED -->
+  <div class="col-md-8" id="user-feed">
+    <div class="c-panel bg-white">
+      <div class="c-flag mb-4">ARTIST FEED</div>
+
+      <% if current_user && 
+        (@user.id == current_user.id || 
+        current_user.has_role?(:admin) ||
+        current_user.can_handle?(@user.id)) %>
+        <button class="btn c-btn-blue mt-1 whats-in-your-mind" type="button" data-toggle="modal" data-target="#whatsinyourmindModal">
+          WHAT’S IN YOUR MIND
+        </button>
+      <% end %>
+
+ <!--      <ul class="feed-tabs"> //TODO add this
+        <li class="nav-item">
+          <%#= link_to "All", artist_path(@user, anchor: "user-feed"),
+              class: "#{'active' if current_page?(artist_path(@user))}" %>
+        </li>
+        <li class="nav-item">
+          <%#= link_to "Announcements", announcement_feed_path(@user, anchor: "user-feed"), 
+              class: "#{'active' if current_page?(announcement_feed_path)}" %>
+        </li>
+        <li class="nav-item">
+          <%#= link_to "Interviews", interviews_feed_path(@user, anchor: "user-feed"), 
+              class: "#{'active' if current_page?(interviews_feed_path)}" %>
+        </li>
+        <li class="nav-item">
+          <%#= link_to "Videos", videos_feed_path(@user, anchor: "user-feed"), 
+              class: "#{'active' if current_page?(videos_feed_path)}" %>
+        </li>
+        <li class="nav-item">
+          <%#= link_to "Others", others_feed_path(@user, anchor: "user-feed"),
+              class: "#{'active' if current_page?(others_feed_path)}" %>
+        </li>
+      </ul> -->
+
+      <div class="feed-block" data-feed-id="<%= @user.id %>" data-feed="user">
+        <%= render 'feeds/aggregated_user' %>
+      </div>
+
+      <div id="loading" style="display: none;">Loading...</div>
+      
+    </div>
+  </div>
+
+  <div class="col-md-4 ">
+    <div class="sticky-top">
+      <!-- LAST VIDEO -->
+      <% if @artist_video.present? %>
+        <div class="c-panel bg-white mb-4">
+          <iframe id="ytplayer" type="text/html" width="100%" height="100%"
+            src="https://www.youtube.com/embed/<%= @artist_video.parse_youtube %>"
+            frameborder="0" allowfullscreen></iframe>
+          <div class="panel-sign">
+            <h4><%= @artist_video.title.upcase %></h4>
+            <p>Published on <%= @artist_video.created_at.strftime("%B, %-d, %Y") %></p>
+          </div>
+        </div>
+      <% end %>
+
+      <!-- Q A -->
+      <% if @user.artist_info.present? && @user.artist_info.artist_q_a.present? %>
+        <div class="c-panel bg-white mb-4" id="how_and_when">
+          <div class="c-flag-when c-flag-inner mb-4">BIRDFEED ARTIST Q & A</div>
+          <div class="panel-sign panel_margin">
+            <h4>HOW AND WHEN DID YOU FIRST DISCOVERED BIRDFEED?</h4>
+            <p><%= @user.artist_info.try(:artist_q_a).html_safe %></p>
+          </div>
+          <div class="how_and_when_text">
+            <a class="read_more_btn" id="btn-dialog-artist_qa" data-toggle="modal" data-foo="<%= @user.artist_info.try(:artist_q_a) %>" data-target="#artistQAReadmoreModal">
+                READ MORE
+            </a>
+          </div>
+        </div>
+      <% end %>
+
+      <!-- FOLLOWERS -->
+      <% if @followers.any? %>
+        <div class="c-panel bg-white">
+          <div class="c-flag c-flag-inner mb-4">FOLLOWERS</div>
+
+          <ol class="users-block light-scroll list-unstyled mt-1">
+            <% @followers.each do |user| %>
+              <li>
+                <%= link_to user, class: "d-inline-block align-middle" do %>
+                  <%= image_tag user.avatar.thumb, class: "user-avatar "+(user.online? ? "red-circle" : ""), alt: '' %>
+                <% end %>
+                <div>
+                  <h5>
+                    <%= link_to user.name, user %>
+                    <%#= image_tag 'icons/point-green.svg', class: "point-green" if user.online? %>
+                  </h5>
+                  <div>
+                    <%= user.address_city %> 
+                  </div>
+                </div>
+              </li>
+            <% end %>
+          </ol>
+        </div>
+      <% end %>
+
+      <!-- TRACKS -->
+      <% if @user.tracks.any? %>
+        <div class="c-panel bg-white">
+          <div class="c-flag c-flag-inner mb-2">TRACKS OF THIS ARTIST</div>
+
+          <%= link_to "get_artist_tracks_path(@user.id)", 
+              style: "width: 40px; height: 40px;", remote: true do %>
+            <%= image_tag('icons/icon-play-black.svg', title: "Play artist tracks") %>
+          <% end %>
+
+          <ol class="list-unstyled mt-1">
+            <% tracks = @user.tracks.order(created_at: :desc).limit(4) %>
+            <%= render tracks %>
+          </ol>
+        </div>
+      <% end %>
+
+      <!-- PLAYLISTS -->
+      <%= render 'users/playlist' %>
+      <div class="promo-areas">
+        <!-- Promo areas -->
+        <div class="row mt-3">
+          <div class="col-sm-12">
+            <% promo = PromoArea.where(show_on_user_profile: true).first %>
+            <% if promo.present? %>
+              <%= link_to image_tag(promo.image.url, class: "w-100"), promo.url, target: "_blank" %>
+            <% else %>
+              <%= image_tag 'topic-right-birdhouse.png', width: '100%' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<% if current_user %>
+  <% content_for :body_area do %>
+    <div class="modal modal-blured" id="whatsinyourmindModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-wide" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h5 class="modal-title">What's in your mind?</h5>
+
+            <%= form_for current_user.comments.build, 
+                html: { class: "feed-form w-100" },
+                remote: true do |f| %>
+              <%= f.hidden_field :commentable_type, value: "User" %>
+              <%= f.hidden_field :commentable_id, value: @user.id %>
+
+              <% if current_user.has_role?(:admin) %>
+                <%= f.label :user_id, class: "sr-only" %>
+                <%= f.select :user_id, 
+                    [[ @user.name, @user.id ], [current_user.name, current_user.id]],
+                    { selected: @user.id },
+                    { class: "custom-select mb-2" }%>
+              <% elsif current_user.can_handle?(@user.id) %>
+                <%= f.label :user_id, class: "sr-only" %>
+                <%= f.select :user_id, 
+                    [[ @user.name, @user.id ]],
+                    { selected: @user.id },
+                    { class: "custom-select mb-2" }%>
+              <% end %>
+
+              <%= f.label :body, class: "sr-only" %>
+              <%= f.text_area :body, rows: 10, placeholder: "Type text", 
+                  max: 200, class: "emoji-area" %>
+              <%= f.submit "ADD TO FEED", class: "btn c-btn-blue btn-wide mt-2" %>
+            <% end %>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

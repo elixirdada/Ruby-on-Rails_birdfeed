@@ -1,0 +1,88 @@
+<% for _activity in activity['activities'] %>
+
+  <% if _activity['foreign_id'].class.to_s == "Comment" %>
+
+    <% if _activity['foreign_id'].commentable_type == "User" &&
+          _activity['foreign_id'].commentable_id == @user.id %>
+      <% comment_roles = _activity['foreign_id'].roles %>
+      <% if _activity['foreign_id'].vib_only %>
+        <% if current_user.can_use_credits? || !(comment_roles & @role_ids).blank? %>
+          <%= render partial: 'comments/initial_comment',
+            locals: { user: _activity['actor'], comment: _activity['foreign_id'] } %>
+        <% end %>
+      <% else _activity['foreign_id'].roles.blank? ||
+            !(comment_roles & @role_ids).blank? %>
+        <%= render partial: 'comments/initial_comment',
+            locals: { user: _activity['actor'], comment: _activity['foreign_id'] } %>
+      <% end %>
+    <% else %>
+
+      <div class="feed-item">
+        <p class="feed-posted">
+          <%= time_ago_in_words(activity['updated_at'].in_time_zone) %> ago
+        </p>
+
+        <div class="t-wide">
+          <%= link_to _activity['actor'],
+        class: "#{avatar_style(_activity['actor'])} sm-style" do %>
+            <%= image_tag _activity['actor'].avatar.thumb.url,
+                class: "feed-avatar",
+                alt: '' %>
+            <strong><%= _activity['actor'].name %>:</strong>
+          <% end %>
+
+          added a comment
+
+          <strong>
+            <%= link_to _activity['foreign_id'].body.truncate(30), _activity['foreign_id'] %>
+          </strong>
+
+          on
+
+          <strong>
+            <%= link_to _activity['foreign_id'].commentable_type.downcase,
+                _activity['foreign_id'].commentable %>
+          </strong>
+        </div>
+
+        <%= render 'comments/feed_item', object: _activity['foreign_id'] %>
+
+        <hr class="feed-divider">
+      </div>
+
+    <% end %>
+
+  <% elsif _activity['foreign_id'].class.to_s == "Post" && _activity['target'].class.to_s == "Topic" %>
+    <div class="feed-item">
+      <p class="feed-posted">
+        <%= time_ago_in_words(activity['updated_at'].in_time_zone) %> ago
+      </p>
+
+      <div class="t-wide">
+        <%= link_to _activity['actor'],
+      class: "#{avatar_style(_activity['actor'])} sm-style" do %>
+          <%= image_tag _activity['actor'].avatar.thumb.url,
+              class: "feed-avatar",
+              alt: '' %>
+          <strong><%= _activity['actor'].name %>:</strong>
+        <% end %>
+
+        Commented on chirp topic category:
+
+        <strong>
+          <%= link_to _activity['foreign_id'].topic.title, _activity['foreign_id'].topic %>
+        </strong>
+
+      </div>
+      <%= render 'posts/feed_item', object: _activity['foreign_id'] %>
+    </div>
+
+
+
+  <% else %>
+
+    <% logger.warn "#{_activity['verb'].try(:id)}:#{_activity['verb']} #{_activity['object'].try(:id)}:#{_activity['object']} #{_activity['foreign_id'].try(:id)}:#{_activity['foreign_id']}" %>
+
+  <% end %>
+
+<% end %>

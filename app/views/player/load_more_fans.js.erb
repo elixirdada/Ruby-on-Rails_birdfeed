@@ -1,0 +1,23 @@
+<% all_ids = @users.map {|u| u['id']} %>
+
+<% @users.each do |u| %>
+  <% user = User.find u['id'] %>
+  $(".releases-list")
+      .append(`
+        <div class="col-md-6 mb-5">
+          <%= escape_javascript(render 'users/user_gray', object: user) %>
+        </div>`);
+<% end %>
+
+var href = $('.show-more').attr('href').replace(/page=(\d+)/, function(match, offset) {
+    // window.history.replaceState("", "", "users?page="+offset);
+    return "page=" + (parseInt(offset)+1);
+  });
+
+$('.show-more').attr('href', href);
+  
+<% if all_ids.count == 0 || all_ids.count < @limit %>
+
+  $('.show-more').remove();
+
+<% end %>

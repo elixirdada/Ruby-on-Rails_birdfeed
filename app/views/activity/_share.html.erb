@@ -1,0 +1,26 @@
+<p class="feed-posted"> 
+  <%= time_ago_in_words(activity['time'].in_time_zone) %> ago.
+</p>
+
+<%= link_to activity['actor'], class: "#{avatar_style(activity['actor'])} sm-style" do %>
+  <%= image_tag activity['actor'].avatar.thumb.url, class: "feed-avatar", alt: '' %>
+  <%= activity['actor'].name %>
+<% end %>
+<em>has shared</em>
+  
+<% if activity['object'].present? %>
+
+  <%= case activity['object'].class.to_s
+
+    when "Track"
+      "<em>track</em> #{link_to activity['object'].title, activity['object']} from #{ link_to activity['foreign_id'].title, activity['foreign_id']}".html_safe 
+
+   end %>
+
+<% else %>
+  <em><%= activity['foreign_id'].class.to_s.downcase %></em>
+  <%= link_to activity['foreign_id'].title.truncate(20), activity['foreign_id'] %>
+<% end %>
+
+
+<hr class="feed-divider">

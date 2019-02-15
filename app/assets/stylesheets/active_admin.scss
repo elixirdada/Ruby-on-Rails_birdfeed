@@ -1,0 +1,161 @@
+//= require activeadmin_addons/all
+// SASS variable overrides must be declared before loading up Active Admin's styles.
+//
+// To view the variables that Active Admin provides, take a look at
+// `app/assets/stylesheets/active_admin/mixins/_variables.scss` in the
+// Active Admin source.
+//
+// For example, to change the sidebar width:
+// $sidebar-width: 242px;
+
+// Active Admin's got SASS!
+@import "active_admin/mixins";
+@import "active_admin/base";
+
+$panelBorder: #babdc5;
+$skinActiveColor: #3ed4e0;
+$bodyColor: rgba(236, 240, 241, 0.48);
+$skinBlack: #d9d9d9;
+$panelHeaderBck: $skinBlack;
+$skinBlackLight: rgb(69, 90, 100);
+$textGray: rgb(174, 179, 181);
+$skinTextColor: #1e2a33;
+$skinTextActiveColor: white;
+$skinTextTable: #7f8c8d;
+$skinHeaderBck: #1e2a33;
+
+@import "active_admin_flat_skin";
+@import "font-awesome";
+@import 'activeadmin/quill_editor_input';
+@import 'uppy.min';
+@import 's3_direct_upload';
+
+// Overriding any non-variable SASS must be done after the fact.
+// For example, to change the default status-tag color:
+//
+//   .status_tag { background: #6090DB; }
+
+.header#header {
+  background-color: #d9d9d9;
+  padding-bottom: 80px !important;
+
+  .header-item.tabs#tabs li {
+    margin-bottom: 0px !important;
+
+    a {
+      color: black !important;
+    }
+  }
+}
+
+html form fieldset.inputs {
+  padding-top: 0;
+}
+
+.badge_points_weights .has_many_fields {
+  padding-top: 0;
+  border: none;
+  box-shadow: none;
+
+  ol {
+
+    & > li {
+      display: flex;
+      white-space: nowrap;
+      justify-content: flex-start;
+      padding: 0;
+
+      label {
+        width: auto;
+        margin-right: 15px;
+        float: none;
+        margin: 0 !important;
+        padding: 0;
+      }
+
+      .inline-hints {
+        margin: 3px 0 0 15px;
+      }
+
+      .has_many_remove {
+        display: none;
+      }
+    }
+
+  }
+}
+
+input[disabled="disabled"],
+input[disabled],
+.select2-container--disabled {
+  .select2-selection {
+    background-color: #fff !important;
+    background: transparent;
+    border: none !important;
+
+    .select2-selection__arrow {
+      display: none;
+    }
+  }
+
+  & + .inline-hints {
+    margin: 0;
+  }
+}
+
+.select2-dropdown {
+  z-index: 5000;
+}
+
+.sidebar_section.panel {
+  margin-bottom: 0;
+}
+
+.small-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+#active_admin_content {
+  a#diplay-filter {
+    // Hide button
+    visibility: hidden;
+    position: relative;
+    margin-bottom: 2em;
+
+    &::after {
+      // Custom CSS to create a new div on top
+      content: 'Filtration' !important;
+      visibility: visible;
+      position: absolute;
+      left: 0;
+
+      // Inherited from theme
+      background-color: $skinActiveColor;
+      padding: 7px 10px !important;
+      font-weight: normal;
+      text-shadow: none;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 rgba(255, 255, 255, 0.8);
+      line-height: 12px;
+      margin-right: 3px;
+      display: inline-block;
+      font-size: 1.2em;
+      text-decoration: none;
+      color: #fff;
+    }
+  }
+
+  form#collection_selection {
+    max-width: 1224px;
+    overflow: auto;
+  }
+}
+ #csv_upload_column {
+  padding-top: 20px;
+ }
+
+.sheduled {
+  background-color: #fbb;
+}

@@ -1,0 +1,57 @@
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <% @slider.each_with_index do |item, index| %>
+      <div class="carousel-item <%= "active" if index == 0%>">
+        <a href="<%=item.try(:imageurl)%>" target="<%= (item.try(:image_url_target).eql? 'Self') ? "" : '_blank' %>"><%= image_tag(item.image.url) %></a>
+        <div class="container">
+          <div class="carousel-caption">
+            <%= item.text.html_safe if item.text %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+<div class="home-promo">
+  <%= image_tag 'logo3.png', class: 'promo-logo' %>
+  <div class="promo-blocks">
+    <%= link_to listen_path do %>
+      <div class="promo-block red-arrow">
+        <h3>listen</h3>
+        <div class="promo-subheader">ALL DIRTYBIRD SOUNDS IN ONE PLACE</div>
+      </div>
+    <% end %>
+
+    <%= link_to connect_path do %>
+      <div class="promo-block yellow-arrow">
+        <h3>CONNECT</h3>
+        <div class="promo-subheader">WHERE Ya DIRTYBIRd FAM  IS AT</div>
+      </div>
+    <% end %>
+
+    <%= link_to play_path do %>
+      <div class="promo-block red-arrow">
+        <h3>PLAY</h3>
+        <div class="promo-subheader">FOR STATUS REWARDS AND BADGES</div>
+      </div>
+    <% end %>
+  </div>
+  <div class="promo-footer">
+    <%= link_to "Sign up", new_user_registration_path, class: "promo-link mr-3" %>
+    <%= link_to "Learn more", what_is_birdfeed_path, class: "promo-link" %>
+  </div>
+</div>

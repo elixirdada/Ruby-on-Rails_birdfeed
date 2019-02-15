@@ -1,0 +1,34 @@
+%h2
+  Download Links
+- if release.assembly_complete?
+  %h2
+    Release Files
+  - release.release_files.each do |file|
+    %a{download: "", href: "#{file.url_string}", style: "text-decoration: none"}
+      &nbsp;
+      = file.format
+
+  - release.tracks.each do |t|
+    - unless t.track_files.count < 9
+      %h2
+        Track:
+        = t.title
+      Samples:
+      %a{download: "", href: "#{t.sample_mp3_uri}", style: "text-decoration: none"}
+        Sample MP3
+      %a{download: "", href: "#{t.sample_ogg_uri}", style: "text-decoration: none"}
+        Sample OGG
+      %br
+      Waveform:
+      %a{download: "", href: "#{t.waveform_image_uri}", style: "text-decoration: none"}
+        Waveform
+      %br
+      - t.track_files.each do |file|
+        - if ['zip_aiff', 'zip_wav', 'zip_flac', 'zip_mp3'].include?(file.format)
+          %a{download: "", href: "#{file.url_string}", style: "text-decoration: none"}
+            &nbsp;
+            = file.format
+- else
+  %p.text-danger
+    The encoding for this release is pending or resulted in an error!
+    Please Hit the encode button again

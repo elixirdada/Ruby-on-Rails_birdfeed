@@ -1,0 +1,486 @@
+<div class="signup-header" style="margin-bottom: -100px;">
+  <%= image_tag '/images/birdfeed-header.jpg', class: "h-100" %>
+
+  <div class="success-banner signup-logo">
+    <div class="success-logo">
+      <%= image_tag 'icons/flash.svg', class: "flash-lightning" %>
+      <%= image_tag 'birdfeed-logo-white.png', class: 'success-logo-img' %>
+    </div>
+
+    <div class="text-1">
+      <%= image_tag 'icons/red-bird.svg', class: "d-inline" %>
+      MEMBERSHIPS
+    </div>
+
+    <div class="text-2">
+      SELECT YOUR STATUS
+    </div>
+
+    <div class="success-bottom">
+      PERKS & Pricing
+    </div>
+  </div>
+</div>
+
+<div class="signup-panel pricing-panel c-panel bg-white" style="padding: 0;">
+  <table class="pricing-table">
+    <tr>
+      <th class="text-center">
+        <div class="plan-period-switcher">
+          <span class="switcher-btn switcher-annualy">ANNUAL</span>
+          <span class="switcher red"></span>
+          <span class="switcher-btn switcher-monthly">MONTHLY</span>
+        </div>
+        <div class='join-now-top-btn'>
+          Join now
+        </div>
+      </th>
+      <th class="text-center">
+        <div class="text-1">chirp</div>
+        <div class="text-2"><span>$0</span></div>
+      </th>
+      <th class="text-center price-plan" data-yearly="6.25" data-monthly="6.99">
+        <div class="text-1">insider</div>
+        <div class="text-2"><span>$6.25</span>/month</div>
+        <div class="text-3">($75 billed Annualy)</div>
+      </th>
+      <th class="text-center price-plan" data-yearly="8.25" data-monthly="9.99">
+        <div class="text-1"> vib</div>
+        <div class="text-2"><span>$8.25</span>/month</div>
+        <div class="text-3">($99 billed Annualy)</div>
+      </th>
+    </tr>
+
+    <tr>
+      <td class="title-col">
+        EGG CREDITs
+        <div class="tip float-right">
+          <span class="icon"><%= image_tag 'icons/info-sm.svg' %></span>
+          <div class="message big">
+            Egg credits are the currency of the Birdfeed exchange system. Use your eggs on either release downloads or other ongoing egg spend opportunities
+          </div>
+        </div>
+      </td>
+
+      <td class="text-center"><%= image_tag 'icons/cross.svg' %></td>
+
+      <td class="text-center"><%= image_tag 'icons/cross.svg' %></td>
+
+      <td class="text-center">
+        <br>
+        <%= image_tag 'icons/check-blue.svg' %>
+        <br>
+        10 Eggs MONTHLY
+        <div class="tip d-inline">
+          <span class="icon"><%= image_tag 'icons/info-sm.svg' %></span>
+          <div class="message big">
+            VIB members receive 10 credits per month to use on either track / release downloads or other ongoing egg spend opportunties.
+          </div>
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="title-col">
+        MUSIC Streaming
+        <div class="tip float-right">
+          <span class="icon"><%= image_tag 'icons/info-sm.svg' %></span>
+          <div class="message big">
+            The entire Dirtybird catalog lives in Birdfeed. If you’re looking for a track and we don’t have it here, we will hook you up for noticing.
+          </div>
+        </div>
+      </td>
+
+      <td class="text-center">
+        <%= image_tag 'icons/check-blue.svg' %>
+        <br>
+        limited
+        <div class="tip d-inline">
+          <span class="icon"><%= image_tag 'icons/info-sm.svg' %></span>
+          <div class="message">
+            Chirp members can only listen to a 30 second preview of each track.
+          </div>
+        </div>
+      </td>
+
+      <td class="text-center">
+        <%= image_tag 'icons/check-blue.svg' %>
+        <br>
+        unlimited
+        <div class="tip d-inline">
+          <span class="icon"><%= image_tag 'icons/info-sm.svg' %></span>
+          <div class="message">
+            Unlimited is unlimited, stream away.
+          </div>
+        </div>
+      </td>
+
+      <td class="text-center">
+        <%= image_tag 'icons/check-blue.svg' %>
+        <br>
+        unlimited
+        <div class="tip d-inline">
+          <span class="icon"><%= image_tag 'icons/info-sm.svg' %></span>
+          <div class="message">
+            Unlimited is unlimited, stream away.
+          </div>
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="title-col">
+        INsider Announcements
+        <div class="tip float-right">
+          <span class="icon"><%= image_tag 'icons/info-sm.svg' %></span>
+          <div class="message big">
+            As a Birdfeed member, you can always expect to hear announcements here first, as well as exclusive offers and incentives only available to our favorite birds.
+          </div>
+        </div>
+      </td>
+
+      <td class="text-center"><%= image_tag 'icons/cross.svg' %></td>
+
+      <td class="text-center">
+        <%= image_tag 'icons/check-blue.svg' %>
+        <br>
+        insider
+        <div class="tip d-inline">
+          <span class="icon"><%= image_tag 'icons/info-sm.svg' %></span>
+          <div class="message">
+            Insider level offers & announcements sometimes differ from VIB member announcements.
+          </div>
+        </div>
+      </td>
+
+      <td class="text-center">
+        <%= image_tag 'icons/check-blue.svg' %>
+        <br>
+        vib
+        <div class="tip d-inline">
+          <span class="icon"><%= image_tag 'icons/info-sm.svg' %></span>
+          <div class="message">
+            VIB level offers & announcements sometime differ from Insider member announcements.
+          </div>
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="title-col">
+        COMMUNITY & Friends
+        <div class="tip float-right">
+          <span class="icon"><%= image_tag 'icons/info-sm.svg' %></span>
+          <div class="message big">
+            Explore the Dirtybird community and connect with like-minded birds from around the world, as well as connect & collaborate with your closest Birdfeed friends.
+          </div>
+        </div>
+      </td>
+
+      <td class="text-center"><%= image_tag 'icons/cross.svg' %></td>
+
+      <td class="text-center">
+        <%= image_tag 'icons/check-blue.svg', width: "34" %>
+      </td>
+
+      <td class="text-center">
+        <%= image_tag 'icons/check-blue.svg', width: "34" %>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="title-col">
+        Artist & Release Feeds
+        <div class="tip float-right">
+          <span class="icon"><%= image_tag 'icons/info-sm.svg' %></span>
+          <div class="message big">
+            Follow and stay connected to the music, artists & discussions you choose by curating your Birdfeed to keep you up to date with just the things you care about
+          </div>
+        </div>
+      </td>
+
+      <td class="text-center">
+        <%= image_tag 'icons/check-blue.svg' %>
+        <br>
+        limited
+        <div class="tip d-inline">
+          <span class="icon"><%= image_tag 'icons/info-sm.svg' %></span>
+          <div class="message">
+            Chirp members can only partially see feed info and cannot engage
+          </div>
+        </div>
+      </td>
+
+      <td class="text-center">
+        <%= image_tag 'icons/check-blue.svg', width: "34" %>
+      </td>
+
+      <td class="text-center">
+        <%= image_tag 'icons/check-blue.svg', width: "34" %>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="title-col">
+        CHIRP q & A / Discussions
+        <div class="tip float-right">
+          <span class="icon"><%= image_tag 'icons/info-sm.svg' %></span>
+          <div class="message big">
+            Ask questions & voice your opinion. Get feedback and interact with the Birdfeed community of fans, artists and staff.
+          </div>
+        </div>
+      </td>
+
+      <td class="text-center">
+        <%= image_tag 'icons/check-blue.svg' %>
+        <br>
+        limited
+        <div class="tip d-inline">
+          <span class="icon"><%= image_tag 'icons/info-sm.svg' %></span>
+          <div class="message">
+            Chirp members will only be allowed to participate in some of Chirp free areas
+          </div>
+        </div>
+      </td>
+
+      <td class="text-center">
+        <%= image_tag 'icons/check-blue.svg', width: "34" %>
+      </td>
+
+      <td class="text-center">
+        <%= image_tag 'icons/check-blue.svg', width: "34" %>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="title-col">
+        Favs, Ratings & PLaylist.
+        <div class="tip float-right">
+          <span class="icon"><%= image_tag 'icons/info-sm.svg' %></span>
+          <div class="message big">
+            Build a library of your favorite Dirtybird music, rate the tracks and build & share playlists of your favorite tracks, moods or feelings
+          </div>
+        </div>
+      </td>
+
+      <td class="text-center"><%= image_tag 'icons/cross.svg' %></td>
+
+      <td class="text-center">
+        <%= image_tag 'icons/check-blue.svg', width: "34" %>
+      </td>
+
+      <td class="text-center">
+        <%= image_tag 'icons/check-blue.svg', width: "34" %>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="title-col">
+        Games, Seasons & Activations
+        <div class="tip float-right">
+          <span class="icon"><%= image_tag 'icons/info-sm.svg' %></span>
+          <div class="message big">
+            Participate in system games and seasonal activiations and engage Dirtybird on a whole new level
+          </div>
+        </div>
+      </td>
+
+      <td class="text-center"><%= image_tag 'icons/cross.svg' %></td>
+
+      <td class="text-center">
+        <%= image_tag 'icons/check-blue.svg', width: "34" %>
+      </td>
+
+      <td class="text-center">
+        <%= image_tag 'icons/check-blue.svg' %>
+        <br>
+        extended
+        <div class="tip d-inline">
+          <span class="icon"><%= image_tag 'icons/info-sm.svg' %></span>
+          <div class="message">
+            VIB members are offered exclusive & extended game play opportunities
+          </div>
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="title-col">
+        Rewards, Eggs & BADGES
+        <div class="tip float-right">
+          <span class="icon"><%= image_tag 'icons/info-sm.svg' %></span>
+          <div class="message big">
+            Play in the Birdfeed games to claim rewards, collect designer eggs and seasonal badges. Show your Dirtybird colors. The more you play the more we reward
+          </div>
+        </div>
+      </td>
+
+      <td class="text-center"><%= image_tag 'icons/cross.svg' %></td>
+
+      <td class="text-center">
+        <%= image_tag 'icons/check-blue.svg', width: "34" %>
+      </td>
+
+      <td class="text-center">
+        <%= image_tag 'icons/check-blue.svg', width: "34" %>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="title-col">
+        Status & Achievements
+        <div class="tip float-right">
+          <span class="icon"><%= image_tag 'icons/info-sm.svg' %></span>
+          <div class="message big">
+            Play for your spot in the Dirtybird leaderboards. Compete for fam status and climb the ranks to be in the Dirtybird Big 10.
+          </div>
+        </div>
+      </td>
+
+      <td class="text-center"><%= image_tag 'icons/cross.svg' %></td>
+
+      <td class="text-center">
+        <%= image_tag 'icons/check-blue.svg', width: "34" %>
+      </td>
+
+      <td class="text-center">
+        <%= image_tag 'icons/check-blue.svg', width: "34" %>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="title-col">
+        EVENt ACCESS
+        <div class="tip float-right">
+          <span class="icon"><%= image_tag 'icons/info-sm.svg' %></span>
+          <div class="message big">
+            That’s right, Dirtybird events and affiliated promoters will be offering exclusive event perks for Birdfeed members across the country.
+          </div>
+        </div>
+      </td>
+
+      <td class="text-center"><%= image_tag 'icons/cross.svg' %></td>
+
+      <td class="text-center">
+        <%= image_tag 'icons/check-blue.svg' %>
+        <br>
+        insider
+        <div class="tip d-inline">
+          <span class="icon"><%= image_tag 'icons/info-sm.svg' %></span>
+          <div class="message">
+            Insiders usually receive a little less than VIBs at participating events.
+          </div>
+        </div>
+      </td>
+
+      <td class="text-center">
+        <%= image_tag 'icons/check-blue.svg' %>
+        <br>
+        vib
+        <div class="tip d-inline">
+          <span class="icon"><%= image_tag 'icons/info-sm.svg' %></span>
+          <div class="message">
+            VIBs always get premium opportunity at participating events.
+          </div>
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="title-col">
+        EXCLUSIVE MERCH OFFERS
+        <div class="tip float-right">
+          <span class="icon"><%= image_tag 'icons/info-sm.svg' %></span>
+          <div class="message big">
+            Birdfeed always gives members first dibs on Dirtybird Merch and exclusive offers as well as has its own merch available to members only.
+          </div>
+        </div>
+      </td>
+
+      <td class="text-center"><%= image_tag 'icons/cross.svg' %></td>
+
+      <td class="text-center">
+        <%= image_tag 'icons/check-blue.svg' %>
+        <br>
+        insider
+        <div class="tip d-inline">
+          <span class="icon"><%= image_tag 'icons/info-sm.svg' %></span>
+          <div class="message">
+            Insiders receive merch offers specific to Insiders.
+          </div>
+        </div>
+      </td>
+
+      <td class="text-center">
+        <%= image_tag 'icons/check-blue.svg' %>
+        <br>
+        vib
+        <div class="tip d-inline">
+          <span class="icon"><%= image_tag 'icons/info-sm.svg' %></span>
+          <div class="message">
+            VIBs receive merch offers specific to VIBs.
+          </div>
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="hidden-td"></td>
+      <td class="join-chirp-td">
+        <%= link_to new_user_registration_path do %>
+          Join as chirp free
+        <% end %>
+      </td>
+      <td class="join-insider-td">
+        <%= link_to new_user_registration_path do %>
+          Join As A INSIDER
+        <% end %>
+      </td>
+      <td class="join-vib-td">
+        <%= link_to new_user_registration_path do %>
+          Join As A VIB
+        <% end %>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="signup-panel c-panel bg-white common-questions">
+  <h2 class="mb-4">TOp 5 Common Questions</h2>
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Is Chirp free a good place to start?</h3>
+      <p>
+        Yes and no, chirp will only allow you to have a look at specific parts of the site. You will find may parts of the systems are not available. It will be hard for you to experience all that birdfeed has to offer without a paid membership.
+      </p>
+    </div>
+
+    <div class="col-md-6">
+      <h3>What are eggs credits?</h3>
+      <p>
+        Eggs are Birdfeed currency and are used to as a currency exchange and only available to VIB members. The value of the perks sometimes can get very large so we request a premium fee to participate.
+      </p>
+    </div>
+
+    <div class="col-md-6">
+      <h3>I love Dirtybird, but just can’t afford a paid membership.</h3>
+      <p>
+        Hang out for a while and check your notifications frequently, chirp free is always offering members opportunities to win memberships via chirp free member only games, activities and challenges.
+      </p>
+    </div>
+
+    <div class="col-md-6">
+      <h3>What happens to my downloads if I downgrade or cancel my account?</h3>
+      <p>
+        Nothing. Your downloads will always be attached to the email address you created your account with. If you cancel your account you will need to reactivate your account at least on a free level to access your downloads.
+      </p>
+    </div>
+
+    <div class="col-md-6">
+      <h3>What happens when I cancel or downgrade to free from a paid membership?</h3>
+      <p>
+        Birdfeed does not honor ins and outs of our gaming and achievements platform as we reward our Birds for longevity and loyalty. If you quit, you will have to start over again. Your playlists, favorites, track ratings and friends will stay, in the case you decide to upgrade your account in the future. Any and all stats and status will be lost.
+      </p>
+    </div>
+  </div>
+</div>

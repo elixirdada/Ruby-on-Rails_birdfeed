@@ -1,0 +1,16 @@
+<% @flash.each do |type, message| %>
+  $('.<%= type %>').text("<%= message.html_safe %>").show();
+
+  setTimeout(function(){
+    $('.<%= type %>').fadeOut('slow');
+  },3000);
+<% end %>
+
+<% if defined? @fresh_eggs %>
+  var eggs = parseInt($('.credits-count-text').text());
+  eggs += parseInt('<%= @fresh_eggs %>');
+  $('.credits-count-text').text(eggs + ' eggs');
+<% end %>
+
+$('#promocode-form .promocode-message').remove();
+$('#promocode-form').append('<div class="text-center promocode-message"><%= @message %></div>');

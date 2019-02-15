@@ -1,0 +1,111 @@
+<div class="d-flex justify-content-between p-4">
+  <h2 class="h2-big">
+    <%= number_with_delimiter(@user.points, :delimiter => ',') %> pts
+  </h2>
+</div>
+
+<div class="bg-dark d-flex p-4">
+  <% @points.each do |kind, points| %>
+    <div class="badges-points">
+      <h2 class="h2-big text-white d-block mb-4">
+        <%= number_with_delimiter(points, :delimiter => ',') %>
+      </h2>
+      <h2 class="text-c-<%= kind %>"><%= kind %></h2>
+    </div>
+  <% end %>
+</div>
+
+<div class="bg-white p-4">
+  <div class="rating-chart d-flex flex-wrap">
+    <div class="rating-kinds text-right pt-2 mt-4">
+      <% @progress.each do |kind, percents| %>
+        <div class="subheader mb-4"><%= kind %></div>
+      <% end %>
+    </div>
+    <div class="rating-bars flex-grow-1 px-3 mt-4">
+      <% @progress.each do |kind, percents| %>
+        <% color = case kind
+          when :listen then "red"
+          when :connect then "blue"
+          when :play then "yellow"
+          end %>
+        <div class="progress-wrapper w-100">
+          <div class="progress-<%= color %> mb-3" style="height: 26px;">
+            <div class="c-progress-bar"
+                 role="progressbar"
+                 style="width: <%= percents || 0 %>%"
+                 aria-valuenow="75"
+                 aria-valuemin="0"
+                 aria-valuemax="100"></div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <%= image_tag 'icons/Achievement-1.png' %>
+  </div>
+</div>
+
+<div class="p-4">
+  <h2 class="my-4">Level 1 U.G Merit Collect</h2>
+
+  <div class="d-flex justify-content-between flex-wrap pr-4 mb-4">
+    <div>
+      <%= image_tag 'icons/birdfeed-header.png' %>
+      <div class="text-center subheader mt-2">INitiation Badge</div>
+    </div>
+
+    <div>
+      <%= image_tag 'icons/listen.png' %>
+      <div class="text-center subheader mt-2">Listen</div>
+    </div>
+
+    <div>
+      <%= image_tag 'icons/connect.png' %>
+      <div class="text-center subheader mt-2">Connect</div>
+    </div>
+
+    <div>
+      <%= image_tag 'icons/play_2.png' %>
+      <div class="text-center subheader mt-2">Play</div>
+    </div>
+  </div>
+
+  <% @general_badges.each do |ident, badges| %>
+    <h2 class="d-block"><%= ident %></h2>
+    <div class="d-flex justify-content-between flex-wrap mb-4">
+
+      <% badges.each do |badge| %>
+        <div class="fan-badge">
+            <%= image_tag badge.image, style: "width: 70px; height: 77px;" if badge.image.present? %>
+            <p><%= badge.name %></p>
+        </div>
+      <% end %>
+
+      <% (10 - badges.count).times do |i| %>
+        <%= image_tag 'icons/empty_badge.png', style: "width: 70px; height: 77px;" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<div class="bg-white p-4">
+  <div class="d-flex justify-content-between">
+    <h2 class="h2-big">U.G Merit</h2>
+    <h2 class="h2-big">FAM Status #<%= user_position(@user) %></h2>
+  </div>
+
+  <div class="d-flex justify-content-between my-4">
+    <% for badge in @membership %>
+      <div class="fan-badge">
+          <%= image_tag badge.image if badge.image.present? %>
+          <p class="text-center subheader"><%= badge.name %></p>
+      </div>
+    <% end %>
+
+    <% (5 - @membership.count).times do |i| %>
+      <div class="fan-badge">
+        <%= image_tag 'icons/empty_badge.png' %>
+      </div>
+    <% end %>
+  </div>
+</div>

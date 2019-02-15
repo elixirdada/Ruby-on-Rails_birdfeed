@@ -1,0 +1,44 @@
+<div class="topic-line">
+  <div class="row">
+    <div class="col-sm-10 topics-link">
+      <%= link_to chirp_topic_path( topic.category, topic ), class: 'row row-eq-height' do %>
+        <div class="col-sm-2 topic-comments <%= topic.locked ? '' : 'b-r'%>">
+          <div class="row">
+            <% if topic.locked %>
+              <%= image_tag "icons/icon-lock.png", class: 'icon-locked' %>
+            <% end %>
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="col-sm-12 text-center number-of-comments">
+                      <%= "#{topic.posts.count}" %>
+                </div>
+                <div class="col-sm-12 text-center comments-word">
+                      Comments
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-10">
+          <div class="row">
+              <div class="col-sm-8 topic-title truncate">
+                  <%= topic.title.html_safe %>
+              </div>
+            <div class="col-sm-4 text-right topic-created-date">
+              Created <b><%= "#{time_ago_in_words(topic.created_at)}" %> ago </b>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 topic-description">
+              <%= topic.body.truncate(248) %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-sm-2">
+      <%= render 'follows/follow_button', object: topic %>
+    </div>
+  </div>
+  <hr>
+</div>

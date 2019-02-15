@@ -1,0 +1,74 @@
+$('.playlist-nav-body li.active').removeClass('active')
+
+<% if not @filters %>
+  $('#playlist-all-releases').parent().addClass('active');
+  window.history.pushState('', '', '?active_playlist=All Releases');
+<% elsif @filters[:release_type] == '1' %>
+  $('#playlist-exclusive-releases').parent().addClass('active');
+  window.history.pushState('', '', '?active_playlist=Birdfeed Exclusive');
+<% elsif @filters[:release_type] == '2' %>
+  $('#playlist-select-releases').parent().addClass('active');
+  window.history.pushState('', '', '?active_playlist=Dirtybird');
+<% end %>
+
+$('.music-wrapper').empty();
+$('.music-wrapper').append('<div class="music-block"></div>')
+$('.music-block').append('<div class="row mt-3 releases-list"></div>')
+
+
+var releases = [];
+
+<% @releases.each do |release| %>
+  releases.push('<div class="col-lg-4 col-md-6 mb-5"><%= escape_javascript(render release) %></div>');
+<% end %>
+
+$('.music-block .row').append(releases);
+$('.music-block').append('<div class="text-center"></div>')
+
+<% if (@limit <= @releases.count) %>
+  <% _params = { player: true, user_id: @user.id } %>
+  <% if params[:filters].present? %>
+    <%  _params.merge!({ filters: params[:filters].permit! }) %>
+  <% end %>
+
+  <%  _params.merge!({
+        page: (params[:page] ? params[:page].to_i + 1 : 2)
+      }) %>
+
+  $('.music-block .text-center').append('<%= link_to "Show more", load_more_releases_path(_params), remote: true, class: "btn c-btn-blue show-more" %>');
+<% end %>
+
+$('html, body').animate({ scrollTop: 0 }, 100);
+
+var isLoading = false;
+
+// $(window).scroll(function(){
+//   if($(window).scrollTop() == $(document).height() - $(window).height()) {
+//     $('a.show-more').click();
+//   }
+// });
+
+$(".lazy").Lazy({
+  scrollDirection: 'vertical',
+  effect: 'fadeIn',
+  visibleOnly: true,
+  effectTime: 2000,
+});
+
+var tid = setInterval(load_more, 1000);
+var load_more_count = 0;
+function load_more() {
+  load_more_count ++;
+  $('a.show-more').click();
+  if(load_more_count == 10){
+    abortTimer();
+    $(window).scroll(function(){
+      if($(window).scrollTop() > $(document).height() * 0.7) {
+        $('a.show-more').click();
+      }
+    });
+  }
+}
+function abortTimer() {
+  clearInterval(tid);
+}

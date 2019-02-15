@@ -1,0 +1,11 @@
+var modal = $('#playlistActionModal');
+modal.find('.change-playlist-btns').remove();
+
+modal.modal('show');
+
+modal.find('.modal-title').text('Add to Playlist')
+
+modal.find('.modal-body').html(`
+  <%= escape_javascript( render partial: "playlists/add_to_playlist", 
+      locals: { source_type: @source_type, source_id: @source_id, track_id: @track_id } )%>
+`);

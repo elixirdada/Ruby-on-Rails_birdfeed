@@ -1,0 +1,185 @@
+.playlist-player {
+  background-color: #4a4a4a;
+  height: 70px;
+  z-index: 1021;
+  left: 0;
+  bottom: 0;
+  color: white;
+  position: fixed;
+  width: 100%;
+  padding: 10px 0;
+  font-family: 'Titillium Web', sans-serif;
+  text-align: left;
+
+  .pp-previous {
+    background: asset-data-url("icons/media-backward-md.png");
+    width: 23px;
+    height: 18px;
+    cursor: pointer;
+
+    &:hover {
+      background: asset-data-url("icons/media-backward-md-hover.png");
+    }
+  }
+
+  .pp-next {
+    background: asset-data-url("icons/media-forward-md.png");
+    width: 23px;
+    height: 18px;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+
+    &:hover {
+      background: asset-data-url("icons/media-forward-md-hover.png");
+    }
+  }
+
+  .pp-play {
+    background: asset-data-url("icons/play-md.png");
+    background-size: 30px;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin-right: 20px;
+    display: inline-block;
+    vertical-align: middle;
+
+    &.playing {
+      background-image: asset-data-url("icons/pause-md.png");
+    }
+
+    &.loading {
+      background-image: asset-data-url("icons/loading.gif") !important;
+      background-size: 30px 30px;
+      display: inline-block;
+      content:"";
+    }
+  }
+
+  .pp-track-img {
+    height: 52px;
+    margin-right: 10px;
+
+    img {
+      width: 52px !important;
+      height: 52px !important;
+    }
+  }
+
+  .pp-track {
+    color: #ffffff;
+    font-size: 12px;
+    letter-spacing: 0.72px;
+    font-weight: 700;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding-right: 10px;
+  }
+
+  .pp-artist {
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.72px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding-right: 10px;
+
+    &:before {
+      content: 'By ';
+    }
+  }
+
+  .pp-volume-block {
+    position: absolute;
+    bottom: 5px;
+    right: 25px;
+  }
+
+  .pp-volume {
+    margin-top: 2px;
+  }
+
+  .pp-volume-bar {
+    background: white;  
+    width: 100px;
+    height: 8px;
+    overflow: hidden;
+    cursor: pointer; 
+    border-radius: 5px;
+  }
+
+  .pp-volume-bar-value {
+    background-color: #ff7272;
+    height: 8px;
+    border-radius: 5px; 
+  }
+
+  .pp-seek-bar {
+    width: 340px;
+    height: 8px;
+    border-radius: 5px;
+    background: white;  
+  }
+
+  .pp-play-bar {
+    width: 0%;
+    height: 8px;
+    border-radius: 5px;
+    background-color: #222;
+  }
+
+  .pp-current-time, .pp-time-left {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 20px;
+  }
+
+  .pp-like {
+    position: absolute;
+    display: inline-block;
+    bottom: 9px;
+    right: 75px;
+  }
+
+  .pp-add {
+    position: absolute;
+    bottom: 10px;
+    right: 50px;
+
+    button {
+      color: white;
+      font-weight: 700;
+      font-size: 21px;
+    }
+  }
+
+  .pp-rate {
+    margin-top: -5px;
+
+    .nav-track-star {
+      border: none;
+      padding: 0;
+      display: inline-block;
+      margin-right: 0;
+      float: none;
+    }
+
+    .user-rate-wrapper {
+      display: inline-block;
+      padding-top: 5px;
+    }
+  }
+}
+
+
+@media (min-width: 992px) { 
+  .playlist-player {
+    display: none;
+  }
+}

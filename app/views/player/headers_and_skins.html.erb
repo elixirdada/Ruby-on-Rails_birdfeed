@@ -1,0 +1,56 @@
+<% content_for :user_header_title do %>
+  MY HEADERS AND SKINS
+<% end %>
+<%= render 'users/user_header' %>
+
+<div class="row">
+  <div class="col-lg-3">
+    <%= render 'player_play_panel' %>
+  </div>
+
+<div class="col-lg-9" id="headers_and_skins">
+  <div class="headers-panel">
+    <div class="header-top">
+      <p class="panel-title">HEADERS</p>
+      <p class="number-count">01 / 09</p>
+    </div>
+    <div class="row h-10">
+      <div class="headers-image-panel">
+        <div class="headers-box-title"><%= @image_title %>  <%= image_tag "applied_header.png", class: "applied_img" %> <span class="applied">Applied</span></div>
+        <div class="user-bgrd">
+          <%= image_tag @image, class: "header-image-box_active" %>
+        </div>
+      </div>
+      <% 8.times do %>
+        <div class="headers-image-panel">
+          <div class="headers-box-title"></div>
+          <div class="header-image-box"></div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="skins-panel">
+    <div class="header-top">
+      <p class="panel-title">SKINS</p>
+      <p class="number-count">01 / 04</p>
+    </div>
+    <div class="row h-10">
+      <div class="skin-image-panel">
+        <div class="skin-box-title">Default Grey</div>
+        <div class="skin-image-box_active">
+          <span class="skin-selected">SELECTED</span>
+        </div>
+      </div>
+      <% 3.times do %>
+        <div class="skin-image-panel">
+          <div class="skin-box-title"></div>
+          <div class="skin-image-box">
+            <!-- <span class="skin-selected">SELECTED</span>              -->
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+</div>

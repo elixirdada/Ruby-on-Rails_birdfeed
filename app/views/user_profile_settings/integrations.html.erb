@@ -1,0 +1,114 @@
+<%= render 'user_profile_settings/header' %>
+<% provider_disable = current_user.provider.blank? ? '' : 'disabled' %>
+<div class="user-profile-settings">
+  <div class="row">
+    <div class="side-bar col-lg-3">
+      <%= render partial: 'users/user_profile_nav', locals: {current_index: 'INTEGRATION'}  %>
+    </div>
+    <div class="main-content col-lg-9">
+      <div class="row page-header">
+        <div class="col-sm-12">
+          <label class="title label-margin">
+            INTEGRATIONS
+          </label>
+          <p>Connect select website accounts for an even richer Birdfeed experience</p>
+        </div>
+      </div>
+      <div class="row page-content integrations-content">
+        <div class="row">
+          <div class="col-lg-9 col-md-9 col-sm-12 ">
+            <div class="container-content">
+              <a class="navbar-logos" href="#">
+                <%= image_tag 'google.png', style: "width:23%;", class: "img-responsive"  %>
+              </a>
+              <span class="plus-button">+</span>
+              <a class="navbar-logos" href="#">
+                <%= image_tag 'birdfeed_integrationslogo.png', style: "width: 30%;", class: "img-responsive" %>
+              </a>
+              <p class="font-14">
+                Birdfeed links to your eventbribe profile to confirm event ticket purchases to offer you exclusive opportunites at Dirtybird events across the country.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-12 connect-holder">
+            <% if current_user.provider == 'google_oauth2' %>
+              <a class="btn btn-connected btn-square disabled">Connected</a>
+            <% else %>
+              <%= link_to user_google_oauth2_omniauth_authorize_path,
+                  class: "btn btn-connect btn-square #{provider_disable}" do %>
+                  Connect
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-lg-9 col-md-9 col-sm-12 ">
+            <div class="container-content">
+              <a class="navbar-logos" href="#">
+                <%= image_tag 'facebook-logo.png', style: "width:23%;", class: "img-responsive" %>
+              </a>
+              <span class="plus-button">+</span>
+              <a class="navbar-logos" href="#">
+                <%= image_tag 'birdfeed_integrationslogo.png', style: "width: 30%;", class: "img-responsive" %>
+              </a>
+              <p class="font-14">
+                Integrate your Facebook profile to share directly to your friends as well as invite them  to participate in select Birdfeed activities.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-12 connect-holder">
+            <% if current_user.provider == 'facebook' %>
+              <a class="btn btn-connected btn-square disabled">Connected</a>
+            <% else %>
+              <%= link_to user_facebook_omniauth_authorize_path,
+                  class: "btn btn-connect btn-square #{provider_disable}" do %>
+                  Connect
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-lg-9 col-md-9 col-sm-12 ">
+            <div class="container-content">
+              <a class="navbar-logos" href="#">
+                <%= image_tag 'eventbrite.png', style: "width:23%;", class: "img-responsive" %>
+              </a>
+              <span class="plus-button">+</span>
+              <a class="navbar-logos" href="#">
+                <%= image_tag 'birdfeed_integrationslogo.png', style: "width: 30%;", class: "img-responsive" %>
+              </a>
+              <p class="font-14">
+                Birdfeed links to your eventbribe profile to confirm event ticket purchases to offer you exclusive opportunites at Dirtybird events across the country.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-12 connect-holder">
+            <a class="btn btn-soon btn-square" dissabled="true">Comming Soon</a>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-lg-9 col-md-9 col-sm-12 ">
+            <div class="container-content">
+              <a class="navbar-logos" href="#">
+                <%= image_tag 'dirtybird.png', style: "width: 23%;", class: "img-responsive" %>
+              </a>
+              <span class="plus-button">+</span>
+              <a class="navbar-logos" href="#">
+                <%= image_tag 'birdfeed_integrationslogo.png', style: "width: 30%;", class: "img-responsive" %>
+              </a>
+              <p class="font-14">
+                Integrate your dirtybird Store account into Birdfeed for easy use of eggs credits in shopping for dirtybird gear.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-12 connect-holder">
+            <a class="btn btn-soon btn-square" disabled="true">Comming Soon</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

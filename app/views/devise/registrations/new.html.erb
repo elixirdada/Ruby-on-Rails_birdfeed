@@ -1,0 +1,51 @@
+<div class="signup-header">
+  <%= image_tag '/images/birdfeed-header.jpg', class: "h-100" %>
+  <div class="success-banner signup-logo">
+    <div class="success-logo">
+      <%= image_tag 'icons/flash.svg', class: "flash-lightning" %>
+      <%= image_tag 'birdfeed-logo-white.png', class: 'success-logo-img' %>
+    </div>
+
+    <div class="text-1">
+      &nbsp;&nbsp;&nbsp;WELCOME
+      <%= image_tag 'icons/red-bird.svg', class: "d-inline" %>
+    </div>
+
+    <div class="text-2">
+      LEt’s GET You IN
+    </div>
+
+    <div class="success-bottom">
+      LISTEN&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;&nbsp;&nbsp;&nbsp;CONNECT&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;&nbsp;&nbsp;&nbsp;PLAY
+    </div>
+  </div>
+</div>
+
+<div class="signup-panel c-panel bg-white">
+  <div class="big-blue-number">1.</div>
+  <h1>LET’S GET STARTED.</h1>
+  <div>First, we’re going to need some info.</div>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name),
+        html: { class: 'form-signin' } ) do |f| %>
+    <%= render partial: 'devise/registrations/registration_form', locals: { f: f } %>
+    <%= render "devise/shared/links" %>
+  <% end %>
+</div>
+
+<!--
+<script>
+  console.log($('.form-signin'));
+  $('.form-signin').validate({
+    focusInvalid: false,
+    invalidHandler: function(form, validator) {
+      if (!validator.numberOfInvalids())
+          return;
+
+      $('html, body').animate({
+          scrollTop: $(validator.errorList[0].element).offset().top
+      }, 2000);
+
+    }
+  });
+</script> -->

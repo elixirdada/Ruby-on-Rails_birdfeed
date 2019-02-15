@@ -1,0 +1,24 @@
+<% unless source_type == 'release' %>
+  <div class="hide playlist-header" style="display: none;">
+    <%= render partial: 'tracks/covers', 
+        locals: { object: tracks, size: 160 } %>
+
+    <% if @playlist.present? %>
+      <div class="playlist-title">
+        <button class="playlist-add-source" data-source-id="<%= @playlist.id %>" data-source-type='playlist'>+</button>
+        <%= render partial: 'likes/like_button', locals: { object: @playlist } %>
+        <br>
+        <%= @playlist.name %>
+      </div>
+
+      <div class="playlist-owner">
+        <%= link_to image_tag(@playlist.user.avatar.thumb, class: "user-avatar", alt: ''),
+            @playlist.user %>
+        By <%= link_to @playlist.user.name, @playlist.user %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<%= render partial: 'playlists/playlist_items', 
+    locals: { tracks: tracks, source_type: source_type, source_id: source_id } %>

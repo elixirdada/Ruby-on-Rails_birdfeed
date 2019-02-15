@@ -1,0 +1,43 @@
+$progressBarPlaceholder: rgba(34, 117, 215, 0.6);
+
+form {
+  button.uppy-FileInput-btn {
+    padding: 0px 5px !important;
+    font-weight: normal;
+    font-family: "Source Sans Pro", sans-serif !important;
+    border: 1px solid #aaa !important;
+    text-shadow: none;
+    box-shadow: none;
+    font-size: 10px !important;
+    color: $skinTextColor !important;
+    border-radius: 5px!important;
+    width: 100px;
+
+    &:hover {
+      background-color: transparent !important;
+      color: $skinTextColor !important;
+    }
+
+    &:focus, &:active {
+      outline: none;
+    }
+
+    & + span {
+      font-size: 12px;
+      padding-left: 5px;
+    }
+  }
+
+  .uppy-ProgressBar {
+    width: 100px;
+    position: initial;
+    margin-left: 20%;
+    margin-top: 0px;
+    background: $progressBarPlaceholder;
+    display: none;
+
+    .uppy-ProgressBar-inner {
+      max-width: 97px;
+    }
+  }
+}

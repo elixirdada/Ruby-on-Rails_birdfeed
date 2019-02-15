@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" type="text/css" href="https://urban-space.herokuapp.com/phosphatefont.css">
+</head>
+<body>
+  
+<div id="main-container-email" style="    width: 750px;
+    padding: 1% 7% 1% 1%;
+    background-color: #fff;    ">
+  <div class="image-holder" style=" margin-bottom: 7%: ">
+    <%= image_tag "birdfeed-logo-email.png"%>
+  </div>
+  <div class="desc" style="margin-top: 8%;"> 
+    <div>
+      <span class="hey-first-name" style="    width: 584px;
+    height: 137px;
+    color: #354052;
+    font-family: 'Titillium Web';
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 60px;
+    font-weight: 400;">Account has been cancelled with email, <strong><%= @email %>,</strong></span></td>
+    </div>
+    <div class="top-desc-main" style="    padding-left: 3%;
+    margin-top: 3%;
+    height: 147px;
+    color: #354052;
+    font-family: 'Titillium Web';
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 40px;">
+      Thoughts:
+      <%= @your_thoughts %>
+    </div>
+    <div class="top-desc-main" style="    padding-left: 3%;
+    height: 147px;
+    color: #354052;
+    font-family: 'Titillium Web';
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 40px;">
+      Why Cancel Account: 
+      <%= @why_cancel_account %>
+    </div>
+  </div>
+    <div class="main-footer" style="text-align: center;">
+      <div class="image-holder-bottom">
+        <%= image_tag "dirty-bird-black.png" %>
+      </div>
+      <div class="footr" style="color: #354052;
+    font-family: 'Source Sans Pro';
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 25px;
+    font-family: Helvetica;
+    font-weight: 300;
+    font-family: Helvetica;
+    font-weight: 400;
+    text-align: center;
+    margin: 5% 0% 4% 0%;">
+        <a href='https://www.facebook.com/dirtybirdrecords/' style="margin-right: 1%;">
+          <%= image_tag "facebook-mail.png" %>
+        </a>
+        <a href='https://twitter.com/Dirtybird' style="margin-right: 1%;">
+          <%= image_tag "twitter-mail.png" %>
+        </a>
+        <a href='https://www.instagram.com/dirtybirdrecords/' style="margin-right: 1%;">
+          <%= image_tag "instagram-mail.png" %>
+        </a>
+      </div>
+      <div class="bottom-text" style="    color: #354052;
+    font-family: 'Source Sans Pro';
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 25px;
+    font-family: Helvetica;
+    text-align: center;
+    font-weight: 300;
+    font-family: Helvetica;
+    font-weight: 400;">
+          Copyright ©  2019 Birdfeed, LLC. All Rights Reserved.
+          <br>
+          <span> help@dirtybird.birdfeed.com </span>
+        <p>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

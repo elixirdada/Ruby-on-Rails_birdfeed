@@ -1,0 +1,9 @@
+$("#friend-request-item-<%= @user_id %>").remove();
+
+var count = $('.nav-request-count');
+
+if( parseInt(count.text()) > 1 ) {
+  count.text(parseInt(count.text()) - 1);
+} else {
+  count.remove();
+}

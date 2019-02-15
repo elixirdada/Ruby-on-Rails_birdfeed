@@ -1,0 +1,3 @@
+<% likes_count = object.try(:likes_count) ? object.likes_count : object.likes.count %>
+
+<span class="likes-count"><%= "(#{likes_count})" if likes_count > 0 %></span>

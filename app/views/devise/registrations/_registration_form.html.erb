@@ -1,0 +1,168 @@
+<%= devise_error_messages! %>
+
+<div class="form-group">
+  <%= f.label :email, 'Email Address', class: 'required' %>
+  <% if current_user && current_user.provider %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email",
+      class: 'form-control w-50', required: true, readonly: true %>
+  <% else %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email",
+      class: 'form-control w-50', required: true %>
+  <% end %>
+</div>
+
+<div class="text-center mx-4">
+  <% if current_user && devise_mapping.confirmable? && current_user.pending_reconfirmation? %>
+    <div>Currently waiting confirmation for: <%= current_user.unconfirmed_email %></div>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="col-lg-4">
+    <div class="form-group">
+      <%= f.label :first_name, class: "required" %>
+      <%= f.text_field :first_name, autocomplete: "first name",
+        class: 'form-control', required: true %>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="form-group">
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name, autocomplete: "last name",
+        class: 'form-control' %>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="form-group">
+      <%= f.label :gender, 'Gender', class: 'required' %>
+      <%= f.select :gender,
+          options_for_select(User.genders.keys.collect { |gender| [ gender.capitalize, gender ] }, f.object.gender), { include_blank: 'Select' }, required: true,
+          class: "select", 'data-minimum-results-for-search' => -1, "data-width" => "100%" %>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="form-group">
+      <%= f.label :address_line_1, class: 'required' %>
+      <span style="font-size: 0.8em;">(Street address, P. O. box, company name, c/o)</span>
+      <%= f.text_field :address_line_1,
+          class: 'form-control',
+          required: true %>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="form-group">
+      <%= f.label :address_line_2, class: 'required' %>
+      <span style="font-size: 0.8em;">(Apartment, suite, unit, building, floor, etc.)</span>
+      <%= f.text_field :address_line_2,
+          class: 'form-control' %>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="form-group">
+      <%= f.label :address_city, 'City', class: 'required' %>
+      <%= f.text_field :address_city,
+          class: 'form-control locality', required: true %>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="form-group">
+      <%= f.label :address_state, 'State Provenience / Region', class: 'required' %>
+      <%= f.text_field :address_state,
+          class: 'form-control administrative_area_level_1', required: true %>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="form-group">
+      <%= f.label :address_zip, 'Zip / Postal Code', class: 'required' %>
+      <%= f.text_field :address_zip,
+          class: 'form-control postal_code', required: true %>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="form-group">
+      <%= f.label :address_country, 'Country', class: 'required' %>
+      <%= f.select :address_country,
+          JSON.parse(File.read(Rails.root.join('app/assets/countries.json'))).sort.unshift(["US", "United States"]).map {|k,v| [v,k] },
+          { include_blank: 'Select Country' },
+          required: true,
+          class: "select", 'data-allow-clear' => 'true', "data-width" => "100%" %>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="form-group">
+      <%= f.label :birthdate, class: 'required' %>
+      <div class="display-inline birthdate_select">
+        <%= f.date_select :birthdate, { start_year: 100.years.ago.year, end_year: Date.today.year, default: Date.today, order: [:month, :day, :year]}, class: 'form-control select-birthdate' %>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="form-group">
+      <%= f.label :t_shirt_size, class: 'required' %>
+      <div class="tip d-inline">
+        <span class="icon">?</span>
+        <div class="message">
+          We like to send you cool merchandise from time
+        </div>
+      </div>
+      <%= f.select :t_shirt_size, options_for_select(['S - Mens', 'M - Mens', 'L - Mens', 'XL - Mens', '2X - Mens', '3X - Mens', 'XS - Womens', 'S - Womens', 'M - Womens', 'L - Womens', 'XL - Womens'], (current_user.t_shirt_size if current_user)),{ include_blank: 'Shirt Size' },
+          required: true,
+          class: "select", 'data-minimum-results-for-search' => -1, "data-width" => "100%" %>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="form-group">
+      <label>&nbsp;</label>
+      <% btn_text = current_user ? 'Next Step' : 'NEXT: MEMBERSHIP LEVEL' %>
+      <button class="btn c-btn-red btn-wide d-block">
+        <%= btn_text %>
+      </button>
+    </div>
+  </div>
+
+  <% unless current_user && current_user.provider.present? %>
+    <div class="col-lg-4">
+      <div class="form-group">
+        <%= f.label :password, class: 'required' %>
+        <%= f.password_field :password, autocomplete: "off",
+            class: 'form-control', required: !defined?(current_user) %>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="form-group">
+        <%= f.label :password_confirmation, class: 'required' %>
+        <%= f.password_field :password_confirmation, autocomplete: "off",
+            class: 'form-control', required: !defined?(current_user) %>
+      </div>
+    </div>
+    <% if current_user %>
+      <div class="offset-lg-4 col-lg-4">
+        <div class="form-group">
+          <%= f.label :current_password %>
+          <%= f.password_field :current_password, autocomplete: "off", required: true,
+              class: 'form-control', placeholder: "Current password" %>
+        </div>
+      </div>
+      <div class="col-lg-4"><i>(we need your current password to confirm your changes)</i></div>
+    <% end %>
+  <% end %>
+</div>
+
+
+<%#= f.label :address_country %>
+<%#= f.text_field :address_country,
+    class: 'form-control country', required: true %>
+
+<%#= f.label :address_street %>
+<%#= f.text_field :address_street,
+    class: 'form-control route' %>
+
+<%#= f.label :address_street_number %>
+<%#= f.text_field :address_street_number,
+    class: 'form-control street_number' %>
+
+<%#= f.label :address_quarter %>
+<%#= f.text_field :address_quarter,
+class: 'form-control' %>
+
+

@@ -1,0 +1,14 @@
+<div class="d-flex">
+  <%= image_tag 'icons/red-bird.svg', class: 'p-4' %>
+
+  <div class="no-playlists-view mb-2">
+    <h3 class="release-title">Create your First Playlist</h3>
+    <p>
+      Let’s get you started and create your first playlist. You can create as many as you’d like. 
+    </p>
+    <div class="text-center">
+      <%= link_to "Create it", new_playlist_path, remote: true,
+                      class: 'btn c-btn-gray btn-square' %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,153 @@
+<% if @user.has_role? :artist %>
+  <%= render 'users/artist_header' %>
+<% else %>
+  <%= render 'users/user_header' %>
+<% end %>
+
+<div class="user-edit-profile">
+  <div class="row">
+    <div class="side-bar col-lg-3">
+      <%= render 'users/user_profile_nav' %>
+    </div>
+    <div class="main-content col-lg-9">
+      <div class="row user-profile-edit-header">
+        <label class="col-lg-6 profile-label">
+          PROFILE
+        </label>
+        <div class="col-lg-6 profile-question">
+          <span>If you have any questions about your privacy please review the <b>gdpr protecting our peeps area.</b></span>
+        </div>
+      </div>
+      <%= form_for(resource, remote: true,
+          html: { id: 'content-change-avatar', class: 'form-signin change-avatar', method: :put } ) do |f| %>
+        <%= image_tag resource.avatar.big_thumb %>
+        <%= f.file_field :avatar, class: 'form-control-file' %>
+        <%= f.hidden_field :avatar_cache %>
+        <%= f.submit 'Upload', class: 'btn c-btn-red btn-wide d-block profile-btn upload-profile-avatar' %>
+      <% end %>
+
+      <!-- 
+        User Profile Edit Form 
+       -->
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), 
+          html: { class: 'form-signin', method: :put } ) do |f| %>
+        
+        <div class="row">
+          <div class="col-lg-4 profile-avatar-area">
+            <div class="row t-shirt-size-group">
+              <div class="form-group">
+                <%= f.label :t_shirt_size, 'T SHIRT SIZE', class: 'required' %>
+                <%= f.select :t_shirt_size, options_for_select(['S - Mens', 'M - Mens', 'L - Mens', 'XL - Mens', '2X - Mens', '3X - Mens', 'XS - Womens', 'S - Womens', 'M - Womens', 'L - Womens', 'XL - Womens'], (current_user.t_shirt_size if current_user)),{ include_blank: 'Shirt Size' }, 
+                    required: true,
+                    class: "select", 'data-minimum-results-for-search' => -1, "data-width" => "100%" %>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-lg-8">
+            <%= devise_error_messages! %>
+
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <%= f.label :first_name, 'FIRST NAME', class: "required" %>
+                  <%= f.text_field :first_name, autocomplete: "first name", 
+                    class: 'form-control', required: true %>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <%= f.label :last_name, 'LAST NAME' %>
+                  <%= f.text_field :last_name, autocomplete: "last name", 
+                    class: 'form-control' %>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <%= f.label :birthdate,'AGE', class: 'required' %>
+                  <%= f.text_field :birthdate, 
+                      data: { provide: "datepicker", "date-start-view" => 2, 
+                        "date-format" => "yyyy-mm-dd",'date-default-view-date' => '1998-01-01' },
+                      class: 'form-control', required: true %>
+                </div>
+              </div>  
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <%= f.label :gender, 'GENDER' %>
+                  <%= f.select :gender, 
+                      User.genders.keys.reverse, 
+                      {}, 
+                      class: "select", 'data-minimum-results-for-search' => -1, "data-width" => "100%" %>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="row shipping-address-group">
+                  <div class="shipping-address-group-header">
+                    <label class="header">SHIPPING ADDRESS</label>
+                    <div class="description">Where you would we can chip you merch and cool Dirtybird stuff?</div>
+                  </div>
+                  <div class="col-lg-8">
+                    <div class="form-group">
+                      <%= f.label :address_line_1, 'ADDRESS', class: 'required' %>
+                      <%= f.text_field :address_line_1, 
+                          class: 'form-control autocomplete', 
+                          required: true %>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <%= f.label :address_line_2, 'ADDRESS #2', class: 'required' %>
+                      <%= f.text_field :address_line_2, 
+                          class: 'form-control autocomplete' %>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <%= f.label :address_country, 'COUNTRY', class: 'required' %>
+                      <%= f.text_field :address_country, 
+                          class: 'form-control locality', required: true %>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <%= f.label :address_city, 'CITY', class: 'required' %>
+                      <%= f.text_field :address_city, 
+                          class: 'form-control locality', required: true %>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <%= f.label :address_state, 'STATE / PROVINCE / REGION' %>
+                      <%= f.text_field :address_state, 
+                          class: 'form-control administrative_area_level_1' %>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <%= f.label :address_zip, 'ZIP' %>
+                      <%= f.text_field :address_zip, 
+                          class: 'form-control postal_code' %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 offset-lg-3">
+            <div class="form-group">
+              <label>&nbsp;</label>
+              <% btn_text = current_user ? 'SAVE PROFILE SETTINGS' : 'NEXT: MEMERSHIP LEVEL' %>
+              <button class="btn c-btn-red btn-wide d-block profile-btn save-profile-btn">
+                <%= btn_text %>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      <% end %>
+         <!-- 
+          User Profile Edit Form
+          -->
+    </div>
+  </div>
+</div>

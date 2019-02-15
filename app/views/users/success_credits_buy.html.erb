@@ -1,0 +1,35 @@
+<div class="signup-header mt-4">
+  <div class="success-banner signup-logo">
+    <div class="success-logo">
+      <%= image_tag 'icons/flash.svg', class: "flash-lightning" %>
+      <%= image_tag 'birdfeed-logo-white.png', class: 'success-logo-img' %>
+    </div>
+
+    <div class="text-1">
+      THANK YOU
+    </div>
+
+    <div class="text-2">
+      YOU’re Eggs Are now Available
+    </div>
+
+    <div class="success-bottom">
+      CRACK UM IF YOu GOT UM
+    </div>
+  </div>
+</div>
+
+<h2 class="h3-eggs my-4 pt-4 text-center">
+  You NOW HAVE
+  <%= image_tag 'icons/egg-basket.svg', class: "mx-2" %>
+  <%= @credits %>
+  EggS Available 
+</h2>
+
+<div class="text-center">
+  <%= link_to "take me to my music", playlists_path(user_id: current_user), 
+      class: 'btn c-btn-black btn-square btn-wide' %>
+  &nbsp;
+  <%= link_to "TAKE ME HOME", root_path, 
+      class: 'btn c-btn-blue btn-square btn-wide' %>
+</div>

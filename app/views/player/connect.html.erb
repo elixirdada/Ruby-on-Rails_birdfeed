@@ -1,0 +1,122 @@
+<% content_for :user_header_title do %>
+  <%= image_tag 'icons/bird-blue.svg' %>
+  <label class="page-title">Connect</label>
+<% end %>
+
+<% if @user.has_role? :artist %>
+  <%= render 'users/artist_header' %>
+  <% playlist_nav_class = '' %>
+<% else %>
+  <%= render 'users/simple_header' %>
+  <% playlist_nav_class = 'without-header' %>
+<% end %>
+
+<div class="row">
+  <div class="col-lg-3">
+    <% if defined?(@user) %>
+      <div class="playlist-nav playlist-nav-<%= playlist_nav_class %>">
+        <div class="playlist-nav-body">
+          <ul>
+            <li class="mt-2 mb-4 nav-bar">
+              <% unless params[:user_id].present? %>
+                <%= image_tag 'icons/icon-chevron-black.svg',
+                    style: 'cursor: pointer; margin-right: 30px;',
+                    onclick: "window.history.back();" %>
+                <%= image_tag 'icons/icon-chevron-black.svg',
+                    style: 'cursor: pointer; transform: rotate(180deg);',
+                    onclick: "window.history.forward();" %>
+              <% end %>
+            </li>
+            <li class="playlist-nav-subheader">Connect&nbsp;</li>
+
+            <li class="nav-bar-item">
+              <%= link_to "Artists",
+                          player_artists_path(@user), remote: true, id: 'playlist-artists'  %>
+            </li>
+
+            <li class="nav-bar-item">
+              <%= link_to "Community",
+                          player_fans_path(@user), remote: true, id: 'playlist-community'  %>
+            </li>
+
+            <li class="nav-bar-item">
+              <%= link_to "Friends",
+                          player_friends_path(@user), remote: true, id: 'playlist-friends'  %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+
+  <div class="col-lg-9 music-wrapper">
+    <div class="music-block player-main-area">
+      <br>
+      <% if @main_area %>
+      <!-- <a href="<%= @main_area[:link] %>" class="listen-banner">
+        <%= image_tag @main_area[:img], class: "banner-img" %>
+      </a> -->
+      <% end %>
+
+      <h2>Latest Artists</h2>
+      <%= link_to 'All Artists', artists_path, class: 'see-all' %>
+      <hr class="mt-1">
+
+      <div class="row">
+        <% User.with_role(:artist).order(created_at: :desc).limit(4).each do |user| %>
+          <div class="col-md-6 mb-3">
+            <%= render 'users/artist_gray', object: user %>
+          </div>
+        <% end %>
+      </div>
+
+      <h2 class="mt-4">Latest Birds</h2>
+      <%= link_to "All Members", player_fans_path(@user), class: 'see-all', remote: true, id: 'playlist-community'  %>
+      <%#= link_to 'All Members', leaderboard_path, class: 'see-all' %>
+      <hr class="mt-1">
+
+      <div class="row mb-4">
+        <% User.where("users.id NOT IN (?)",
+              User.with_role(:artist).pluck(:id) + User.with_role(:admin).pluck(:id))
+                .order(created_at: :desc)
+                .limit(4).each do |user| %>
+          <div class="col-md-6 mb-3">
+            <%= render 'users/user_gray', object: user %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+  // activePlaylist = "<%#= params[:active_playlist] %>";
+
+  // switch (activePlaylist) {
+  //   case 'All Releases':
+  //     $('a#playlist-all-releases').click();
+  //     break;
+
+  //   case 'Dirtybird':
+  //     $('a#playlist-select-releases').click();
+  //     break;
+
+  //   case 'Birdfeed Exclusive':
+  //     $('a#playlist-exclusive-releases').click();
+  //     break;
+
+  //   default:
+  //     $('a#playlist-all-releases').click();
+  //     break;
+  // }
+
+  // if (activePlaylist == '') {
+
+  // }
+
+  $(window).on('load', function(){
+    $('html, body').animate({ scrollTop: 0 }, 100);
+  })
+</script>

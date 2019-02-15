@@ -1,0 +1,593 @@
+@mixin playlist-dropdown {
+  color: #222;
+  width: 320px;
+  opacity: 0.98;
+  text-align: left;
+  background-color: white;
+  display: inline-block;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  position: absolute;
+  left: 35%;
+
+  &:before {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 5px;
+    border: 10px solid transparent;
+    border-bottom: 5px solid white;
+    top: -15px;
+    right: 110px;
+    z-index: 3;
+  }
+}
+
+.playlist-name-img {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 7px;
+
+  svg {
+    width: 15px;
+    height: 20px;
+  }
+}
+
+.playlist-name-btn {
+  color: #434343;
+  font-family: 'Phosphate-Solid';
+  font-size: 14px;
+  letter-spacing: 0.63px;
+}
+
+.playlist-name-author {
+  color: #464646;
+  font-family: 'Phosphate-Solid';
+  font-size: 9px;
+}
+
+.playlist-name-time {
+  color: #533232;
+  font-family: "Titillium Web";
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18px;
+  line-height: 12px;
+  white-space: nowrap;
+}
+
+
+.jp-playlist-item {
+  color: #292929;
+
+  &:hover {
+    color: darken(#3ed4e0, 70%);
+  }
+  .lbl-play-item{
+    width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 0;
+    margin-top: 2px;
+  }
+}
+
+.jp-playlist-item-remove {
+  font-size: 17px;
+  color: #100f0f;
+  line-height: 3px;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+  line-height: 25px;
+}
+
+// .jp-playlist-current {
+//   background-color: #ededed;
+// }
+
+.jp-type-playlist {
+  text-align: right;
+}
+
+#jp-playlist-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  z-index: 2;
+  line-height: 15px;
+
+  svg {
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.jp-playlist {
+  @include playlist-dropdown;
+  left: calc(50% + 400px);
+  transform: translateX(-100%);
+  font-family: 'Titillium Web', sans-serif;
+
+  &:before {
+    right: 83px;
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    max-height: 400px;
+    overflow: scroll;
+  }
+
+  li {
+    padding: 2px 15px;
+    outline: none;
+    font-size: 12px;
+    border-bottom: 1px solid #ededed;
+  }
+
+  .playlist-play-track {
+    vertical-align: top;
+  }
+}
+
+.jp-release-playlist {
+  @include playlist-dropdown;
+  width: 338px !important;
+  padding: 0 15px;
+  font-family: 'Titillium Web', sans-serif;
+
+  &:before {
+    left: 90px;
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    margin-bottom: 10px;
+  }
+
+  .release-details-button {
+    color: #ffffff !important;
+    background-color: #868686;
+    font-family: 'Phosphate-Solid';
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 13px;
+    letter-spacing: 0.58px;
+  }
+
+  .player-button {
+    color: #ffffff !important;
+    background-color: #56d5e2;
+    font-family: 'Phosphate-Solid';
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 13px;
+    letter-spacing: 0.58px;
+  }
+
+  .tracks-container {
+    .list-item {
+      border-bottom: 1px solid lightgray;
+      &:last-child {
+        border: 0;
+      }
+
+      .list-item-div {
+        max-height: 28px;
+        margin-bottom: 0px;
+        cursor: pointer;
+
+        &:hover {
+          .icon-box {
+            a {
+              visibility: visible;
+            }
+          }
+
+        };
+
+        .icon-box {
+          padding-left: 2px;
+          text-align: center;
+        }
+
+        .info-icon-box {
+          left: -5px;
+          position: relative;
+          top: -6px;
+          text-align: center;
+        }
+
+        .track-name-wrapper {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          padding-right: 10px !important;
+        }
+
+        .track-name {
+          font-size: 12px;
+          position: relative;
+          top: 1px;
+          font-family: 'Titillium Web';
+          font-weight: 600;
+          white-space: nowrap;
+
+          a:hover {
+            color: black;
+          }
+        }
+
+      .plus-button {
+        top: -1.5px !important;
+        right: 30px;
+      }
+
+      .info-box-track {
+        height: 14px;
+        right: 0px;
+        position: relative;
+      }
+
+        &:hover {
+          background-color: lightgray;
+        }
+      }
+    }
+  }
+
+  .release-playlist-second-container {
+    .separator-container {
+      height: 0px;
+      top: -12px;
+      left: 8px;
+      position: relative;
+    }
+
+    .separator-text {
+      height: 0px;
+      top: -3px;
+      left: 19px;
+      position: relative;
+      font-size: 9px;
+      text-transform: uppercase;
+    }
+  }
+
+  .jp-release-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    object-fit: cover;
+    float: left;
+    margin: -5px 14px 5px 0;
+  }
+
+  .release-title {
+    margin-top: -8px;
+    margin-bottom: -8px;
+    font-family: 'Phosphate-Solid';
+    font-size: 16px;
+    color: #222;
+  }
+
+  .release-date {
+    font-size: 10px;
+    margin-bottom: 2px;
+
+    svg {
+      padding-bottom: 5px;
+      margin-bottom: -2px !important;
+      vertical-align: top;
+      margin-left: 3px;
+    }
+  }
+
+  .playlist-info {
+    margin-top: -2px;
+    font-size: 10px;
+  }
+
+  ul {
+    list-style-type: none;
+    font-size: 10px;
+    padding-left: 0;
+  }
+
+  a {
+    color: #222;
+  }
+
+  .like-button {
+    position: absolute;
+    top: 1px;
+    right: 45px;
+  }
+
+  .plus-button {
+    font-size: 29px;
+    line-height: 29px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: gray;
+    font-weight: 700;
+    position: absolute;
+    top: -12px;
+    right: 15px;
+  }
+}
+
+.jp-playlist-name {
+  color: #ff7272;
+  font-size: 11px;
+  font-weight: 700;
+  margin: 12px 12px 0;
+}
+
+#jp-release-playlist-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+.jp-release-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+
+  &:active, &:focus {
+    color: #222;
+  }
+
+  span {
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 3px;
+  }
+}
+
+.release-popover-collapse {
+  position: absolute;
+  top: 25px;
+  left: -10px;
+  background-color: #3ed4e0;
+  padding: 8px;
+  color: white;
+  z-index: 2;
+
+  &:before {
+    content: '';
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border: 7px solid transparent;
+    border-bottom: 7px solid #3ed4e0;
+    top: -14px;
+    left: 12px;
+    z-index: 2;
+  }
+}
+
+.playlist-popover-collapse {
+  position: absolute;
+  top: 43px;
+  right: 0px;
+  background-color: #3ed4e0;
+  padding: 8px;
+  color: white;
+  z-index: 2;
+
+  &:before {
+    content: '';
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border: 7px solid transparent;
+    border-bottom: 7px solid #3ed4e0;
+    top: -14px;
+    right: 155px;
+    z-index: 2;
+  }
+
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    color: white;
+  }
+}
+
+.jp-playlist-footer {
+  display: flex;
+  width: 100%;
+  padding-top: 7px;
+  position: relative;
+
+  a {
+    flex-grow: 1;
+    color: #fff;
+  }
+}
+
+.user-playlist-items {
+  list-style-type: none;
+  padding: 0 10px 0 0;
+  margin: 0;
+
+  li {
+    border-radius: 3px;
+    background-color: rgba(255,255,255,0.07);
+    margin-bottom: 3px;
+
+    button {
+      padding: 6px;
+      color: white;
+      font-weight: bold;
+      letter-spacing: 0.72px;
+      font-size: 10px;
+      display: inline-block;
+      width: 100%;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    &.active {
+      background-color: #3ed4e0;
+    }
+
+    &:hover {
+      background-color: rgba(255,255,255,0.17);
+    }
+  }
+}
+
+#eggsMembershipModal {
+  .modal-dialog {
+    background-color: white;
+    margin-top: 10%;
+  }
+  .modal-main-heading {
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.9px;
+    margin-bottom: 0;
+    font-family: 'Phosphate-Inline';
+    color: #222;
+    padding-top: 0.4rem;
+  }
+  .second-heading {
+    font-family: 'Phosphate-Inline';
+    letter-spacing: 2px;
+    strong {
+      padding-left: 50px;
+    }
+  }
+  .grey-box {
+    height: fit-content;
+    background-color: #454545;
+    border: solid 2px #FFB234;
+    // margin-top: 20px;
+    width: 100%;
+    margin-left: 15px;
+  }
+  .c-btn-blue {
+    margin-top: 40px;
+    width: 60%;
+  }
+  .modal-dialog {
+    border-radius: 30px;
+  }
+  .modal-content {
+    border-radius: 30px;
+  }
+  .btn-pink {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: white;
+    background-color: #FF5B68;
+  }
+  .sub-heading-grey-box {
+    z-index: 5;
+    margin-bottom: -17px;
+    width: 77%;
+    position: relative;
+    margin-top: 15px;
+    color: white;
+    height: fit-content;
+    background-color: #454545;
+    border: solid 2px #FFB234;
+    // margin-top: 20px;
+    // width: 100%;
+    margin-left: 1rem;
+    strong {
+      font-size: 0.8rem;
+      padding: 0;
+    }
+  }
+  .footer-text {
+    color: #515151;
+    font-size: 0.8rem;
+    margin-left: 15px;
+    font-weight: bold;
+  }
+}
+
+#playlistActionModal .modal-title {
+  color: #434343;
+  font-family: Phosphate-Solid;
+  font-size: 27px;
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    display: block;
+    right: -83px;
+    top: 50%;
+    width: 53px;
+    height: 1px;
+    background-color: #ff7979;
+  }
+}
+
+.change-playlist-btns {
+  display: flex;
+  position: absolute;
+  right: 0;
+  top: 40px;
+}
+
+.no-playlists-view {
+  color: #4b4b4b;
+
+  h3 {
+    font-family: Phosphate-Solid;
+    font-size: 20px;
+    line-height: 18px;
+  }
+
+  p {
+    font-family: "Titillium Web";
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 20px;
+  }
+}
+
+.tip-artists {
+  padding: 5px !important;
+  border-radius: 10px !important;
+
+  h4 {
+    color: #434343;
+    font-family: Phosphate-Solid;
+    font-size: 12px;
+    letter-spacing: 0.54px;
+    text-transform: uppercase;
+  }
+
+  .user-avatar {
+    width: 28px;
+    height: 28px;
+  }
+}

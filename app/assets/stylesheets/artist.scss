@@ -1,0 +1,459 @@
+.userpage-avatar {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  object-fit: cover;
+  width: 182px;
+  height: 182px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.42);
+
+  img {
+    object-fit: cover;
+    width: 182px;
+    height: 182px;
+    border-radius: 10px;
+  }
+}
+
+.user-since {
+  font-size: 12px;
+  line-height: 14px;
+  margin: 10px 0 0 15px;
+
+  span {
+    color: #3ed4e0;
+  }
+
+  img {
+    margin-right: 7px;
+    float: left;
+    width: 42px;
+    height: 42px;
+  }
+}
+
+.artist-online {
+  position: absolute;
+  top: 87px;
+  left: calc(50% - 85px);
+  z-index: 3;
+}
+
+.follow-button {
+  @include btn(#ff7876,white,darken(#ff7876, 5));
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  padding: 20px;
+  text-align: center;
+  margin-top:3px;
+  border-radius: initial;
+
+  &:hover {
+    background-color: #ff7876 !important;
+    color: #fff !important;
+  }
+}
+
+.unfollow-state {
+  opacity: 0.6;
+  background-color: #32d4e1;
+
+  &:hover {
+    opacity: 1;
+    background-color: #32d4e1;
+  }
+}
+
+.artist-name {
+  color: white;
+  margin-left: 15px;
+
+  h1 {
+    font-weight: 900 !important;
+  }
+
+  span {
+    font-size: 12px;
+    text-transform: capitalize;
+  }
+}
+
+.artist-social {
+  height: 100%;
+  display: flex;
+  width: 33.3%;
+  padding: 10px 0;
+
+  @media (min-width: 576px) {
+    width: 55px;
+    padding: 0;
+  }
+
+  & > img {
+    margin: auto;
+  }
+
+  &.instagram {
+    background-color: #ded1c1;
+  }
+
+  &.facebook {
+    background-color: #3b5998;
+  }
+
+  &.twitter {
+    background-color: #55acee;
+  }
+}
+
+.artist-stat {
+  position: absolute;
+  left: calc(50% + 105px);
+  text-transform: uppercase;
+  color: #e3e3e3;
+  font-size: 10px;
+
+  span {
+    font-size: 21px;
+    font-weight: 900;
+    line-height: 14px;
+    color: #3ed4e0;
+    font-family: 'Phosphate-Solid';
+  }
+
+  & > div {
+    display: inline-block;
+    margin: 0 5px;
+  }
+}
+
+.artist-bio {
+  padding-top: 90px;
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+  font-size: 12px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+
+  @media (min-width: 576px) {
+    padding-top: 27px;
+  }
+
+  a {
+    color: #222;
+    text-decoration: underline;
+  }
+}
+
+.item-wide {
+  height: 194px;
+  overflow: hidden;
+  background-color: #222;
+  border-radius: 20px 5px 20px 20px;
+  color: white;
+  font-size: 12px;
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  white-space: normal;
+  z-index: 2;
+
+  .item-avatar > img {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    margin: 16px;
+    border-radius: 10px;
+  }
+
+  .item-body {
+    display: inline-block;
+    width: 300px;
+    height: 185px;
+    overflow: hidden;
+    vertical-align: top;
+    padding-top: 25px;
+
+    h3 {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.75px;
+      margin-bottom: 0;
+
+      a {
+        color: white;
+      }
+
+      & + p {
+        letter-spacing: 0.75px;
+      }
+    }
+  }
+
+  .item-expand {
+    position: absolute;
+    z-index: 2;
+    top: 6px;
+    right: 7px;
+  }
+
+  .jp-controls-holder {
+    padding: 0;
+  }
+
+  .release-listen {
+    position: absolute;
+    bottom: 15px;
+    left: 45%;
+  }
+
+}
+
+.icon-share {
+  position: absolute;
+  bottom: 15px;
+  right: 10px;
+  z-index: 2;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+}
+
+.share-panel {
+  position: absolute;
+  right: 10px;
+  background-color: white;
+  z-index: 1025;
+  border-radius: 5px;
+  color: #222;
+}
+
+.icon-download {
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  background: none;
+  position: absolute;
+  bottom: 15px;
+  right: 30px;
+  z-index: 2;
+}
+
+.tracks-list {
+  padding: 0px 0px 0px 0px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  .track-item {
+    /*width: 45%;*/
+  }
+
+  @media (max-width: 991px) {
+    .track-item {
+      width: 100%;
+    }
+  }
+}
+
+.artist-gray {
+  background-color: #e2e2e2;
+  border-radius: 18px 6px 18px 18px;
+  height: auto;
+  padding: 7px;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+
+  .chirp-style {
+    display: inline-block;
+    position: relative;
+
+    img {
+      border: 3px solid #e3e3e3;
+    }
+
+    &:after {
+      content: '';
+      background: asset-data-url('icons/corner-chirp.png');
+      background-size: cover;
+      position: absolute;
+      height: 86%;
+      width: 89%;
+      left: 3px;
+      bottom: 2px;
+    }
+  }
+
+  @media (min-width: 992px) {
+    height: 116px;
+    flex-wrap: nowrap;
+  }
+
+  .item-avatar {
+    width: 103px;
+    height: 103px;
+    border-radius: 12px;
+  }
+
+  .item-body {
+    align-self: center;
+    flex-grow: 1;
+  }
+
+  .artist-online {
+    top: 12px;
+    left: 12px;
+  }
+
+  h3 {
+    color: #434343;
+    font-weight: 400;
+    line-height: 16px;
+    font-family: 'Phosphate-Solid';
+    font-size: 20px;
+    letter-spacing: 2px;
+
+    a {
+      color: #434343;
+    }
+  }
+
+  .item-subtitle {
+    font-family: "Titillium Web";
+    font-size: 13px;
+    line-height: 16px;
+  }
+
+  .item-controls {
+    width: 100%;
+    display: flex;
+    align-self: center;
+    margin-right: 0px;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 15px;
+
+    .follow-form {
+      width: auto;
+    }
+
+    .follow-button {
+      border-radius: 0;
+      width: 100px;
+      padding: 0.375rem 0.75rem;
+      margin-top: 0px;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  .artist-gray {
+    height: 116px;
+    flex-wrap: nowrap;
+
+    .item-controls {
+      flex-direction: column;
+      width: auto;
+      margin-top: 0;
+      margin-right: 10px;
+
+      @media (min-width: 992px) {
+        flex-direction: column;
+        width: auto;
+        margin-top: 0;
+        margin-right: 10px;
+      }
+
+      .follow-form {
+        width: 100%;
+      }
+
+      .follow-button {
+        margin-top: 3px;
+
+        @media (min-width: 992px) {
+          margin-top: 3px;
+        }
+      }
+    }
+  }
+}
+
+.user-music-present {
+  padding-top: 1px;
+  margin-top: -24px;
+  margin-right: -15px;
+  margin-left: -15px;
+  position: relative;
+  z-index: 1022;
+
+  .chirp-corner {
+    width: 113px;
+    position: absolute;
+    height: 108px;
+    z-index: 3;
+    border: none;
+    top: 84px;
+    left: 30px;
+  }
+
+  .user-bgrd {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #0b0b0b;
+    height: 100%;
+    width: 100%;
+
+    & > img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .userpage-avatar {
+    top: 10px;
+    z-index: 3;
+
+    @media (min-width: 992px) {
+      top: 80px;
+    }
+  }
+
+  .user-info {
+    display: block;
+    align-items: center;
+    margin-top: calc(255px - 56px);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: rgba(0,0,0,0.6);
+    position: relative;
+    z-index: 2;
+
+    @media(min-width: 576px) {
+      display: flex;
+      padding-top: 0px;
+      padding-bottom: 0px;
+      height: 56px;
+    }
+
+    @media(min-width: 992px) {
+      margin-top: calc(205px - 56px);
+    }
+  }
+
+  .user-since {
+    margin: 0 0 0 15px;
+  }
+}

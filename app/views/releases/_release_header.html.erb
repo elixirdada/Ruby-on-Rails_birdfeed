@@ -1,0 +1,319 @@
+<div class="release-present">
+  <%= image_tag(@release.avatar.url(:large), class: "release-avatar") %>
+  <%= link_to '', "#",
+              data: {
+                source_type: 'release',
+                source_id: @release.id,
+                virtual: false
+              },
+              class: "play-release-#{@release.id} playlist-play-playlist release-avatar release-play",
+              remote: true %>
+
+  <div class="release-bgrd">
+    <%#= image_tag 'dj.jpg' %>
+
+    <div class="release-header">
+      <div class="release-type">
+        <% if @release.exclusive? %>
+          <%= image_tag 'birdfeed-exclusive-white.png', style: 'height: 33px;' %>
+        <% elsif @release.dirtybird? %>
+          <%= image_tag 'dirtybird-logo-white.png', style: 'height: 33px;' %>
+        <% end %>
+      </div>
+
+      <div class="release-rate mr-3" data-release-id="<%= @release.id %>">
+        <%= rating_for @release, 'main',
+            star: 4,
+            readonly: true,
+            cancel: false,
+            star_on: image_path('rate/egg-yellow/egg-on.png'),
+            star_half: image_path('rate/egg-yellow/egg-on.png'),
+            star_off: image_path('rate/egg-yellow/egg-off.png')
+          %>
+        <div class="release-nav-caption mt-1">release rating</div>
+      </div>
+
+      <div class="release-likes text-center mr-3">
+        <%= render partial: 'likes/like_button', locals: { object: @release,  style: 'release' } %>
+      </div>
+
+      <% if @release.download_uris.any? %>
+        <button class="release-icon release-download mr-3 dropdown-toggle" type="button" id="releaseDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= image_tag('icons/download-white.svg', title: "Download full release") %>
+          <br>
+          <span class="release-nav-caption mt-1">Download</span>
+        </button>
+        <div class="dropdown-menu sub-release-download-dropdown" aria-labelledby="releaseDropdownMenuButton" style="width: 25%;padding-bottom: 0px;">
+          <div class='display-inline col-md-12'>
+            <%= image_tag @release.avatar.large, class: 'release-previous-img', style: 'width: 65px;height: 70px;' %>
+            <div class="download-btn-heading">
+              Download
+              <br>
+              <div style="font-size: 0.6rem;font-family: 'Titillium Web';">
+                <div class="display-inline">
+                  Catalog ID:
+                  <div style="font-weight: normal;padding-left: 3px;"><%= @release.catalog %></div>
+                </div>
+                <br>
+                <div class="display-inline">
+                  Tracks:
+                  <div style="font-weight: normal;padding-left: 3px;"><%= @release.tracks.count %></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="display-inline col-md-12 margin-top-10" style="padding-left: 0px;padding-right: 0px;">
+            <div class='eggs-description-dialog'>
+              <span style="padding-right: 5px;">
+                <%= @release.tracks.count %>
+                TRACKS FOR
+              </span>
+              <%= image_tag 'egg-big.svg', style: 'width: 20px;height' %>
+              <span style="padding-left: 5px;">
+                <%= @release.tracks.count %>
+              </span>
+            </div>
+            <a class='white-color eggs-doit-dialog' id="btn-dialog-do-it" data-toggle="modal" data-target="#downloadModal">
+              DO IT
+            </a>
+          </div>
+            <a href="/releases/<%=@release.id%>?player=true" >
+              <div class="display-inline col-md-12 description-download-dialog margin-top-10">
+                I'D LIKE DO DOWNLOAD SPECIFIC TRACKS
+              </div>
+            </a>
+          <br>
+          <div class="display-inline col-md-12 margin-top-10" style="padding: 0px;margin-top: 5px;">
+            <div class="col-md-6 padding-0">
+              <a class="width-100 font-05 btn c-btn-black btn-square light-background-btn" href="/how_eggs_work">HOW DOES THIS WORK?</a>
+            </div>
+            <div class="col-md-6 padding-0">
+              <a class="width-100 font-05 btn c-btn-black btn-square" href="/get_more_credits">I NEED MORE EGGS</a>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="release-stats">
+        <div class="release-stat">
+          <span class="release-favs ml-1">
+            <%= @release.likes.count %>
+          </span>
+          <span class="release-nav-caption"><%= @release.likes.count > 1 ? 'Favs' : 'Fav' %></span>
+        </div>
+
+        <div id="comments-stat" class="release-stat">
+          <span class="release-comments ml-1">
+            <%= @activities.count %>
+          </span>
+          <span class="release-nav-caption"><%= @activities.count > 1 ? 'COMMENTS' : 'COMMENT' %></span>
+        </div>
+
+        <div class="release-stat">
+          <span class="release-shares ml-1">
+            <%= @shares.count %>
+          </span>
+          <span class="release-nav-caption"><%= @shares.count > 1 ? 'Shares' : 'Share' %></span>
+        </div>
+
+        <div data-object-type="release" data-object-id="<%= @release.id %>">
+          <%= social_share_button_tag(strip_tags(@release.title).gsub("\'",''), desc: strip_tags(@release.text).gsub("\'",''), image: @release.avatar.url(:large)) %>
+        </div>
+      </div>
+
+      <div class="release-previous">
+        <%= link_to @release.previous,
+            class: 'd-flex align-items-center justify-content-end' do %>
+          <%= image_tag @release.previous.avatar.thumb, class: 'release-previous-img' %>
+          <div style="overflow: hidden;">
+            <div class="text-truncate font-weight-bold text-uppercase">
+              <%= @release.previous.title %>
+            </div>
+            <div class="text-truncate">
+              By <%= @release.previous.artists(0) %>
+            </div>
+          </div>
+          <div class="release-previous-chevron">
+            <%= image_tag 'icons/icon-chevron-left.svg' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8 pt-4">
+    <div class="release-info">
+      <h1><%= @release.title.upcase %></h1>
+      <div class="release-date"><strong>Catalog#:</strong> <%= @release.catalog %></div>
+      <% time_slug = @release.release_date > Time.now ? 'later' : 'ago' %>
+      <div class="release-date">
+        <strong>Release date:</strong>
+        <%= "#{time_ago_in_words( @release.release_date )} #{time_slug}" %>
+      </div>
+      <div class="release-date"><strong>Producers:</strong> <%= @release.artists(2) %></div>
+      <p class="release-date"><strong>Tracks</strong> <%= @release.tracks.count %></p>
+
+      <div class="truncated-description" style="height: 165px; overflow: auto;">
+        <% if @release.text.present? %>
+          <article><%= strip_tags(@release.text).gsub('&amp;','&').truncate(400) %></article>
+
+          <% if @release.text.html_safe.truncate(400) != @release.text.html_safe %>
+            <!-- <a href="#" class="truncated-long">Read more</a> -->
+            <a class="truncated-long" id="btn-dialog-artist_releases" data-toggle="modal" data-foo="<%#= @release.text.html_safe %>" data-target="#ReadmoreReleasesModal">
+              READ MORE
+            </a>
+            <p class="modal-desc-release1 hide"><%=@release.text%></p>
+          <% end %>
+
+          <article><%= @release.text.html_safe %></article>
+          <!-- <a href="#" class="truncated-short"><br><br>Read less</a> -->
+        <% end %>
+      </div>
+
+      <%#= link_to "Q&A", chirp_path, class: "btn c-btn-transparent btn-wide" %>
+    </div>
+  </div>
+
+  <div class="col-md-4 px-0">
+      <!-- ARTISTS -->
+      <div class="c-panel bg-white h-100">
+        <div class="c-flag c-flag-inner mb-2"><span class="t-blue">ARTISTS</span></div>
+
+        <div>
+          <% if @release.artist_as_string && @release.artist.present? %>
+            <p><%= @release.artist %></p>
+          <% elsif @release.users.any? %>
+            <% @release.users.each do |artist| %>
+                <%= link_to artist_path(artist), class: "d-inline-block" do %>
+                  <%= image_tag artist.avatar.thumb,
+                      class: "user-avatar ml-4",
+                      style: "width: 84px; height: 84px; border-radius: 42px;",
+                      alt: '' %>
+                <% end %>
+            <% end %>
+
+            <% if @release.users.count > 8 %>
+              <div class="more-users">
+                <span style="display: none;">Hide</span>
+                <span>
+                  & <%= @release.users.count - 8 %>
+                  other
+                  <%= "artist".pluralize(@release.users.count - 8) %>
+                </span>
+              </div>
+            <% end %>
+          <% elsif @release.artist.present? %>
+            <p><%= @release.artist %></p>
+          <% elsif @release.tracks.any? %>
+            <p><%= @release.tracks.pluck(:artist).try(:uniq).try(:join,', ') %></p>
+          <% end %>
+        </div>
+      </div>
+  </div>
+</div>
+
+<div class="user-controls">
+  <div class="row">
+    <div class="col-lg-3 px-0 c-btn-group two-btns">
+      <% release = params[:player].blank? %>
+      <% classes = ["btn c-btn-gray-dark btn-square release-feed-btn", "btn c-btn-black btn-square btn-disabled"] %>
+      <%= link_to "Release Feed", @release,
+          class: release ? classes[1] : classes[0], id: 'release-feed-btn' %><!--
+     --><%= link_to "All Tracks",
+          release_path(
+            id: @release.id,
+            user_id: current_user.try(:id),
+            player: true),
+          class: release ? classes[0] : classes[1] %>
+    </div>
+
+    <div class="col-lg-5 px-0">
+      <div class="user-header-title"><%= content_for :user_header_title %></div>
+    </div>
+
+    <div class="col-lg-4 px-0 c-btn-group two-btns d-flex">
+      <button class="btn c-btn-blue btn-square" type="button" data-toggle="modal" data-target="#addcommentModal">
+        POST A COMMENT
+      </button>
+      <%= render partial: 'follows/follow_button',
+          locals: { object: @release,
+                    opt: {
+                        classes: "btn c-btn-red btn-square",
+                        text: ['follow release', 'following'] } } %>
+    </div>
+  </div>
+
+  <div style="position: absolute;">
+    <%= image_tag 'icons/icon-chevron-black.svg',
+        style: 'cursor: pointer; margin-right: 30px;',
+        onclick: "window.history.back();" %>
+    <%= image_tag 'icons/icon-chevron-black.svg',
+        style: 'cursor: pointer; transform: rotate(180deg);',
+        onclick: "window.history.forward();" %>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $('#comments-stat').on('click', function(){
+    $('#release-feed-btn')[0].click();
+    $('html, body').animate({ scrollTop: 420 }, 500);
+  })
+
+  $('#releaseDropdownMenuButton').click(function() {
+    if($('.release-download-dropdown').css('display') == 'block')
+      $('.release-download-dropdown').slideToggle();
+
+    $('.sub-release-download-dropdown').slideToggle(300, function() {
+      if ($(this).is(':visible'))
+          $(this).css('display','inline-block');
+    });
+  });
+
+    // Release Downloads
+  $('#btn-dialog-do-it').on('click', function(){
+    var holder_html = `
+      <div class="song-description-holder">
+        <div class="display-inline col-lg-12">
+          <a href="/releases/<%=@release.id%>"><%= image_tag @release.avatar.large, class: 'release-previous-img', style: 'width: 70px;height: 70px;',id: "download_modal_track_image" %></a>
+          <div class="download-btn-heading" id="download-btn-heading-release">
+            <%=@release.title %>
+            <br>
+            <div style="font-size: 0.6rem;font-family: 'Titillium Web';">
+              <div class="display-inline">
+                Catalog ID:
+                <div style="font-weight: normal;padding-left: 3px;" id="download_model_release_catalog"><%=@release.catalog%></div>
+              </div>
+              <br>
+              <div class="display-inline">
+                Tracks:
+                <div style="font-weight: normal;padding-left: 3px;" id="download_model_release_tracks"><%=@release.tracks.count%></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>`
+    $('.song-description-holder').html(holder_html);
+
+    var dowload_formats_holder = `
+      <div class="formats-holder">
+        <div class="c-panel bg-c-dark mb-4 formats-style">
+          <div class="modal-cflag mb-4">DOWNLOAD NOW</div>
+            <div class="row">
+              <%# track.download_uris.any? %>
+                <% @release.download_uris.each do |format, uri| %>
+                  <div class="col-lg-2 format-option">
+                    <a href="<%= uri %>">
+                      <%= '.'+format %>
+                    </a>
+                  </div>
+                <% end %>
+              <%# end%>
+            </div>
+        </div>
+      </div>`
+    $('.formats-holder').html(dowload_formats_holder);
+  });
+</script>

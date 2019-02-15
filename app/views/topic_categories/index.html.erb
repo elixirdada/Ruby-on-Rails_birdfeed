@@ -1,0 +1,75 @@
+<% if current_user.present? %>
+  <div class="topic-category-header topic-category-header-with-user">
+    <%= image_tag "birdfeed-header.jpg", width: '100%' %>
+  </div>
+<% else %>
+  <div class="topic-category-header">
+    <%= image_tag "topic-category-bg.png", width: '100%' %>
+  </div>
+<% end %>
+<div class="topic-category-content <%= 'topic-category-content-with-user' if current_user.present? %>">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="topic-category-main-content">
+        <div class="tcmc-header">
+          <div class="row">
+            <div class="col-sm-2">
+              <%= image_tag 'Chirp-logo.png', class: "chirp-logo" %>
+            </div>
+            <% if current_user %>
+              <div class="col-sm-4 offset-sm-6 p-r-0 text-right">
+                <button class="btn btn-category-header btn-categories" id="topic-category-ctg-btn" type="button" data-toggle="modal" data-target="#addTopicModal">
+                  CATEGORIES
+                </button>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="tcmc-content">
+          <% if @noteworthy_topics.length > 0 %>
+            <div class="topic-section">
+              <button class="topic-section-btn noteworthy-btn">
+                NOTEWORTHY
+              </button>
+              <% @noteworthy_topics.each do |topic| %>
+                <%= render 'noteworthy_topic_individual_line', { topic: topic } %>
+              <% end %>
+            </div>
+          <% end %>
+          <div class="topic-section">
+            <button class="topic-section-btn chirp-category-btn" id="chirp-category-btn">
+              CHIRP CATEGORIES
+            </button>
+            <div class="row topic-category-section">
+
+              <% @groups.each do |group| %>
+
+                <div class="col-lg-6 col-md-12 mb-4">
+                  <div class="c-panel tcmc-sub-category-section">
+                    <div class="c-flag mb-3 tcmc-sub-category-section-header">
+                      <%= image_tag(group.image.url, class: "c-group-image") if group.image.present? %>
+                      <span><%= group.title.upcase %></span>
+                    </div>
+
+                    <ol class="topic-categories">
+                      <% group.categories.each do |category| %>
+                        <li>
+                          <%= link_to chirp_path( category ) do %>
+                            <%= "#{category.title}" %>
+                            <% if category.new_category_option %>
+                              <%= image_tag "new-category.png", class: "new-category-icon" %>
+                            <% end %>
+                          <% end %>
+                        </li>
+                      <% end %>
+                    </ol>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

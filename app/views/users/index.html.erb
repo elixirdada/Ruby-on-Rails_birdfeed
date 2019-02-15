@@ -1,0 +1,20 @@
+<div class="c-flag">LEADERBOARD</div>
+
+<div class="c-flag-links">
+  <%= link_to "Top 5", leaderboard_path %>
+  <b>All</b>
+</div>
+
+<ul class="leaderboard">
+  <% all_ids = @leader_users.map {|u| u['id']} %>
+  <% @leader_users.each do |u| %>
+    <%= render partial: 'users/leader_sm', locals: {u: u, all_ids: all_ids} %>
+  <% end %>
+</ul>
+
+<div class="text-center">
+  <% if @limit <= all_ids.count %>
+    <%= link_to "Show more", load_more_leaders_path(page: params[:page] ? params[:page].to_i + 1 : 2), 
+        remote: true, class: "btn c-btn-blue show-more" %>
+  <% end %>
+</div>

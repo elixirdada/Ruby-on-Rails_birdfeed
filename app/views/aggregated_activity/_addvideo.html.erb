@@ -1,0 +1,26 @@
+<% actors = activity['activities'].map { |a| a['actor'] }.uniq %>
+
+<p class="feed-posted"> 
+  <%= time_ago_in_words(activity['updated_at'].in_time_zone) %> ago
+
+  <% if activity['actor_count'] == 1 %>
+    <%= link_to activity['activities'][0]['actor'].name, activity['activities'][0]['actor'] %>
+    added
+    <%= pluralize(activity['activity_count'], 'video') %>
+  <% elsif activity['actor_count'] == 2 %>
+    <%= link_to actors[0].name, actors[0] %>
+    and
+    <%= link_to actors[1].name, actors[1] %>
+    added
+    <%= activity['activity_count'] %>
+    videos
+  <% else %>
+    <%= link_to actors[0].name, actors[0] %>,
+    <%= link_to actors[1].name, actors[1] %>
+    and 
+    <%= activity['actor_count'] - 2 %> 
+    more added 
+    <%= activity['activity_count'] %> 
+    videos
+  <% end %>
+</p>

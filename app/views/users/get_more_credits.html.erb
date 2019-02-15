@@ -1,0 +1,233 @@
+<div class="text-center">
+  <div class="signup-panel c-panel bg-white">
+    <h2 class="eggs-title">
+      <%= image_tag 'icons/egg-basket.svg', style: 'height: 90px;' %>
+      EGG STand
+    </h2>
+    <h3 class="h3-eggs mb-4 pb-4">HOW do you take Your EGGS?</h3>
+    <div style="position: relative;">
+      <div class="eggs-subtitle">FRESH EGGS</div>
+      <%= image_tag 'showcase.svg', class: 'w-100 showcase-img' %>
+      <%= image_tag 'most-popular.png', class: 'most-popular', style: 'left:33%;' %>
+
+      <div class="container px-4 mt-4 mt-lg-0 showcase-grid">
+        <div class="row align-items-end">
+          <div class="col-4">
+            <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+            <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+            <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+          </div>
+
+          <div class="col-4">
+            <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+            <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+            <div style="height: 12px;"></div>
+            <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+            <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+            <div style="height: 12px;"></div>
+            <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+            <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+            +
+            <%= image_tag '1-egg.svg', class: 'showcase-1-egg' %>
+          </div>
+
+          <div class="col-4">
+            <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+            <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+            <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+            <div style="height: 12px;"></div>
+            <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+            <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+            <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+            <div style="height: 12px;"></div>
+            <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+            <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+            <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+          </div>
+        </div>
+      </div>
+
+      <div class="container px-4 credits-grid">
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="credits-count">6</div>
+                <span>Half Rack</span>
+              </div>
+              <div class="col-lg-6 d-flex align-items-center justify-content-center">
+                <button class="btn c-btn-red btn-square credits-link" 
+                        data-credits="6"
+                        data-price="6"
+                        data-title="Half Rack">
+                  $6.00 | Purchase
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="credits-count">13</div>
+                <span>Bakers DOzen</span>
+              </div>
+              <div class="col-lg-6 d-flex align-items-center justify-content-center">
+                <button class="btn c-btn-red btn-square credits-link" 
+                        data-credits="13"
+                        data-price="12"
+                        data-title="Bakers DOzen">
+                  $12.00 | Purchase
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="credits-count">18</div>
+                <span>Big LARGE</span>
+              </div>
+              <div class="col-lg-6 d-flex align-items-center justify-content-center">
+                <button class="btn c-btn-red btn-square credits-link" 
+                        data-credits="18"
+                        data-price="18"
+                        data-title="Big LARGE">
+                  $18.00 | Purchase
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%= link_to "Explain to me how eggs work again", how_eggs_work_path, 
+        class: "credits-info py-2" %>
+
+    <div class="text-center mt-4">
+      <%= form_tag apply_promocode_path,
+          multipart: true,
+          remote: true,
+          id: 'promocode-form',
+          style: 'max-width: 250px; display: inline-block;' do %>
+        <label for="promo-code">BirdFeed Promo Code</label>
+        <div class="tip float-right">
+          <span class="icon">?</span>
+          <div class="message">
+            Add the promo code you were hooked up with
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <%= text_field_tag :promocode, nil, class: 'form-control' %>
+          <div class="input-group-append">
+            <button class="btn c-btn-red" type="submit">use it!</button>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="signup-panel c-panel bg-white credits-purchasing">
+  <h1>CHECKOUT</h1>
+  <span class="selected-plan">
+    YOu Are purchasing 
+    <span class="selected-type chosen-credits-title"></span> |
+    <span class="selected-period chosen-credits-count">0</span> eggs
+    <a href="#" class="change-credits credits-info ml-2 mt-0">Change</a>
+  </span>
+  <div>Damn those look tasty</div>
+
+  <div class="row mt-3">
+    <div class="col-lg-8">
+      <div class="signup-payed mt-4">
+        <% braintree_subscription = current_user.braintree_subscription %>
+        <% braintree_customer = current_user.braintree_customer %>
+
+        <% if braintree_customer %>
+          <p> Card:
+            <img src="<%= braintree_customer.payment_methods.first.image_url %>" width=37 height=25>
+            <% if braintree_customer.payment_methods.first.respond_to?(:last_4) %>
+              ending in <%= braintree_customer.payment_methods.first.last_4 %> <br>
+              <%= link_to 'Update Payment Method', choose_profile_path,
+                  class: 'btn c-btn-red btn-square mt-2' %>
+            <% end %>
+          </p>
+        <% end %>
+        <p class="mb-4">
+          If you're having issues with your account, please <%= link_to 'Contact Support', contacts_path %>!</p>
+        </p>
+
+        <%= form_tag callbacks_braintree_nonce_path, id: "subscribe-form" do |f| %>
+          <%= hidden_field_tag :credits_count %>
+          <div class="row">
+            <div class="col-lg-6">
+              <a href="#step-1" class="btn c-btn-blue btn-wide">back</a>
+              <%= submit_tag 'Purchase', class: 'btn c-btn-red btn-wide' %>
+            </div>
+            
+            <div class="col-lg-6 d-flex align-items-end">
+              <div class="text-muted" style="box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);">
+                <a href="https://www.braintreegateway.com/merchants/<%= ENV['BRAINTREE_MERCHANT_ID'] %>/verified" target="_blank">
+                  <img src="https://s3.amazonaws.com/braintree-badges/braintree-badge-wide-light.png" width="280px" height ="44px" border="0"/>
+                </a>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-lg-1 text-center">
+      <div class="divider"></div>
+    </div>
+    
+    <div class="col-lg-3 signup-billing-block">
+
+      <div>
+        <div class="sum-6-eggs" style="display: none;">
+          <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+          <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+          <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+        </div>
+
+        <div class="sum-13-eggs" style="display: none;">
+          <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+          <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+          <div style="height: 12px;"></div>
+          <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+          <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+          <div style="height: 12px;"></div>
+          <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+          <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+          +
+          <%= image_tag '1-egg.svg', class: 'showcase-1-egg' %>
+        </div>
+
+        <div class="sum-18-eggs" style="display: none;">
+          <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+          <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+          <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+          <div style="height: 12px;"></div>
+          <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+          <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+          <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+          <div style="height: 12px;"></div>
+          <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+          <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+          <%= image_tag '2-eggs.svg', class: 'showcase-2-eggs' %>
+        </div>
+      </div>
+
+      <div class="text-1 mt-4">Total:</div>
+
+      <span class="signup-billing-cost">0</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('.credits-dropdown').collapse('hide');
+</script>

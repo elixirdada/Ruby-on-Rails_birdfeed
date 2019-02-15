@@ -1,0 +1,51 @@
+<div class="support-main-container">
+  <div class="top-text">
+    BIRDFEED SUPPORT
+  </div>
+  <p class="top-description form-group">Please feel free to contact us if you have any questions or concerns we will be more than happy to assist you with any issues you might have</p>
+  <div class="main-support-container">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-offset-2 col-md-10">
+          <div class="well well-sm">
+            <%= form_tag create_support_path do %>
+                <!-- Name input-->
+                <div class="form-group row">
+                  <label class="col-md-2 text-right control-label" for="name">Email:</label>
+                  <div class="col-md-10">
+                    <%= text_field_tag :email, (current_user ? current_user.email : ""), placeholder: "" , class: "form-control email-field", required:  true %>
+                  </div>
+                </div>
+        
+                <!-- Email input-->
+                <div class="form-group row">
+                  <label class="col-md-2 text-right control-label" for="email">Topic:</label>
+                  <div class="col-md-10">
+                    <%= text_field_tag :topic, nil, placeholder: "" , class: "form-control topic-field", required:  true %>
+                  </div>
+                </div>
+        
+                <!-- Message body -->
+                <div class="form-group row">
+                  <label class="col-md-2 text-right control-label" for="message">Message:</label>
+                  <div class="col-md-10">
+                    <%= text_area_tag :message, nil, placeholder: "" , class: "form-control", rows: 5, required:  true %>
+                  </div>
+                </div>
+        
+                <!-- Form actions -->
+                <div class="form-group row">
+                  <label class="col-md-2 text-right control-label" for="message"></label>
+                  <div class="col-md-10">
+                    <button type="submit" class="c-btn-red">Submit</button>
+                  </div>
+                </div>
+
+              <% end %>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+

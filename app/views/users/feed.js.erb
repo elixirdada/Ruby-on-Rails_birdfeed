@@ -1,0 +1,5 @@
+$('.feed-item').remove();
+$('.no-feed-items').remove();
+var tabs = $('.feed-block .feed-tabs').detach();
+$('.feed-block').empty().append(tabs);
+$('.feed-block').append("<%= escape_javascript render(:partial => 'feeds/aggregated_user') %>");
