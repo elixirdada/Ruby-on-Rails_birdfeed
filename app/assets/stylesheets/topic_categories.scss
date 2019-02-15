@@ -92,30 +92,48 @@
     margin-top: -50px;
     border-radius: 7px;
 
-    .tcmc-content {
-      padding: 20px 50px;
+    @media (max-width: 540px) {
+      .tcmc-content {
+        padding: 20px 50px;
 
-      .tcmc-sub-category-section {
-        border: 2px solid #3ed4e0;
-        background-color: #8b8b8b;
-        border-radius: 8px;
-
-        .tcmc-sub-category-section-header {
-          left: -30px;
+        .tcmc-sub-category-section {
           border: 2px solid #3ed4e0;
-          font-family: Phosphate-Solid;
-          font-size: 21px;
-          height: 50px;
+          background-color: #8b8b8b;
+          border-radius: 8px;
+
+          .tcmc-sub-category-section-header {
+            left: -30px;
+            border: 2px solid #3ed4e0;
+            font-family: Phosphate-Solid;
+            font-size: 21px;
+            height: 50px;
+          }
         }
       }
     }
+
+    @media (max-width: 540px) {
+      .tcmc-content {
+        padding: 20px 25px;
+      }
+    }
+
     .noteworthy-btn {
       width: 230px;
     }
 
-    .chirp-category-btn {
-      width: 300px;
-      text-align: left;
+    @media (max-width: 540px) {
+      .chirp-category-btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    @media (min-width: 540px) {
+      .chirp-category-btn {
+        width: 300px;
+        text-align: left;
+      }
     }
   }
 }
@@ -185,8 +203,18 @@
   margin-right: -1.8rem
 }
 
-.chirp-logo {
-  margin-left: 50px;
-  width: 100%;
-  margin-top: 10px;
+@media (min-width: 540px) {
+  .chirp-logo {
+    margin-left: 50px;
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 540px) {
+  .chirp-logo {
+    margin-left: 2rem;
+    width: 80%;
+    margin-top: 10px;
+  }
 }

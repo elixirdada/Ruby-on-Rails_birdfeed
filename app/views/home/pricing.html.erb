@@ -23,7 +23,7 @@
 </div>
 
 <div class="signup-panel pricing-panel c-panel bg-white" style="padding: 0;">
-  <table class="pricing-table">
+  <table class="pricing-table pricing-table-font">
     <tr>
       <th class="text-center">
         <div class="plan-period-switcher">
@@ -426,17 +426,18 @@
 
     <tr>
       <td class="hidden-td"></td>
-      <td class="join-chirp-td">
+      <!-- Andrii add join-disable-padding -->
+      <td class="join-chirp-td join-disable-padding">
         <%= link_to new_user_registration_path do %>
           Join as chirp free
         <% end %>
       </td>
-      <td class="join-insider-td">
+      <td class="join-insider-td join-disable-padding">
         <%= link_to new_user_registration_path do %>
           Join As A INSIDER
         <% end %>
       </td>
-      <td class="join-vib-td">
+      <td class="join-vib-td join-disable-padding">
         <%= link_to new_user_registration_path do %>
           Join As A VIB
         <% end %>

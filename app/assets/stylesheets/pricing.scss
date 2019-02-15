@@ -34,8 +34,8 @@
 
 .pricing-table {
   color: #646464;
-  font-family: 'Phosphate-Solid';
   font-size: 15px;
+  font-family: 'Phosphate-Solid';
   letter-spacing: 0.72px;
   width: 100%;
   table-layout: fixed;
@@ -44,6 +44,15 @@
     background-color: #f7f7f7;
   }
 
+  // -- Andrii begin --- 
+  @media (max-width: 540px) {
+    .join-disable-padding {
+      padding: initial !important;
+      text-align: center !important;
+    }
+  }
+  // -- end --
+  
   .join-chirp-td {
     cursor: pointer;
     background-color: #faae03;
@@ -104,16 +113,29 @@
       border-radius: 0 7px 0 0;
     }
 
-    .join-now-top-btn {
-      padding-top: 22px;
-      position: relative;
-      bottom: -28px;
-      width: 276px;
-      height: 78px;
-      background-color: #5c5c5c;
-      color: #ffffff;
-      font-family: 'Phosphate-Solid';
-      font-size: 21px;
+    @media (min-width: 540px) {
+      .join-now-top-btn {
+        padding-top: 22px;
+        position: relative;
+        bottom: -28px;
+        width: 276px;
+        height: 78px;
+        background-color: #5c5c5c;
+        color: #ffffff;
+        font-family: 'Phosphate-Solid';
+        font-size: 21px;
+      }
+    }
+    @media (max-width: 540px) {
+      .join-now-top-btn {
+        padding-top: 26px;
+        position: relative;
+        height: 78px;
+        background-color: #5c5c5c;
+        color: #ffffff;
+        font-family: 'Phosphate-Solid';
+        font-size: 18px;
+      }
     }
 
     .plan-period-switcher {
@@ -160,6 +182,12 @@
 
   tr:nth-child(even) {
     background-color: rgba(219, 219, 219, 0.4);
+  }
+}
+
+@media (max-width: 540px) {
+  .pricing-table-font {
+    font-size: 10px !important;
   }
 }
 
