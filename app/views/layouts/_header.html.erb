@@ -330,21 +330,20 @@
           </p>
           <div class="display-inline">
             <%= link_to user_facebook_omniauth_authorize_path,
-                class: "btn btn-facebook fit-content" do %>
+                class: "btn btn-facebook fit-content fb_btn_change_width" do %>
               <i class="fa fa-facebook"></i>
               SIGNUP WITH FACEBOOK
             <% end %>
             &nbsp;
             <%= link_to user_google_oauth2_omniauth_authorize_path,
-                class: "btn btn-google fit-content" do %>
+                class: "btn btn-google fit-content fb_btn_change_width" do %>
               <span class="fa fa-google"></span>
               SIGNUP WITH GOOGLE+
             <% end %>
           </div>
           <br>
-          <%= link_to "SIGNUP WITH EMAIL", new_user_registration_path,
-              class: "modal-button btn-bg-gray", style: 'width: 420px;' %>
-          <%= link_to "LOGIN", user_session_path, class: "modal-button btn-bg-gray", style: 'width: 420px;' %>
+          <%= link_to "SIGNUP WITH EMAIL", new_user_registration_path, class: "modal-button btn-bg-gray" %>
+          <%= link_to "LOGIN", user_session_path, class: "modal-button btn-bg-gray" %>
         </div>
       </div>
     </div>

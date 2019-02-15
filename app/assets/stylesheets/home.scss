@@ -48,13 +48,26 @@
 .padding-top-0 {
   padding-top: 0px;
 }
-.safron-heading {
-  color: #ff7272 !important;
-  font-size: 3rem !important;
+
+// --Adnrii begin--
+@media (min-width: 540px){
+  .safron-heading {
+    color: #ff7272 !important;
+    font-size: 3rem !important;
+  }
 }
-.width-600 {
-  width: 600px !important;
+@media (max-width: 540px){
+  .safron-heading {
+    color: #ff7272 !important;
+  }
 }
+@media (min-width: 540px){
+  .width-600 {
+    width: 600px !important;
+  }
+}
+// --end--
+
 .fit-content {
   width: fit-content;
 }
