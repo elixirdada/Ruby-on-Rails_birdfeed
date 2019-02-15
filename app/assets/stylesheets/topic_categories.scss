@@ -7,6 +7,53 @@
     height: 350px;
   }
 }
+// --Andrii begin--
+.topic-category-header-listen {
+  width: calc(100% + 30px);
+  height: 350px;
+  margin: -24px -15px -80px;
+  img {
+    width: 100%;
+    height: 15rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .topic-category-content-listen {
+    width: calc(100% + 30px);
+    height: 260px;
+    margin: -24px -15px -80px;
+    img {
+      width: 100%;
+    }
+  }
+  .btn-listen-direction{
+    flex-direction: column;
+    text-align: center;
+  }
+  .btn-listen-direction-item {
+    width: 100%;
+  }
+  .img-listen {
+    width: 50%;
+  }
+}
+
+@media (min-width: 540px) {
+  .topic-category-content-listen {
+    width: calc(100% + 30px);
+    height: 350px;
+    margin: -24px -15px -80px;
+    img {
+      width: 100%;
+    }
+  }
+  .btn-listen-direction-item{
+    width: 150px;
+  }
+}
+
+// --end--
 
 .topic-category-header.topic-category-header-with-user {
   height: 299px;
