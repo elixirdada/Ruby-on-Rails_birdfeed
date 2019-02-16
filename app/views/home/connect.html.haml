@@ -1,30 +1,30 @@
-#myCarousel.carousel
+#myCarousel.carousel.topic-category-header-listen
   = image_tag 'listen_page/EKj96h9_copy.jpg'
-%center(style='margin-top: -18rem;position: relative;')
+%center.topic-category-content-listen(style='margin-top: -18rem;position: relative;')
   = image_tag 'connect_page/banner.png'
 %div(style='margin-top: 2rem;')
   .div.signup-panel.c-panel.bg-white
     %br
-    .col-sm-12.display-inline(style='padding-right: 0px color: white;')
+    .col-sm-12.display-inline.btn-listen-direction(style='padding-right: 0px color: white;')
       .col-sm-4
         = link_to new_user_registration_path do
-          .btn.c-btn-red.btn-square(style='width: 150px;')
+          .btn.c-btn-red.btn-square.btn-listen-direction-item
             Join Now
       .col-sm-2
         = link_to what_is_birdfeed_path do
-          .btn.c-btn-blue.btn-square(style='width: 150px;')
+          .btn.c-btn-blue.btn-square.btn-listen-direction-item
             What is Birdfeed?
       .col-sm-2
         = link_to listen_path do
-          .btn.c-btn-blue.btn-square(style='width: 150px;')
+          .btn.c-btn-blue.btn-square.btn-listen-direction-item
             Listen
       .col-sm-2
         = link_to connect_path do
-          .btn.c-btn-red.btn-square(style='width: 150px;')
+          .btn.c-btn-red.btn-square.btn-listen-direction-item
             Connect
       .col-sm-2
         = link_to play_path do
-          .btn.c-btn-blue.btn-square(style='width: 150px;')
+          .btn.c-btn-blue.btn-square.btn-listen-direction-item
             Play
     %center
       %br
@@ -57,9 +57,9 @@
           %h3.h3-eggs.text-left Engage your FAVORITE ARTISTS
           %p.text-left
             with a growing list of artists from the Dirtybird label you will continue to be able to enage artsits on their level as well as continue to grow your connection to the people creating the music you love.
-          = image_tag 'connect_page/Path_824.png'
+          = image_tag 'connect_page/Path_824.png', class: "img-connect"
         .col-sm-6
-          = image_tag 'connect_page/5-layers (1).png'
+          = image_tag 'connect_page/5-layers (1).png', class: "img-connect"
           %h3.h3-eggs.text-left The Dirtybird COmmunity At Large
           %p.text-left
             Birdfeed is a home for Dirtybird fans from around the world as a member you will have access to the entire group of like minded indiviuals who also love the Dirtybird sound.
@@ -68,24 +68,24 @@
             Birdfeed allows you to connect with your favorite Peeps and build a network of like minded individuals to connect with online and in person.
 
     %div(style='margin-top: 2rem;')
-      .col-sm-12.display-inline(style='padding-right: 0px color: white;')
+      .col-sm-12.display-inline.btn-listen-direction(style='padding-right: 0px color: white;')
         .col-sm-4
           = link_to new_user_registration_path do
-            .btn.c-btn-red.btn-square(style='width: 150px;')
+            .btn.c-btn-red.btn-square.btn-listen-direction-item
               Join Now
         .col-sm-2
           = link_to what_is_birdfeed_path do
-            .btn.c-btn-blue.btn-square(style='width: 150px;')
+            .btn.c-btn-blue.btn-square.btn-listen-direction-item
               What is Birdfeed?
         .col-sm-2
           = link_to listen_path do
-            .btn.c-btn-blue.btn-square(style='width: 150px;')
+            .btn.c-btn-blue.btn-square.btn-listen-direction-item
               Listen
         .col-sm-2
           = link_to connect_path do
-            .btn.c-btn-red.btn-square(style='width: 150px;')
+            .btn.c-btn-red.btn-square.btn-listen-direction-item
               Connect
         .col-sm-2
           = link_to play_path do
-            .btn.c-btn-blue.btn-square(style='width: 150px;')
+            .btn.c-btn-blue.btn-square.btn-listen-direction-item
               Play
