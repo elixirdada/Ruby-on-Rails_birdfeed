@@ -23,6 +23,25 @@
   }
 }
 
+// --andrii begin--
+.about-header {
+  height: 366px;
+  width: 100%;
+  margin: -24px 0 -125px;
+  z-index: 1;
+  overflow: hidden;
+  position: relative;
+
+  .signup-logo {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    top: 0px;
+    transform: translateX(-50%);
+  }
+}
+// --end--
+
 .signup-header {
   height: 366px;
   width: calc(100% + 30px);
@@ -394,5 +413,15 @@
   .success-banner .text-1 {
     font-size: 70px;
     line-height: 60px;
+  }
+}
+
+@media (max-width: 540px) {
+  .about-text-2 {
+    font-size: 18px !important;
+  }
+  .about-success-bottom {
+    width: 375px !important;
+    font-size: 20px !important;
   }
 }

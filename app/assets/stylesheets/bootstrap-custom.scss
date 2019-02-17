@@ -52,7 +52,7 @@
 }
 
 // --Andrii begin--
-@media (min-width: 450px){
+@media (min-width: 540px){
   .modal-body {
     display: flex;
     flex-direction: column;
@@ -68,7 +68,7 @@
   }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 540px) {
   .modal-body {
     display: flex;
     flex-direction: column;
