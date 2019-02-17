@@ -2,31 +2,91 @@
   margin: -24px -15px 0px -16px;
   position: relative;
 
-  .background-1 {
-    background-image: asset-data-url("about/background_1.png");
-    width: 100%;
-    height: 820px;
-    position: absolute;
-    z-index: 0;
+  @media (min-width: 770px) {
+    .background-1 {
+      background-image: asset-data-url("about/background_1.png");
+      width: 100%;
+      height: 820px;
+      position: absolute;
+      z-index: 0;
+    }
+
+    .background-2 {
+      background-image: asset-data-url("about/container_blue_bg.png");
+      transform: rotate(180deg);
+      top: 890px;
+      width: 100%;
+      height: 1293px;
+      position: absolute;
+      z-index: 0;
+    }
+
+    .background-3 {
+      background-image: asset-data-url("about/container_red_bg.png");
+      top: 1530px;
+      width: 100%;
+      height: 739px;
+      position: absolute;
+      z-index: 0;
+    }
   }
 
-  .background-2 {
-    background-image: asset-data-url("about/container_blue_bg.png");
-    transform: rotate(180deg);
-    top: 890px;
-    width: 100%;
-    height: 1293px;
-    position: absolute;
-    z-index: 0;
+  @media (max-width: 770px) {
+    .background-1 {
+      background-image: asset-data-url("about/background_1.png");
+      width: 100%;
+      height: 1850px;
+      position: absolute;
+      z-index: 0;
+    }
+
+    .background-2 {
+      background-image: asset-data-url("about/container_blue_bg.png");
+      transform: rotate(180deg);
+      top: 1883px;
+      width: 100%;
+      height: 1639px;
+      position: absolute;
+      z-index: 0;
+    }
+
+    .background-3 {
+      background-image: asset-data-url("about/container_red_bg.png");
+      top: 3282px;
+      width: 100%;
+      height: 1404px;
+      position: absolute;
+      z-index: 0;
+    }
   }
 
-  .background-3 {
-    background-image: asset-data-url("about/container_red_bg.png");
-    top: 1530px;
-    width: 100%;
-    height: 739px;
-    position: absolute;
-    z-index: 0;
+  @media (max-width: 540px) {
+    .background-1 {
+      background-image: asset-data-url("about/background_1.png");
+      width: 100%;
+      height: 1850px;
+      position: absolute;
+      z-index: 0;
+    }
+
+    .background-2 {
+      background-image: asset-data-url("about/container_blue_bg.png");
+      transform: rotate(180deg);
+      top: 1963px;
+      width: 100%;
+      height: 1480px;
+      position: absolute;
+      z-index: 0;
+    }
+
+    .background-3 {
+      background-image: asset-data-url("about/container_red_bg.png");
+      top: 3358px;
+      width: 100%;
+      height: 1437px;
+      position: absolute;
+      z-index: 0;
+    }
   }
 
   .divider {
